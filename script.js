@@ -115,9 +115,6 @@ function help(args) {
     outputoutput("- exit");
     outputoutput("       | Exit connexion");
     outputoutput("       | not recommend");
-    outputoutput("- su");
-    outputoutput("       | Change User");
-    outputoutput("       | root unallowed");
     outputoutput("- timedatctl");
     outputoutput("       | Show Time and Date ");
     outputoutput("       | on dev");
