@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="fr-FR">
+    <head>
+        <meta charset="UTF-8"/>
+        <meta name="Sampaio Xavier"/>
+        <link href="./output.css" rel="stylesheet">
+        <link href="./styles.css" rel="stylesheet"> 
+        <title>Portefolio Sampaio Xavier</title>
+    </head>
+    <body class="bg-gray-900 ">
+        <div>
+            <div class="text-center text-white uppercase">
+                Terminal Sampaio-OS
+            </div>
+            <div id="terminal-output"> 
+                <div id="outputid" class="text-white flex-1 overflow-y-auto bottom-25px"> 
+                    <div>Type help for more command</div>
+                </div>
+            </div>
+                <div id="terminal-input" class="flex absolute bottom-[3px] left-0">
+                <div id="prefix" class="text-green-300 px-3 ">  Chargement </div>
+                <span class="text-green-300 "> > </span>
+                <span contenteditable="true" id="inputid" class="text-green-300 inline-block min-w-[1ch] whitespace-nowrap"  ></span>
+                <p class="text-green-300 blink p">_</p>
+                <button type="submit" id="submitBtn" class="opacity-0"></button>
+            </div>
+        </div>
+            
+        <!-- <script src="https://cdn.tailwindcss.com"></script> -->
+        <script src="./script.js"></script>
+    </body>
+</html>
+
