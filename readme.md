@@ -1,7 +1,7 @@
 # 💼 Portfolio Personnel
 
 Bienvenue sur le dépôt de mon portfolio personnel !  
-Ce projet présente mes compétences, mes projets et mon parcours en tant que développeur.
+Ce projet présente mes compétences, mes projets et mon parcours en tant que développeur réseaux.
 
 🌐 **Démo en ligne :** xavier-sampaio.me/portefolio (déploiement prochainement)  
 📫 **Contact :** contact@xavier-sampaio.me
@@ -23,6 +23,7 @@ Il s’agit d’un point central pour les recruteurs, collaborateurs et toute pe
 ## ✨ Fonctionnalités existantes
 
 - [x] Commande de base linux (cd,ls,cat,su)
+- [x] Arborescence de Fichier
 - [x] Design moderne et épuré
 
 ---
@@ -53,7 +54,7 @@ Selon la configuration du projet :
 
 ```text
 Portefolio/
-├── data/                   # Bientot
+├── data/                   # Contient l'arborescence des fichiers
 ├── styles.css              # Feuilles de style
 ├── input.css               # TailWindCss part
 ├── output.css              # TailWindCss part

@@ -1,54 +1,6 @@
-
-const Filesystem = {
-    '/': {
-        type: 'dir',
-        children: ['home', 'etc', 'var']
-    },
-    '/home': {
-        type:'dir',
-        children: ['user', 'root', 'xavier']
-    },
-    '/home/user': {
-        type:'dir',
-        children:['portfolio', 'lab']
-    },
-    '/home/root':{
-        type:'dir',
-        children: []
-    },
-    '/home/xavier':{
-        type:'dir',
-        children: []
-    },
-    '/etc': {
-        type:'dir',
-        children:['fstab', 'cron.d', 'apt']
-    },
-    '/etc/fstab': {
-        type:'file',
-        content:'Inserer du contenu'
-    },
-    '/etc/cron.d': {
-        type:'file',
-        content:'Outils d\'automatisation de tache'
-    },
-    '/etc/apt': {
-        type:'file',
-        children:['source.list', 'Source.list.d']
-    },
-    '/var': {
-        type:'dir',
-        children:['opt']
-    },
-    '/var/opt': {
-        type:'dir',
-        children:['www']
-    },
-    '/var/opt/www': {
-        typr:'dir',
-        children:[]
-    }
-};
+import { Filesystem } from './filesystem.js';
+console.log(Filesystem);
+//import du systeme
 
 const tabCommand = ['help', 'pwd', 'cat','su','ls','cd','timedatctl','clear','exit','ollama'];
 
@@ -86,6 +38,8 @@ document.addEventListener('keydown',function(enter){  // Validation Enter
         //console.log("validation via: "+ enter.key) // Enter
         submit.click();
         document.getElementById('inputid').textContent = '';
+        window.scrollTo(0, document.body.scrollHeight);
+
 }});
     //fonction historique
     //a faire
@@ -96,29 +50,32 @@ function help(args) {
     outputoutput("=============");
     outputoutput("||Help menu||");
     outputoutput("=============");
-    outputoutput("- help");
+    outputoutput(" help");
     outputoutput("       | Open this menu");
-    outputoutput("- pwd");
+    outputoutput(" pwd");
     outputoutput("       | Print Working Directory");
-    outputoutput("- cat");
+    outputoutput(" cat");
     outputoutput("       | Concatenate file");
-    outputoutput("- ls");
+    outputoutput(" ls");
     outputoutput("       | Display the content of directories");
-    outputoutput("- cd");
+    outputoutput(" cd");
     outputoutput("       | Change Directory");
-    outputoutput("- clear");
+    outputoutput(" clear");
     outputoutput("       | Clear terminal script");
-    outputoutput("- su");
+    outputoutput(" su");
     outputoutput("       | Change User");
     outputoutput("       | update after 2 enter ");
     outputoutput("       | root unallowed");
-    outputoutput("- exit");
+    outputoutput(" exit");
     outputoutput("       | Exit connexion");
     outputoutput("       | not recommend");
-    outputoutput("- timedatctl");
+    outputoutput(" su");
+    outputoutput("       | Change User");
+    outputoutput("       | root unallowed");
+    outputoutput(" timedatctl");
     outputoutput("       | Show Time and Date ");
     outputoutput("       | on dev");
-    outputoutput("- ollama");
+    outputoutput(" ollama");
     outputoutput("       | Chatbot see /etc/ollama");
     outputoutput("       | on dev");
     outputoutput("       | can be monitored by me");
@@ -164,7 +121,7 @@ function cd(inputCommandpart) {
     } else if (Filesystem[inputCommandpart]) {
         located = inputCommandpart
     } else {
-        console.log("raté");
+        outputoutput("Chemin non connu");
     }
 };
 function clear() { 
@@ -203,6 +160,7 @@ function outputinput(inputCommand) { // retourne le prefix commandes [user]@[loc
     let newLine = document.createElement('div');
     let prefixecomm = session.currentUser+'@' + located + "$"
     document.getElementById('prefix').textContent = prefixecomm
+    document.getElementById('chemin-hero').innerHTML ="Terminal Sampaio-OS : " + prefixecomm
     newLine.className = 'text-green-300';
     newLine.textContent = prefixecomm + inputCommand; // Preparation de la commande
     output.appendChild(newLine);
@@ -279,6 +237,9 @@ function chemin(inputCommandpart){ //resous le chemin de l'utilisateur quand il 
     else if (inputCommandpart[0].startsWith("/")) { //test si c'est le chemin est entier
         console.log(inputCommandpart[0].startsWith("/"));
         inputCommandpart = inputCommandpart[0];
+    } else {
+        inputCommandpart = located + "/"+ inputCommandpart[0]
+        console.log(inputCommandpart)
     };
     return(inputCommandpart); 
 };

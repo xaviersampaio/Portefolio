@@ -8,18 +8,21 @@
         <title>Portefolio Sampaio Xavier</title>
     </head>
     <body class="bg-gray-900 ">
-        <div>
-            <div class="text-center text-white uppercase">
-                Terminal Sampaio-OS
+        <div class=" right-0 left-0 grid  grid-rows-1 gap-0 grid-cols-[1fr_auto] bg-zinc-800">
+                <div id="chemin-hero" class=" text-center text-white font-bold  right-0 left-0">
+                Terminal Sampaio-OS : user@/home$
+                </div>
+                <div class="justify-self-end bg-zinc-800 text-white pr-2 pl-2 mr-3 font-bold hover:rounded-xl hover:bg-red-600"> x </div>
+                
             </div>
+
             <div id="terminal-output"> 
                 <div id="outputid" class="text-white flex-1 overflow-y-auto bottom-25px"> 
                     <div>Type help for more command</div>
                 </div>
             </div>
-                <div id="terminal-input" class="flex absolute bottom-[3px] left-0">
-                <div id="prefix" class="text-green-300 px-3 ">  Chargement </div>
-                <span class="text-green-300 "> > </span>
+            <div id="terminal-input" class="flex absolute  left-0 right-0 bg-gray-900">
+                <div id="prefix" class="text-green-300 ">Chargement</div>
                 <span contenteditable="true" id="inputid" class="text-green-300 inline-block min-w-[1ch] whitespace-nowrap"  ></span>
                 <p class="text-green-300 blink p">_</p>
                 <button type="submit" id="submitBtn" class="opacity-0"></button>
@@ -27,7 +30,7 @@
         </div>
             
         <!-- <script src="https://cdn.tailwindcss.com"></script> -->
-        <script src="./script.js"></script>
+        <script type= module src="./script.js"></script>
     </body>
 </html>
 
