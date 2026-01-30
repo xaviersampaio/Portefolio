@@ -52,6 +52,7 @@ Selon la configuration du projet :
 
 ## 📂 Structure du projet
 
+```
 ├── 📁 SAMPAIO
 │   ├── 📁 data
 │   │   ├── 📁 racine
@@ -132,3 +133,4 @@ Selon la configuration du projet :
 │   ├── 📝 readme.md
 │   └── 📄 tailwind.config.js
 └── ⚙️ .gitignore
+```
