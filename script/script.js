@@ -1,6 +1,5 @@
 import { Filesystem } from './filesystem.js';
 
-
 //import du systeme
 
 const tabCommand = ['help', 'pwd', 'cat','su','ls','cd','timedatctl','clear','exit','sl','ollama'];
