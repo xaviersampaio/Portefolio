@@ -1,0 +1,5 @@
+# <file system>  <mount point>  <type>   <options>           <dump> <pass>
+
+UUID=f123abcd-1111-2222-3333-abcdef123456   /boot/efi      vfat     defaults           0      1
+UUID=a987bcde-4444-5555-6666-fedcba654321   /              ext4     errors=remount-ro  0      1
+UUID=0f12e345-7777-8888-9999-012345abcdef   none           swap     sw                 0      0

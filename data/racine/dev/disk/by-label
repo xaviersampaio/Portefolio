@@ -1,0 +1,4 @@
+/dev/disk/by-label/
+ ├── DATA -> ../../sdb1
+ ├── BACKUP -> ../../sdc1
+ └── EFI -> ../../nvme0n1p1

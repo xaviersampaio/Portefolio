@@ -1,7 +1,7 @@
 # 💼 Portfolio Personnel
 
 Bienvenue sur le dépôt de mon portfolio personnel !  
-Ce projet présente mes compétences, mes projets et mon parcours en tant que développeur.
+Ce projet présente mes compétences, mes projets et mon parcours en tant que développeur réseaux.
 
 🌐 **Démo en ligne :** xavier-sampaio.me/portefolio (déploiement prochainement)  
 📫 **Contact :** contact@xavier-sampaio.me
@@ -23,6 +23,7 @@ Il s’agit d’un point central pour les recruteurs, collaborateurs et toute pe
 ## ✨ Fonctionnalités existantes
 
 - [x] Commande de base linux (cd,ls,cat,su)
+- [x] Arborescence de Fichier a retrouver dans /data/Arborescence.txt
 - [x] Design moderne et épuré
 
 ---
@@ -51,13 +52,85 @@ Selon la configuration du projet :
 
 ## 📂 Structure du projet
 
-```text
-Portefolio/
-├── data/                   # Bientot
-├── styles.css              # Feuilles de style
-├── input.css               # TailWindCss part
-├── output.css              # TailWindCss part
-├── tailwind.config.jss     # TailWindCss part
-├── script.js               # Scripts JavaScript
-├── index.html              # Point d’entrée principal
-└── README.md               # Ce fichier
+
+├── 📁 SAMPAIO
+│   ├── 📁 data
+│   │   ├── 📁 racine
+│   │   │   ├── 📁 dev
+│   │   │   │   ├── 📁 disk
+│   │   │   │   │   ├── ⚙️ by-diskeq
+│   │   │   │   │   ├── ⚙️ by-id
+│   │   │   │   │   ├── ⚙️ by-label
+│   │   │   │   │   ├── ⚙️ by-partuuid
+│   │   │   │   │   ├── ⚙️ by-path
+│   │   │   │   │   └── ⚙️ by-uuid
+│   │   │   │   ├── 🎬 CD.mp4
+│   │   │   │   ├── 📄 cdrom
+│   │   │   │   └── 📄 null
+│   │   │   ├── 📁 etc
+│   │   │   │   ├── 📁 network
+│   │   │   │   │   ├── ⚙️ if-down.d
+│   │   │   │   │   ├── ⚙️ if-post-down.d
+│   │   │   │   │   └── ⚙️ interfaces
+│   │   │   │   ├── 📁 ssh
+│   │   │   │   │   └── ⚙️ ssh_config
+│   │   │   │   ├── 📁 ssl
+│   │   │   │   │   └── ⚙️ openssl.cnf
+│   │   │   │   ├── 📁 systemd
+│   │   │   │   │   ├── ⚙️ journald.conf
+│   │   │   │   │   ├── ⚙️ logind.conf
+│   │   │   │   │   ├── ⚙️ networkd.conf
+│   │   │   │   │   ├── ⚙️ pstore.conf
+│   │   │   │   │   ├── ⚙️ sleep.conf
+│   │   │   │   │   ├── ⚙️ system.conf
+│   │   │   │   │   └── ⚙️ timesyncd.conf
+│   │   │   │   ├── 📁 vim
+│   │   │   │   │   ├── 📄 vimrc
+│   │   │   │   │   └── 📄 vimrc.tiny
+│   │   │   │   ├── ⚙️ crontab
+│   │   │   │   ├── ⚙️ fstab
+│   │   │   │   ├── ⚙️ hostname
+│   │   │   │   ├── ⚙️ local.conf
+│   │   │   │   ├── ⚙️ nanorc
+│   │   │   │   ├── ⚙️ os-release
+│   │   │   │   └── ⚙️ timezone
+│   │   │   └── 📁 home
+│   │   │       ├── 📁 root
+│   │   │       └── 📁 user
+│   │   │           └── 📁 lab
+│   │   │               ├── 📁 projetDevPerso
+│   │   │               │   ├── 📁 portfolio
+│   │   │               │   └── 📁 zengarden
+│   │   │               │       ├── 📁 icon
+│   │   │               │       │   ├── 🖼️ Accecibility.png
+│   │   │               │       │   ├── 🖼️ HTML.png
+│   │   │               │       │   ├── 🖼️ creative-commons.png
+│   │   │               │       │   ├── 🖼️ css.png
+│   │   │               │       │   └── 🖼️ github.png
+│   │   │               │       ├── 📁 media
+│   │   │               │       │   ├── 🖼️ Automne.png
+│   │   │               │       │   ├── 🖼️ Automne2.png
+│   │   │               │       │   ├── 🖼️ Ete.gif
+│   │   │               │       │   ├── 🖼️ Ete.png
+│   │   │               │       │   ├── 🖼️ Hiver.png
+│   │   │               │       │   ├── 🖼️ Printemps.png
+│   │   │               │       │   ├── 🖼️ automne.gif
+│   │   │               │       │   ├── 🖼️ footer.png
+│   │   │               │       │   ├── 🖼️ hiver.gif
+│   │   │               │       │   └── 🖼️ three.gif
+│   │   │               │       ├── 🌐 index.html
+│   │   │               │       └── 🎨 style.css
+│   │   │               └── 📁 projetInfraPerso
+│   │   └── 📄 Arborescence.txt
+│   ├── 📁 script
+│   │   ├── 📄 filesystem.js
+│   │   └── 📄 script.js
+│   ├── 📁 styles
+│   │   ├── 🎨 input.css
+│   │   ├── 🎨 output.css
+│   │   └── 🎨 styles.css
+│   ├── 🌐 index.html
+│   ├── 📝 readme.md
+│   └── 📄 tailwind.config.js
+└── ⚙️ .gitignore
+```

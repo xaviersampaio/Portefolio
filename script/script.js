@@ -1,56 +1,9 @@
+import { Filesystem } from './filesystem.js';
 
-const Filesystem = {
-    '/': {
-        type: 'dir',
-        children: ['home', 'etc', 'var']
-    },
-    '/home': {
-        type:'dir',
-        children: ['user', 'root', 'xavier']
-    },
-    '/home/user': {
-        type:'dir',
-        children:['portfolio', 'lab']
-    },
-    '/home/root':{
-        type:'dir',
-        children: []
-    },
-    '/home/xavier':{
-        type:'dir',
-        children: []
-    },
-    '/etc': {
-        type:'dir',
-        children:['fstab', 'cron.d', 'apt']
-    },
-    '/etc/fstab': {
-        type:'file',
-        content:'Inserer du contenu'
-    },
-    '/etc/cron.d': {
-        type:'file',
-        content:'Outils d\'automatisation de tache'
-    },
-    '/etc/apt': {
-        type:'file',
-        children:['source.list', 'Source.list.d']
-    },
-    '/var': {
-        type:'dir',
-        children:['opt']
-    },
-    '/var/opt': {
-        type:'dir',
-        children:['www']
-    },
-    '/var/opt/www': {
-        typr:'dir',
-        children:[]
-    }
-};
 
-const tabCommand = ['help', 'pwd', 'cat','su','ls','cd','timedatctl','clear','exit','ollama'];
+//import du systeme
+
+const tabCommand = ['help', 'pwd', 'cat','su','ls','cd','timedatctl','clear','exit','sl','ollama'];
 
 const commands = {
     help: help,      
@@ -62,6 +15,7 @@ const commands = {
     timedatctl: timedatctl,
     clear: clear,
     exit: exit,
+    sl: sl,
     ollama: (args) => console.log("OLLAMA", args),
     
 };
@@ -70,8 +24,10 @@ let input = document.getElementById('inputid');
 let submit = document.getElementById('submitBtn');
 let session = { currentUser : 'user'};
 let located = '/home';
+let part;
+let CDAudio;
 
-// Gestion Document && initialisation de la page 
+// Gestion Document & initialisation de la page 
 document.getElementById('prefix').textContent = session.currentUser +'@' + located + "$"
     // Envoyer le courseur de l'utilisateur dans le input
 document.addEventListener('keydown',function() {
@@ -86,6 +42,8 @@ document.addEventListener('keydown',function(enter){  // Validation Enter
         //console.log("validation via: "+ enter.key) // Enter
         submit.click();
         document.getElementById('inputid').textContent = '';
+        window.scrollTo(0, document.body.scrollHeight);
+
 }});
     //fonction historique
     //a faire
@@ -93,55 +51,21 @@ document.addEventListener('keydown',function(enter){  // Validation Enter
 
 //fonction Commande
 function help(args) { 
-    outputoutput("=============");
-    outputoutput("||Help menu||");
-    outputoutput("=============");
-    outputoutput("- help");
-    outputoutput("       | Open this menu");
-    outputoutput("- pwd");
-    outputoutput("       | Print Working Directory");
-    outputoutput("- cat");
-    outputoutput("       | Concatenate file");
-    outputoutput("- ls");
-    outputoutput("       | Display the content of directories");
-    outputoutput("- cd");
-    outputoutput("       | Change Directory");
-    outputoutput("- clear");
-    outputoutput("       | Clear terminal script");
-    outputoutput("- su");
-    outputoutput("       | Change User");
-    outputoutput("       | update after 2 enter ");
-    outputoutput("       | root unallowed");
-    outputoutput("- exit");
-    outputoutput("       | Exit connexion");
-    outputoutput("       | not recommend");
-    outputoutput("- timedatctl");
-    outputoutput("       | Show Time and Date ");
-    outputoutput("       | on dev");
-    outputoutput("- ollama");
-    outputoutput("       | Chatbot see /etc/ollama");
-    outputoutput("       | on dev");
-    outputoutput("       | can be monitored by me");
-    //outputoutput(" ");
-    //outputoutput("===============");
-    //outputoutput("||Prefix menu||");
-    //outputoutput("===============");
-    //outputoutput(" ");
-    //outputoutput("Prefix is not supported at the moment");
-    //outputoutput(" ");
-
-
-    };
+    getdatafromfile('/bin/help');
+};
 function pwd(inputCommandpart) {
     outputoutput(located);
 };
 function cat(inputCommandpart) {
-    if (inputCommandpart.length === 1 ){
-        if (Filesystem[inputCommandpart].type === "file") {
-        };
-    }else {
-        outputoutput("la concaténation est en développement")
-    }
+    inputCommandpart = chemin(inputCommandpart)
+    if (Filesystem[inputCommandpart].type === "file") {
+        if (inputCommandpart === '/dev/cdrom') {
+            console.log("bleu")
+            playCd();
+        }
+        getdatafromfile(inputCommandpart)
+    };
+    
 };
 function ls(inputCommandpart) {
     inputCommandpart = chemin(inputCommandpart);
@@ -157,16 +81,22 @@ function ls(inputCommandpart) {
 };
     
 function cd(inputCommandpart) {
-    inputCommandpart = chemin(inputCommandpart);
-    
-    if (inputCommandpart === undefined) {
-        return 0
-    } else if (Filesystem[inputCommandpart]) {
-        located = inputCommandpart
-    } else {
-        console.log("raté");
+    inputCommandpart = chemin(inputCommandpart); // résout le chemin
+
+    if (!inputCommandpart) {
+        return; // aucun chemin fourni 
     }
-};
+    if (!Filesystem[inputCommandpart]) {
+        outputoutput("Chemin non connu");
+        return;
+    }
+    if (Filesystem[inputCommandpart].type !== "dir") {
+        outputoutput("Ce n'est pas un dossier");
+        return;
+    }
+    located = inputCommandpart;
+}
+
 function clear() { 
     document.getElementById("outputid").innerHTML = "";
 }; 
@@ -192,17 +122,23 @@ function exit(){
     let newLine = document.createElement('div');
     alert("Connexion fermée. Vous pouvez fermer cet onglet.");
 };
+function sl(){
+    getdatafromfile('/bin/sl');
+};
 
 function timedatctl(inputCommandpart) {};
 
 function ollama(inputCommandpart) {};
 
-//fonction systeme
+////////////////////
+//fonction systeme//
+////////////////////
 function outputinput(inputCommand) { // retourne le prefix commandes [user]@[location]$[command]
     let output = document.getElementById('outputid');
     let newLine = document.createElement('div');
     let prefixecomm = session.currentUser+'@' + located + "$"
     document.getElementById('prefix').textContent = prefixecomm
+    document.getElementById('chemin-hero').innerHTML ="Terminal Sampaio-OS : " + prefixecomm
     newLine.className = 'text-green-300';
     newLine.textContent = prefixecomm + inputCommand; // Preparation de la commande
     output.appendChild(newLine);
@@ -261,25 +197,46 @@ function outputoutput(inputoutput) { // retourne sous forme de texte dans le ter
      newLine.style.whiteSpace = 'pre-wrap';
     output.appendChild(newLine)
     console.log(inputoutput);
-}
+};
 function chemin(inputCommandpart){ //resous le chemin de l'utilisateur quand il a (ex: ls, cd)
     //located chemin actuel input command part chemin a tester
-    if (inputCommandpart.length === 0 ) { //test si il y a aucun parametre 
-        inputCommandpart = located;
-        }
-    else if (inputCommandpart[0].startsWith(".")) { // test si c'est le chemin n'est pas entier
-        if (inputCommandpart[0].slice(2) === "./"){  // si l'utilisateur fait ls ./
-            inputCommandpart = located;
-        } else {
-            console.log(inputCommandpart[0].startsWith("/")); //renvoie true
-            inputCommandpart = located + inputCommandpart[0].slice(2); // construction du chemin
-            console.log(inputCommandpart)
-        };        
-    }
-    else if (inputCommandpart[0].startsWith("/")) { //test si c'est le chemin est entier
-        console.log(inputCommandpart[0].startsWith("/"));
-        inputCommandpart = inputCommandpart[0];
+    part = located.split("/").filter(Boolean); //recupere le chemin dans un tableau et filtre les valeur null (ex : /home/user => ["home", "user"])
+    if (!inputCommandpart || inputCommandpart.length === 0) {
+        return located;
+    } else if (inputCommandpart[0].startsWith("/")) {   // chemin absolu
+        return inputCommandpart[0];
+    } else if (inputCommandpart[0] === "." || inputCommandpart[0] === "./") { // chemin courant
+        return located;
+    } else if (inputCommandpart[0] === "..") { // remonter
+        part.pop();
+        return "/" + part.join("/");
+    } else if (inputCommandpart[0].startsWith("./")) {// //gestion du chemin supp
+        let path = located + "/" + inputCommandpart[0].slice(2);
+        return path.replace(/\/+/g, "/");
+    } else { // chemin relatif simple
+        let path = located + "/" + inputCommandpart[0];
+        return path.replace(/\/+/g, "/");
     };
-    return(inputCommandpart); 
 };
-
+function getdatafromfile(path) {
+    if (Filesystem[path].autorised === 1) {
+        fetch(Filesystem[path].content)
+            .then(response => response.text())
+            .then(data => {
+                const lignes = data.split('\n');
+                lignes.forEach(ligne => {
+                    outputoutput(ligne);
+                });
+            }
+        );
+    }else {
+        outputoutput("Accès non Autorisé")
+    }
+};
+function playCd() {
+    if (!CDAudio) {
+        CDAudio = new Audio('./data/racine/dev/CD.mp4');
+        CDAudio.volume = 0.4;
+    }
+    CDAudio.play();
+}

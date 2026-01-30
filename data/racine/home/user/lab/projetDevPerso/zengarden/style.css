@@ -1,0 +1,306 @@
+body {
+    background-image: url(media/background.jpg);
+    background-size: auto;
+}
+h3 {
+    text-align: center;
+    text-decoration: underline;
+}
+h1, h2 {
+    font-size: 30px;
+    font-style: italic;
+    text-align: center;
+    text-decoration: underline;
+}
+
+/* Section intro 
+   Sur l'automne avec une pousse d'arbre */
+
+.intro {
+    background: url(media/Automne.png) no-repeat;
+    background-color: #3a4a2bd4;
+    background-position: center;
+    background-size: 100% 101%;
+    border: solid #00000080;
+    border-radius: 20px;
+    height: 900px;
+    margin-left: 2%;
+    margin-right: 2%;
+    text-align: center;
+    padding: 5%;
+}
+.summary {
+    background-color: #3a4a2bd4;
+    border-radius: 20px;
+    color: #CCC;
+    margin: auto;
+    margin-left: 5%;
+    margin-right: 55%;
+    padding: 6%;
+}
+.extra1 a {
+    color: #e9967a;
+}
+.extra1 a:hover {
+    color: #a33009;
+}
+.extra1 p {
+    text-align: end;
+}
+.intro:hover {
+    background-color: #3a4a2bd4;
+    background-image: url(media/three.gif), url(media/Automne.png);
+    background-size: 100% 151%; /* 151% car le gif a des bordures au-dessus et en dessous */
+    background-position: center;
+}
+
+/* Partie 2 
+   Hiver avec neige, l'arbre a grandi */
+
+.explanation {
+    background: url(media/Hiver.png);
+    background-color: #3a4a2bd4;
+    background-size: cover;
+    border: solid #00000080;
+    border-radius: 20px;
+    color: #FFF;
+    margin-top: 2%;
+    margin-left: 2%;
+    margin-right: 2%;
+    padding: 5%;
+}
+.explanation:hover {
+    background: url(media/Hiver.gif), url(media/Hiver.png);
+    background-size: cover;
+}
+.explanation h3 {
+    border-radius: 20px;
+    border: solid rgba(3A, 4A, 2B, 0.2);
+    font-size: 30px;
+    margin-left: 55%;
+    margin-right: 5%;
+    padding-bottom: 5%;
+    text-decoration: underline;
+}
+.extra2 p {
+    background-color: #435b4bd4;
+    border-radius: 20px;
+    margin-left: 5%;
+    margin-right: 55%;
+    padding: 5%;
+}
+.extra2 a {
+    color: #DE6139;
+}
+.extra2 a:hover {
+    color: #a33009;
+}
+
+/* Partie 3 
+   Printemps, l'arbre est grand */
+
+.participation {
+    background: no-repeat center url(media/Printemps.png);
+    background-color: #435b4bd4;
+    background-size: cover;
+    border: solid rgba(0, 0, 0, 0.5);
+    border-radius: 20px;
+    color: #6AC4FDd4;
+    margin: 2%;
+    margin-bottom: 0%; /* Bordures tout autour sauf en bas */
+    min-height: 800px; /* Taille normalisée pour éviter un texte trop court */
+    padding: 5%;
+}
+.participation h3 {
+    color: #e4d52e;
+    font-size: 30px;
+    margin-left: 55%;
+    margin-right: 5%;
+}
+.extra3 {
+    background-color: #4d877dd4;
+    border-radius: 20px;
+    color: #CCC;
+    margin-left: 5%;
+    margin-right: 55%;
+    padding: 5%;
+}
+.participation a {
+    color: #6AC4FD;
+}
+.participation a:hover {
+    color: #0078c3;
+}
+
+/* Partie 4 
+   Été, l'arbre est grand et des pétales de fleurs roses tombent */
+
+.benefits {
+    background-image: url(media/Ete.png);
+    background-color: #4B5A59d4;
+    background-size: cover;
+    background-position: center;
+    border-radius: 20px;
+    border: solid rgba(0, 0, 0, 0.5);
+    margin: 2%;
+    margin-bottom: 0%;
+    min-height: 800px;
+    padding: 5%;
+}
+.benefits:hover {
+    background-image: url(media/Ete.gif), url(media/Ete.png);
+    background-position: center;
+}
+.benefits h3 {
+    color: #00fac4;
+    font-size: 30px;
+    margin-left: 55%;
+    margin-right: 5%;
+}
+.extra4 p {
+    background-color: #567e8bd4;
+    border: solid rgba(3A, 4A, 2B, 0.2);
+    border-radius: 20px;
+    color: #CCC;
+    margin-left: 5%;
+    margin-right: 55%;
+    margin-top: 25%;
+    padding: 5%;
+}
+
+/* Partie 5 
+   Le retour de l'automne */
+
+.requirements {
+    background-image: url(media/Automne2.png);
+    background-color: #375C6Bd4;
+    background-position: center;
+    background-size: cover;
+    border: solid rgba(0, 0, 0, 0.5);
+    border-radius: 20px;
+    margin: 2%;
+    padding: 5%;
+}
+.requirements:hover {
+    background-image: url(media/automne.gif), url(media/Automne2.png);
+}
+.extra5 h3 {
+    color: #f2a042;
+    font-size: 30px;
+    margin-left: 55%;
+    margin-right: 5%;
+    text-decoration: underline;
+}
+.extra5 p {
+    background-color: #375C6Bd4;
+    border: solid rgba(3A, 4A, 2B, 0.2);
+    border-radius: 20px;
+    color: #CCC;
+    margin-right: 55%;
+    padding: 5%;
+}
+.requirements a {
+    color: #f2a042;
+}
+.requirements a:hover {
+    color: #f2a042;
+}
+
+/* Footer */
+
+footer {
+    display: grid;
+    grid-template-columns: 200px 200px 200px 200px 200px; /* Liens côte à côte */
+    justify-content: center;
+    background-color: #000;
+    width: 80%;
+    margin-right: 10%;
+    margin-left: 10%;
+    margin-top: 2%;
+    text-align: center;
+    border-radius: 20px;
+    background-position: center;
+}
+.zen-resources {
+    color: #fff;
+
+}
+.zen-validate-html {
+    color: transparent;
+    background-image: url(icon/HTML.png) ;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    border-radius: 20px ;
+    height: 100px;/* ici la taille en px pour empecher de depasser*/
+    width: 100px;
+}
+.zen-validate-css {
+    color: transparent;
+    background-image: url(icon/css.png);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    border-radius: 20px ;
+    height: 100px;
+    width: 100px;
+}
+.zen-license {
+    color: transparent;
+    background-image: url(icon/creative-commons.png);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    border-radius: 20px ;
+    height: 100px;
+    width: 100px;
+}
+.zen-accessibility {
+    color: transparent;
+    background-image: url(icon/Accecibility.png);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    border-radius: 20px ;
+    height: 100px;
+    width: 100px;
+}
+.zen-github {
+    color: transparent;
+    background-image: url(icon/github.png);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    border-radius: 20px ;
+    height: 100px;
+    width: 100px;
+}
+.sidebar {
+    background-image: url(media/footer.png);
+    background-position: center;
+    background-color: #6B9EDBd4;
+    color: #CCCCCC;
+    background-size: cover;
+    margin-top: 2%;
+    border-start-start-radius: 60px;
+    border-end-end-radius: 60px;
+    border: solid rgba(0, 0, 0, 0.5);
+    padding :1%;
+    padding-right: 70%;/* poser le texte sir le coté gauche de l'image*/
+    padding-bottom: 2%;
+}
+.sidebar h3 {
+    background-color: #6B9EDBd4;
+    border-radius: 20px;
+    text-decoration: underline;
+    padding: 1%;
+    color: #FFF;
+}
+
+.sidebar a {
+    color: #4A90E2;
+}
+
+.sidebar a:hover {
+    color: #73B7FF;
+}

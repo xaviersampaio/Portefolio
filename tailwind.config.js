@@ -1,6 +1,6 @@
 // type {import('tailwindcss').Config} 
 export default {
-  content: ["./index.html"],  // Précis pour ton fichier exact
+  content: ["./index.html"],  
   theme: { extend: {} },
   plugins: [],
 }

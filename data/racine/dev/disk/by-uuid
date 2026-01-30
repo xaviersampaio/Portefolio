@@ -1,0 +1,4 @@
+/dev/disk/by-uuid/
+ ├── 2c1e9b3a-8f7a-4c6a-bb1a-9e7c1a123456 -> ../../sda1
+ ├── a1b2c3d4-e5f6-7890-abcd-ef1234567890 -> ../../sdb2
+ └── 6F3A-2B1C -> ../../nvme0n1p1   # FAT / EFI

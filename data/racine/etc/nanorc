@@ -1,0 +1,25 @@
+# /etc/nanorc - configuration globale de nano
+
+# Activer la coloration syntaxique pour différents langages
+include "/usr/share/nano/*.nanorc"
+
+# Afficher les numéros de ligne
+set linenumbers
+
+# Activer le wrap automatique des lignes
+set softwrap
+
+# Confirmation à la sortie si des modifications non sauvegardées
+set confirm
+
+# Recherche insensible à la casse
+set iwrap
+
+# Mettre en surbrillance le mot courant
+set matchbrackets
+
+# Couleurs du curseur et du texte
+set smooth
+set tabsize 4
+
+# La modification de ce fichier n'influence pas le systeme Sampaio-OS

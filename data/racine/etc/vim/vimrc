@@ -1,0 +1,35 @@
+" /etc/vim/vimrc
+
+" Activer la coloration syntaxique
+syntax on
+
+" Afficher les numéros de ligne
+set number
+
+" Utiliser l’indentation automatique
+set autoindent
+set smartindent
+set tabstop=4
+set shiftwidth=4
+set expandtab
+
+" Rechercher sans différencier majuscule/minuscule
+set ignorecase
+set smartcase
+
+" Afficher la ligne actuelle
+set cursorline
+
+" Activer le mode compatible avec Vim moderne
+set nocompatible
+
+" Messages et complétion
+set showcmd
+set showmatch
+set wildmenu
+
+" Historique des commandes
+set history=100
+
+" Activer le support des couleurs 256
+set t_Co=256

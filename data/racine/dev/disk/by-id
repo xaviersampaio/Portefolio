@@ -1,0 +1,5 @@
+/dev/disk/by-id/
+ ├── ata-Samsung_SSD_860_EVO_S3Z9NB0K123456
+ ├── ata-Samsung_SSD_860_EVO_S3Z9NB0K123456-part1
+ ├── wwn-0x5002538e40abcd12
+ └── nvme-SAMSUNG_MZVLW512HMJP-00000_S3XXXXXXXX

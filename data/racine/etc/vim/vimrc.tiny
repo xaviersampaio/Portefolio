@@ -1,0 +1,21 @@
+" /etc/vim/vimrc.tiny 
+
+" Mode compatible Vim moderne
+set nocompatible
+
+" Activer l’indentation automatique simple
+set autoindent
+set tabstop=4
+set shiftwidth=4
+set expandtab
+
+" Afficher les numéros de ligne
+set number
+
+" Rechercher sans tenir compte de la casse
+set ignorecase
+set smartcase
+
+" Messages simples
+set showcmd
+set ruler

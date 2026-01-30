@@ -1,0 +1,10 @@
+NAME="Sampaio-OS"
+VERSION="4.7"
+ID=xsampaioos
+ID_LIKE=Sampaio-OS
+VERSION_ID="4.7"
+PRETTY_NAME="Sampaio-OS 4.7"
+ANSI_COLOR="0;32"
+HOME_URL="http://www.xavier-sampaio.me/"
+SUPPORT_URL="http://support.xavier-sampaio.me/"
+BUG_REPORT_URL="http://bugs.xavier-sampaio.me/"

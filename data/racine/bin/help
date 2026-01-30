@@ -1,0 +1,32 @@
+=============
+||Help menu||
+=============
+ help
+       | Open this menu
+ pwd
+       | Print Working Directory
+ cat
+       | Concatenate file
+ ls
+       | Display the content of directories
+ cd
+       | Change Directory
+ clear
+       | Clear terminal script
+ su
+       | Change User
+       | update after 2 enter 
+       | root unallowed
+ exit
+       | Exit connexion
+       | not recommend
+ su
+       | Change User
+       | root unallowed
+ timedatctl
+       | Show Time and Date 
+       | on dev
+ ollama
+       | Chatbot see /etc/ollama
+       | on dev
+       | can be monitored by me

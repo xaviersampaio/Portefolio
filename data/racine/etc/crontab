@@ -1,0 +1,20 @@
+# /etc/crontab: crontab system-wide
+# Format :
+#   minute hour day month day_of_week user command
+
+SHELL=/bin/bash
+PATH=/sbin:/bin:/usr/sbin:/usr/bin
+
+# m h dom mon dow user command
+
+# Mettre à jour la liste des paquets tous les jours à 3h00
+0 3 * * * root apt update -y
+
+# Nettoyer le cache tous les dimanches à 4h00
+0 4 * * 0 root apt autoclean -y
+
+# Vérification de disque tous les jours à 2h30
+30 2 * * * root /usr/sbin/fstrim -av
+
+# Redémarrer le service cron pour appliquer les changements
+@reboot root systemctl restart cron
