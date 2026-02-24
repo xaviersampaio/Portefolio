@@ -1,3 +1,4 @@
 note/
 .env
 .dump
+*.git/
