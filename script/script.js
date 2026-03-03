@@ -22,6 +22,8 @@ const commands = {
 // variable
 let input = document.getElementById('inputid');
 let submit = document.getElementById('submitBtn');
+let historique = [];
+let historiqueIndex = -1;
 let session = { currentUser : 'user'};
 let located = '/home';
 let part;
@@ -39,17 +41,33 @@ document.addEventListener('keydown',function(enter){  // Validation Enter
         enter.preventDefault();
         let command = input.innerText;
         let inputCommand = readline(command);
-        //console.log("validation via: "+ enter.key) // Enter
         submit.click();
         document.getElementById('inputid').textContent = '';
         window.scrollTo(0, document.body.scrollHeight);
+        historique.push(command);
+        historiqueIndex = -1; // reset l'index 
+    }
+    else if ( enter.key === "ArrowUp") { //historique remonter
+        if (historiqueIndex < historique.length - 1) {
+            historiqueIndex++;
+        }
+        document.getElementById('inputid').textContent = historique[historique.length - 1 - historiqueIndex];
+    }
+    else if (enter.key === 'ArrowDown') { //historique redescend
+        if (historiqueIndex > -1) {
+            historiqueIndex--;
+        }
+        if (historiqueIndex === -1) { 
+            document.getElementById('inputid').textContent = '';
+        } else {
+            document.getElementById('inputid').textContent = historique[historique.length - 1 - historiqueIndex];
+        }
+    }
+});
 
-}});
-    //fonction historique
-    //a faire
-
-
-//fonction Commande
+/////////////////////
+//fonction Commande//
+/////////////////////
 function help(args) { 
     getdatafromfile('/bin/help');
 };
