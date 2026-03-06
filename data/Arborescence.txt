@@ -12,6 +12,8 @@
 /bin/timedatctl
 /bin/ollama
 /bin/exit
+/bin/echo
+/bin/vim
 /dev
 /dev/block	
 /dev/cdrom

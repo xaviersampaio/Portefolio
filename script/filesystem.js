@@ -23,7 +23,7 @@ export const Filesystem = {
     },
     '/bin/help': {
         type: NODE_TYPE.FILE,
-        content: [' bleu '],
+        content: ['/Portefolio/data/racine/bin/help'],
         autorised: PERMISSION.READ_WRITE
     },
     '/bin/man': {
@@ -46,9 +46,14 @@ export const Filesystem = {
         content: [' bleu '],
         autorised: PERMISSION.READ_WRITE
     },
-    '/bin/ls': {
+    '/bin/su': {
         type: NODE_TYPE.FILE,
         content: [' bleu '],
+        autorised: PERMISSION.READ_WRITE
+    },
+    '/bin/sl': {
+        type: NODE_TYPE.FILE,
+        content: ['/Portefolio/data/racine/bin/sl'],
         autorised: PERMISSION.READ_WRITE
     },
     '/bin/cd': {
@@ -66,6 +71,21 @@ export const Filesystem = {
         content: [' bleu '],
         autorised: PERMISSION.READ_WRITE
     },
+    '/bin/exit': {
+        type: NODE_TYPE.FILE,
+        content: [' bleu '],
+        autorised: PERMISSION.READ_WRITE
+    },
+    '/bin/echo': {
+        type: NODE_TYPE.FILE,
+        content: [' bleu '],
+        autorised: PERMISSION.READ_WRITE
+    },
+    '/bin/vim': {
+        type: NODE_TYPE.FILE,
+        content: [' bleu '],
+        autorised: PERMISSION.READ_WRITE
+    },
     '/dev': {
         type: NODE_TYPE.DIR,
         children: ['block', 'cdrom', 'console', 'disk', 'null', 'nvram', 'random', 'sda', 'sda1', 'sda2', 'sda3', 'tty', 'urandom'],
@@ -77,12 +97,12 @@ export const Filesystem = {
         autorised: PERMISSION.READ_ONLY
     },
     '/dev/cdrom': {
-        type: 'file',
+        type: 'NODE_TYPE.FILE',
         content: [' bleu '],
         autorised: PERMISSION.READ_ONLY
     },
     '/dev/console': {
-        type: 'file',
+        type: 'NODE_TYPE.FILE',
         content: [' bleu '],
         autorised: PERMISSION.READ_ONLY
     },
@@ -122,47 +142,47 @@ export const Filesystem = {
         autorised: PERMISSION.READ_ONLY
     },
     '/dev/null': {
-        type: 'file',
+        type: 'NODE_TYPE.FILE',
         content: [' bleu '],
         autorised: PERMISSION.READ_ONLY
     },
     '/dev/nvram': {
-        type: 'file',
+        type: 'NODE_TYPE.FILE',
         content: [' bleu '],
         autorised: PERMISSION.READ_ONLY
     },
     '/dev/random': {
-        type: 'file',
+        type: 'NODE_TYPE.FILE',
         content: [' bleu '],
         autorised: PERMISSION.READ_ONLY
     },
     '/dev/sda': {
-        type: 'file',
+        type: 'NODE_TYPE.FILE',
         content: [' bleu '],
         autorised: PERMISSION.READ_ONLY
     },
     '/dev/sda1': {
-        type: 'file',
+        type: 'NODE_TYPE.FILE',
         content: [' bleu '],
         autorised: PERMISSION.READ_ONLY
     },
     '/dev/sda2': {
-        type: 'file',
+        type: 'NODE_TYPE.FILE',
         content: [' bleu '],
         autorised: PERMISSION.READ_ONLY
     },
     '/dev/sda3': {
-        type: 'file',
+        type: 'NODE_TYPE.FILE',
         content: [' bleu '],
         autorised: PERMISSION.READ_ONLY
     },
     '/dev/tty': {
-        type: 'file',
+        type: 'NODE_TYPE.FILE',
         content: [' bleu '],
         autorised: PERMISSION.READ_ONLY
     },
     '/dev/urandom': {
-        type: 'file',
+        type: 'NODE_TYPE.FILE',
         content: [' bleu '],
         autorised: PERMISSION.READ_ONLY
     },
@@ -172,27 +192,27 @@ export const Filesystem = {
         autorised: PERMISSION.READ_WRITE
     },
     '/etc/crontab': {
-        type: 'file', 
+        type: 'NODE_TYPE.FILE', 
         content: [' bleu '], 
         autorised: PERMISSION.READ_ONLY 
     },
     '/etc/fstab': { 
-        type: 'file', 
+        type: 'NODE_TYPE.FILE', 
         content: [' bleu '], 
         autorised: PERMISSION.READ_ONLY
     },
     '/etc/hostname': { 
-        type: 'file', 
+        type: 'NODE_TYPE.FILE', 
         content: [' bleu '], 
 		autorised: PERMISSION.READ_WRITE 
     },
     '/etc/local.conf': { 
-        type: 'file',
+        type: 'NODE_TYPE.FILE',
         content: [' bleu '], 
         autorised: PERMISSION.READ_ONLY 
     },
     '/etc/nanorc': { 
-        type: 'file', 
+        type: 'NODE_TYPE.FILE', 
         content: [' bleu '], 
         autorised: PERMISSION.READ_ONLY 
     },
@@ -222,7 +242,7 @@ export const Filesystem = {
         autorised: PERMISSION.READ_ONLY 
     },
     '/etc/network/interfaces': { 
-        type: 'file', 
+        type: 'NODE_TYPE.FILE', 
         content: [' bleu '], 
         autorised: PERMISSION.READ_ONLY 
     },
@@ -232,7 +252,7 @@ export const Filesystem = {
         autorised: PERMISSION.READ_ONLY 
     },
     '/etc/os-release': { 
-        type: 'file', 
+        type: 'NODE_TYPE.FILE', 
         content: [' bleu '], 
         autorised: PERMISSION.READ_ONLY 
     },
@@ -242,7 +262,7 @@ export const Filesystem = {
         autorised: PERMISSION.READ_ONLY
     },
     '/etc/ssh/ssh_config': { 
-        type: 'file', 
+        type: 'NODE_TYPE.FILE', 
         content: [' bleu '], 
         autorised: PERMISSION.READ_ONLY
     },
@@ -262,7 +282,7 @@ export const Filesystem = {
         autorised: PERMISSION.ROOT_ONLY 
     },
     '/etc/ssl/openssl.cnf': { 
-        type: 'file', 
+        type: 'NODE_TYPE.FILE', 
         content: [' bleu '], 
         autorised: PERMISSION.ROOT_ONLY 
     },
@@ -277,12 +297,12 @@ export const Filesystem = {
         autorised: PERMISSION.READ_ONLY
     },
     '/etc/systemd/journald.conf': { 
-        type: 'file', 
+        type: 'NODE_TYPE.FILE', 
         content: [], 
         autorised: PERMISSION.ROOT_ONLY 
 	},
     '/etc/systemd/logind.conf': { 
-        type: 'file', 
+        type: 'NODE_TYPE.FILE', 
         content: [], 
         autorised: PERMISSION.ROOT_ONLY 
     },
@@ -292,17 +312,17 @@ export const Filesystem = {
         autorised: PERMISSION.ROOT_ONLY 
     },
     '/etc/systemd/networkd.conf': { 
-        type: 'file', 
+        type: 'NODE_TYPE.FILE', 
         content: [], 
         autorised: PERMISSION.ROOT_ONLY 
     },
     '/etc/systemd/pstore.conf': { 
-        type: 'file', 
+        type: 'NODE_TYPE.FILE', 
         content: [], 
         autorised: PERMISSION.ROOT_ONLY 
     },
     '/etc/systemd/sleep.conf': { 
-        type: 'file', 
+        type: 'NODE_TYPE.FILE', 
         content: [], 
         autorised: PERMISSION.ROOT_ONLY 
     },
@@ -312,12 +332,12 @@ export const Filesystem = {
          autorised: PERMISSION.ROOT_ONLY
     },
     '/etc/systemd/system.conf': { 
-        type: 'file', 
+        type: 'NODE_TYPE.FILE', 
         content: [], 
         autorised: PERMISSION.ROOT_ONLY 
     },
     '/etc/systemd/timesyncd.conf': { 
-        type: 'file', 
+        type: 'NODE_TYPE.FILE', 
         content: [], 
         autorised: PERMISSION.ROOT_ONLY 
     },
@@ -328,12 +348,12 @@ export const Filesystem = {
         autorised: PERMISSION.ROOT_ONLY 
     },
     '/etc/systemd/user.conf': { 
-        type: 'file', 
+        type: 'NODE_TYPE.FILE', 
         content: [' bleu '], 
         autorised: PERMISSION.ROOT_ONLY 
     },
     '/etc/timezone': { 
-        type: 'file', 
+        type: 'NODE_TYPE.FILE', 
         content: [' bleu '], 
         autorised: PERMISSION.READ_ONLY 
     },
@@ -343,12 +363,12 @@ export const Filesystem = {
         autorised: PERMISSION.ROOT_ONLY
     },
     '/etc/vim/vimrc': { 
-        type: 'file', 
+        type: 'NODE_TYPE.FILE', 
         content: [' bleu '], 
         autorised: PERMISSION.ROOT_ONLY
     },
     '/etc/vim/vimrc.tiny': { 
-        type: 'file', 
+        type: 'NODE_TYPE.FILE', 
         content: [' bleu '], 
         autorised: PERMISSION.ROOT_ONLY
     },
@@ -383,22 +403,22 @@ export const Filesystem = {
         autorised: PERMISSION.READ_ONLY 
     },
     '/home/user/portfolio/filesystem.js': {
-        type: 'file',
+        type: 'NODE_TYPE.FILE',
         content: ['bleu'],
         autorised: PERMISSION.READ_ONLY
     },
     '/home/user/portfolio/index.html': { 
-        type: 'file', 
+        type: 'NODE_TYPE.FILE', 
         content: [' bleu '], 
         autorised: PERMISSION.READ_ONLY 
     },
     '/home/user/portfolio/style.css': { 
-        type: 'file', 
+        type: 'NODE_TYPE.FILE', 
         content: [' bleu '], 
         autorised: PERMISSION.READ_ONLY
     },
     '/home/user/portfolio/script.js': { 
-        type: 'file', 
+        type: 'NODE_TYPE.FILE', 
         content: [' bleu '], 
         autorised: PERMISSION.READ_ONLY 
     },
@@ -418,47 +438,47 @@ export const Filesystem = {
         autorised: PERMISSION.READ_ONLY
     },
     '/home/user/lab/projetDevPerso/portfolio/lsportfolio': { 
-        type: 'file', 
+        type: 'NODE_TYPE.FILE', 
         content: [' bleu '], 
         autorised: PERMISSION.READ_ONLY
     },
     '/home/user/lab/projetDevPerso/portfolio/.gitgnore': { 
-        type: 'file', 
+        type: 'NODE_TYPE.FILE', 
         content: [' bleu '], 
         autorised: PERMISSION.READ_ONLY 
     },
     '/home/user/lab/projetDevPerso/portfolio/notesDuProjet': {
-         type: 'file', 
+         type: 'NODE_TYPE.FILE', 
         content: [' bleu '], 
         autorised: PERMISSION.READ_ONLY 
     },
     '/home/user/lab/projetDevPerso/portfolio/index.html': { 
-        type: 'file', 
+        type: 'NODE_TYPE.FILE', 
         content: [' bleu '], 
         autorised: PERMISSION.READ_ONLY 
     },
     '/home/user/lab/projetDevPerso/portfolio/input.css': { 
-        type: 'file', 
+        type: 'NODE_TYPE.FILE', 
         content: [' bleu '],
         autorised: PERMISSION.READ_ONLY 
     },
     '/home/user/lab/projetDevPerso/portfolio/readme.md': {
-        type: 'file', 
+        type: 'NODE_TYPE.FILE', 
         content: [' bleu '],
         autorised: PERMISSION.READ_ONLY 
     },
     '/home/user/lab/projetDevPerso/portfolio/script.js': { 
-        type: 'file', 
+        type: 'NODE_TYPE.FILE', 
         content: [' bleu '], 
         autorised: PERMISSION.READ_ONLY 
     },
     '/home/user/lab/projetDevPerso/portfolio/style.css': { 
-        type: 'file', 
+        type: 'NODE_TYPE.FILE', 
         content: [' bleu '], 
         autorised: PERMISSION.READ_ONLY 
     },
     '/home/user/lab/projetDevPerso/portfolio/tailwind.config.js': { 
-        type: 'file', 
+        type: 'NODE_TYPE.FILE', 
         content: [' bleu '], 
         autorised: PERMISSION.READ_ONLY 
      },
@@ -473,27 +493,27 @@ export const Filesystem = {
         autorised: PERMISSION.READ_ONLY 
     },
     '/home/user/lab/projetDevPerso/zengarden/icon/accessibility.png': { 
-        type: 'file', 
+        type: 'NODE_TYPE.FILE', 
         content: [' bleu '], 
         autorised: PERMISSION.READ_ONLY 
     },
     '/home/user/lab/projetDevPerso/zengarden/icon/creative-common.png': { 
-        type: 'file',
+        type: 'NODE_TYPE.FILE',
          content: [' bleu '], 
         autorised: PERMISSION.READ_ONLY 
     },
     '/home/user/lab/projetDevPerso/zengarden/icon/css.png': { 
-        type: 'file', 
+        type: 'NODE_TYPE.FILE', 
         content: [' bleu '], 
         autorised: PERMISSION.READ_ONLY 
     },
     '/home/user/lab/projetDevPerso/zengarden/icon/github.png': { 
-        type: 'file', 
+        type: 'NODE_TYPE.FILE', 
         content: [' bleu '], 
         autorised: PERMISSION.READ_ONLY 
      },
     '/home/user/lab/projetDevPerso/zengarden/icon/HTML.png': {
-         type: 'file', 
+         type: 'NODE_TYPE.FILE', 
          content: [' bleu '], 
          autorised: PERMISSION.READ_ONLY 
     },
@@ -503,77 +523,77 @@ export const Filesystem = {
         autorised: PERMISSION.READ_ONLY 
     },
     '/home/user/lab/projetDevPerso/zengarden/media/automne.gif': { 
-        type: 'file', 
+        type: 'NODE_TYPE.FILE', 
         content: [' bleu '], 
         autorised: PERMISSION.READ_ONLY 
     },
     '/home/user/lab/projetDevPerso/zengarden/media/automne.png': { 
-        type: 'file', 
+        type: 'NODE_TYPE.FILE', 
         content: [' bleu '], 
         autorised: PERMISSION.READ_ONLY 
     },
     '/home/user/lab/projetDevPerso/zengarden/media/automne2.png': { 
-        type: 'file',
+        type: 'NODE_TYPE.FILE',
         content: [' bleu '], 
         autorised: PERMISSION.READ_ONLY 
     },
     '/home/user/lab/projetDevPerso/zengarden/media/backgroud.jpg': { 
-        type: 'file', 
+        type: 'NODE_TYPE.FILE', 
         content: [' bleu '], 
         autorised: PERMISSION.READ_ONLY 
     },
     '/home/user/lab/projetDevPerso/zengarden/media/ete.gif': { 
-        type: 'file', 
+        type: 'NODE_TYPE.FILE', 
         content: [' bleu '], 
         autorised: PERMISSION.READ_ONLY 
     },
     '/home/user/lab/projetDevPerso/zengarden/media/ete.png': { 
-        type: 'file', 
+        type: 'NODE_TYPE.FILE', 
         content: [' bleu '], 
         autorised: PERMISSION.READ_ONLY 
     },
     '/home/user/lab/projetDevPerso/zengarden/media/footer.png': { 
-        type: 'file', 
+        type: 'NODE_TYPE.FILE', 
         content: [' bleu '], 
         autorised: PERMISSION.READ_ONLY 
     },
     '/home/user/lab/projetDevPerso/zengarden/media/hiver.gif': { 
-        type: 'file', 
+        type: 'NODE_TYPE.FILE', 
         content: [' bleu '], 
         autorised: PERMISSION.READ_ONLY 
     },
     '/home/user/lab/projetDevPerso/zengarden/media/hiver.png': { 
-        type: 'file',
+        type: 'NODE_TYPE.FILE',
         content: [' bleu '], 
         autorised: PERMISSION.READ_ONLY  
     },
     '/home/user/lab/projetDevPerso/zengarden/media/printemps.png': { 
-        type: 'file',
+        type: 'NODE_TYPE.FILE',
         content: [' bleu '],
         autorised: PERMISSION.READ_ONLY 
     },
     '/home/user/lab/projetDevPerso/zengarden/media/printemps.gif': { 
-        type: 'file',
+        type: 'NODE_TYPE.FILE',
         content: [' bleu '], 
         autorised: PERMISSION.READ_ONLY 
     },
     '/home/user/lab/projetDevPerso/zengarden/index.html': {
-        type: 'file', 
+        type: 'NODE_TYPE.FILE', 
         content: [' bleu '],
         autorised: PERMISSION.READ_ONLY 
     },
     '/home/user/lab/projetDevPerso/zengarden/style.css': { 
-        type: 'file', 
+        type: 'NODE_TYPE.FILE', 
         content: [' bleu '], 
         autorised: PERMISSION.READ_ONLY 
     },
     '/home/user/lab/projetDevPerso/zengarden/notesDuProjet': { 
-        type: 'file', 
+        type: 'NODE_TYPE.FILE', 
         content: [' bleu '], 
         autorised: PERMISSION.READ_ONLY 
     },
     '/home/user/lab/projetDevPerso/zengarden/lszengarden': { 
-        type: 'file', 
+        type: 'NODE_TYPE.FILE', 
         content: [' bleu '], 
         autorised: PERMISSION.READ_ONLY  
     },
@@ -598,22 +618,22 @@ export const Filesystem = {
         autorised: PERMISSION.READ_ONLY 
     },
     '/home/user/lab/projetRag/docker-compose.yml': { 
-        type: 'file', 
+        type: 'NODE_TYPE.FILE', 
         content: [' bleu '], 
         autorised: PERMISSION.READ_ONLY 
     },
     '/home/user/lab/projetRag/.env': { 
-        type: 'file',   
+        type: 'NODE_TYPE.FILE',   
         content: [' bleu '], 
         autorised: PERMISSION.ROOT_ONLY
     },
     '/home/user/lab/projetRag/notesDuProjet': { 
-        type: 'file', 
+        type: 'NODE_TYPE.FILE', 
         content: [' bleu '], 
         autorised: PERMISSION.READ_ONLY 
     },
     '/home/user/lab/projetRag/lschatbot': { 
-        type: 'file', 
+        type: 'NODE_TYPE.FILE', 
         content: [' bleu '], 
         autorised: PERMISSION.READ_ONLY 
     },

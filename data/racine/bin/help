@@ -30,3 +30,5 @@
        | Chatbot see /etc/ollama
        | on dev
        | can be monitored by me
+ echo
+       | affiche un texte
