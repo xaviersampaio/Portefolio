@@ -22,9 +22,10 @@ Il s’agit d’un point central pour les recruteurs, collaborateurs et toute pe
 
 ## ✨ Fonctionnalités existantes
 
-- [x] Commande de base linux (cd,ls,cat,su)
+- [x] Commande de base linux (cd,ls,cat,su) - - (echo vim mkdir sont en cour)
 - [x] Arborescence de Fichier a retrouver dans /data/Arborescence.txt
 - [x] Design moderne et épuré
+- [x] Ajout d’un historique
 
 ---
 
@@ -35,7 +36,6 @@ Voici quelques améliorations prévues pour les prochaines versions du portfolio
 - [ ] Objectif : ajout d’un LLM (modèle de langage étendu), probablement Qwen2.5:3B
 - [ ] Ajout d’une section non technique pour améliorer l’accessibilité
 - [ ] Ajout de la possibilité de créer des comptes avec un répertoire dédié
-- [ ] Ajout d’un historique
 
 ---
 
@@ -47,6 +47,7 @@ Selon la configuration du projet :
 - **CSS3**
 - **JavaScript**
 - **TailWindCss**
+- **PHP** (bientôt)
 
 ---
 

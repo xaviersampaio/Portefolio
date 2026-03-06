@@ -3,21 +3,23 @@ import { NODE_TYPE } from './filesystem.js';
 import { Filesystem } from './filesystem.js';
 //import du systeme
 
-const tabCommand = ['help', 'pwd', 'cat','su','ls','cd','timedatctl','clear','exit','sl','ollama'];
 
 const commands = {
-    help: help,      
-    pwd: pwd,
-    cat: cat,
-    su: (args) => su(args),
-    ls: (args) => ls(args),
-    cd: (args) => cd(args),
-    timedatctl: timedatctl,
-    clear: clear,
-    exit: exit,
-    sl: sl,
-    ollama: (args) => console.log("OLLAMA", args),
-    
+    help: help,                                     //fait
+    pwd: pwd,                                       //fait
+    cat: cat,                                       //fait
+    su: (args) => su(args),                         //fait
+    ls: (args) => ls(args),                         //fait
+    cd: (args) => cd(args),                         //fait
+    timedatctl: timedatctl,                         //
+    clear: clear,                                   //fait
+    exit: exit,                                     //fait
+    sl: sl,                                         //fait
+    ollama: (args) => console.log("OLLAMA", args),  //
+    echo: (args) => echo(args),                     //en cours
+    vim: vim,                                       //
+    mkdir: mkdir,                                   //
+    alsamixer : alsamixer,                          //
 };
 // variable
 let input = document.getElementById('inputid');
@@ -28,6 +30,7 @@ let session = { currentUser : 'user'};
 let located = '/home';
 let part;
 let CDAudio;
+let echoval = 0;
 
 // Gestion Document & initialisation de la page 
 document.getElementById('prefix').textContent = session.currentUser +'@' + located + "$"
@@ -36,7 +39,7 @@ document.addEventListener('keydown',function() {
     input.focus();
 });
     // Validation Enter
-document.addEventListener('keydown',function(enter){  // Validation Enter
+document.addEventListener('keydown',function(enter){  // Interaction entrée du terminal
     if (enter.key === "Enter") {
         enter.preventDefault();
         let command = input.innerText;
@@ -103,12 +106,10 @@ function cd(inputCommandpart) {
 
     if (!inputCommandpart) {
         return; // aucun chemin fourni 
-    }
-    if (!Filesystem[inputCommandpart]) {
+    } else if (!Filesystem[inputCommandpart]) {
         outputoutput("Chemin non connu");
         return;
-    }
-    if (Filesystem[inputCommandpart].type !== "dir") {
+    } else if (Filesystem[inputCommandpart].type !== "dir") {
         outputoutput("Ce n'est pas un dossier");
         return;
     }
@@ -119,16 +120,16 @@ function clear() {
     document.getElementById("outputid").innerHTML = "";
 }; 
 
-function su(inputCommandPart) {
+function su(inputCommandpart) {
     
-    if (Filesystem["/home"].children.includes(inputCommandPart[0])) {
+    if (Filesystem["/home"].children.includes(inputCommandpart[0])) {
         console.log('vert');
-        if (inputCommandPart[0]!== 'root') {
-            session.currentUser = inputCommandPart[0]; // cas ou l'utilisateur existe et n'est pas root
+        if (inputCommandpart[0]!== 'root') {
+            session.currentUser = inputCommandpart[0]; // cas ou l'utilisateur existe et n'est pas root
         } else { //cas ou l'utilisateur existe et est root
             outputoutput('Root non autorisé');
         } 
-    } else if (inputCommandPart[0] === undefined) {
+    } else if (inputCommandpart[0] === undefined) {
         outputoutput('veuillez spécifier un utilisateur');
     } else {
         outputoutput('Utilisateur introuvable')
@@ -148,6 +149,46 @@ function timedatctl(inputCommandpart) {};
 
 function ollama(inputCommandpart) {};
 
+function echo (inputCommandpart) {
+    if (inputCommandpart.length === 0) {
+        outputoutput("Veillez spécifier 1 ou 2 champs");
+    } else if (inputCommandpart.indexOf('>>') !== -1 ){ // dans le cas ou il y a "echo bleu >> /home/file" 
+        echoval = 1;       
+    } else if (inputCommandpart.indexOf('>') !== -1 ) { // dans le cas ou il y a "echo bleu > /home/file"
+        echoval = 2; 
+    } else { // dans le cas ou c'est "echo bleu"
+        inputCommandpart = inputCommandpart.join(' ') //reassemble
+        outputoutput(inputCommandpart);
+    };
+    if (echoval != 0){ //si c'est un echo avec plusieur argument
+        //etape chemin valide 
+        let valeurEcho = inputCommandpart.at(-1)
+        console.log(inputCommandpart.length)
+        if (!Filesystem[valeurEcho] && inputCommandpart.length != 1 ) { //length pour eviter de trigger la condition au echo de "echo /home"
+            outputoutput("Chemin invalide");
+        } else if (Filesystem[valeurEcho].type !== NODE_TYPE.FILE) {
+            outputoutput("Ce n'est pas un fichier");
+        } else if (Filesystem[valeurEcho].autorised !== PERMISSION.READ_WRITE) {
+            outputoutput("Permission refusée");
+        } else {
+            if (!valeurEcho.startsWith("/Portefolio/data")) { //si le champs destination est un chemin
+                if (echoval === 1) {
+                    Filesystem[valeurEcho].content += '\n' + valeurEcho; 
+                } else if (echoval === 2) {
+                    Filesystem[valeurEcho].content = valeurEcho;
+}}}}};
+
+
+// tester 
+// gerer si .content est distant
+
+
+function vim (inputCommandpart) {};
+
+function mkdir(inputCommandpart) {};
+
+function alsamixer(inputCommandpart) {};
+
 ////////////////////
 //fonction systeme//
 ////////////////////
@@ -162,11 +203,11 @@ function outputinput(inputCommand) { // retourne le prefix commandes [user]@[loc
     output.appendChild(newLine);
 };
 function readline(inputCommand) {
-    console.log(inputCommand);
     // sortie de l'entrée uilisateur dans la console
     outputinput(inputCommand)
     // traitement de la commande
-    let commandSplit = inputCommand.split(/\s+/).filter(p => p !== '');
+    //let commandSplit = inputCommand.split(/\s+/).filter(p => p !== ''); // verifier que la ligne suivante ne casse pas
+    let commandSplit = (inputCommand.match(/(".*?"|[^\s]+)/g) || []).map(arg => arg.replace(/^"|"$/g, ''));
     // split en fonction du &&
     const split = '&&';
     let  lenCommandSplit = commandSplit.filter(p => p === split).length; //compte le nombre de && inclue dans la commande
@@ -195,7 +236,7 @@ function doLine(inputCommandpart) { // retourne sur la fonction de la commande a
         // console.log('inputCommandpart[0]: ' + inputCommandpart[0]) 
     let cmdName = inputCommandpart[0];
 
-    if (tabCommand.includes(cmdName)) {
+    if (commands[cmdName]) {
         commands[cmdName](inputCommandpart.slice(1));
     } else {
         if (cmdName !== undefined){
@@ -216,7 +257,7 @@ function outputoutput(inputoutput) { // retourne sous forme de texte dans le ter
     output.appendChild(newLine)
     console.log(inputoutput);
 };
-function chemin(inputCommandpart){ //resous le chemin de l'utilisateur quand il a (ex: ls, cd)
+function chemin(inputCommandpart){ //resous le chemin de l'utilisateur quand il a (ex: ls, cd, echo)
     //located chemin actuel input command part chemin a tester
     part = located.split("/").filter(Boolean); //recupere le chemin dans un tableau et filtre les valeur null (ex : /home/user => ["home", "user"])
     if (!inputCommandpart || inputCommandpart.length === 0) {
@@ -237,7 +278,7 @@ function chemin(inputCommandpart){ //resous le chemin de l'utilisateur quand il 
     };
 };
 function getdatafromfile(path) {
-    if (Filesystem[path].autorised === 1) {
+    if (Filesystem[path].autorised === PERMISSION.READ_WRITE || Filesystem[path].autorised === PERMISSION.READ_ONLY) {
         fetch(Filesystem[path].content)
             .then(response => response.text())
             .then(data => {
