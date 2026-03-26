@@ -18,12 +18,17 @@ export const Filesystem = {
     },
     '/bin': {
         type: NODE_TYPE.DIR,
-        children: ['help', 'man','pwd', 'cat', 'su', 'ls', 'cd', 'timedatctl', 'ollama', 'exit'],
+        children: ['adduser','help', 'man','pwd', 'cat', 'su', 'ls', 'cd', 'timedatctl', 'ollama', 'exit'],
         autorised: PERMISSION.READ_ONLY
+    },
+    '/bin/adduser': {
+        type: NODE_TYPE.FILE,
+        content: ['data/racine/bin/adduser'],
+        autorised: PERMISSION.READ_WRITE
     },
     '/bin/help': {
         type: NODE_TYPE.FILE,
-        content: ['/Portefolio/data/racine/bin/help'],
+        content: ['data/racine/bin/help'],
         autorised: PERMISSION.READ_WRITE
     },
     '/bin/man': {
@@ -374,7 +379,7 @@ export const Filesystem = {
     },
     '/home': {
         type: NODE_TYPE.DIR,
-        children: ['user','root'],
+        children: ['user','root','bleu'],
         autorised: PERMISSION.READ_ONLY
     },
     '/home/user': {

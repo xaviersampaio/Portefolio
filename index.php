@@ -5,9 +5,22 @@
         <meta name="Sampaio Xavier"/>
         <link href="./styles/output.css" rel="stylesheet">
         <link href="./styles/styles.css" rel="stylesheet"> 
+        <script src="https://cdn.tailwindcss.com"></script>
+
         <title>Portefolio Sampaio Xavier</title>
     </head>
-
+    <?php
+    $errorMsg = null;
+    if (isset($_GET['error'])) {
+        $errors = [
+            'user_exists'    => 'Erreur : nom d\'utilisateur déjà pris',
+            'nom'      => 'Nom invalide : lettres, chiffres et tirets uniquement',
+            'password_match' => 'Erreur : mots de passe différents',
+            'password_weak'  => 'Erreur : min 8 caractères, 1 majuscule, 1 minuscule, 1 chiffre, 1 caractère spécial'
+        ];
+        $errorMsg = $errors[$_GET['error']] ?? 'Erreur inconnue';
+    }
+    ?>
     <body class="bg-gray-900 ">
         <div class=" right-0 left-0 grid  grid-rows-1 gap-0 grid-cols-[1fr_auto] bg-zinc-800">
                 <div id="chemin-hero" class=" text-center text-white font-bold  right-0 left-0">
@@ -27,10 +40,12 @@
                 <span contenteditable="true" id="inputid" class="text-green-300 inline-block min-w-[1ch] whitespace-nowrap"  ></span>
                 <p class="text-green-300 blink p">_</p>
                 <button type="submit" id="submitBtn" class="opacity-0"></button>
+                <br>
+                <div class="text-white"> <!-- form adduser-->
+                </div>
             </div>
         </div>
         
-        <!-- <script src="https://cdn.tailwindcss.com"></script> -->
         <script type= module src="./script/script.js"></script>
 
     </body>
