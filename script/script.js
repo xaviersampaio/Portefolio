@@ -1,8 +1,12 @@
 import { PERMISSION } from './filesystem.js';
 import { NODE_TYPE } from './filesystem.js';
 import { Filesystem } from './filesystem.js';
-//import du systeme
+// erreur de adduser
 
+window.addEventListener('load', () => {
+        outputoutput("<?= $errorMsg ?>");
+    });
+//import du systeme
 
 const commands = {
     help: help,                                     //fait
@@ -12,16 +16,25 @@ const commands = {
     ls: (args) => ls(args),                         //fait
     cd: (args) => cd(args),                         //fait
     timedatctl: timedatctl,                         //
+    adduser: adduser,                               //en cours
     clear: clear,                                   //fait
     exit: exit,                                     //fait
     sl: sl,                                         //fait
-    ollama: (args) => console.log("OLLAMA", args),  //
-    echo: (args) => echo(args),                     //en cours
+    ollama: (args) => console.log("ollama", args),  //
+    echo: (args) => echo(args),                     //
     vim: vim,                                       //
     mkdir: mkdir,                                   //
     alsamixer : alsamixer,                          //
 };
+
+const focusCurser = {
+    onTerm: 0,
+    onVim: 1,
+    onOllama: 2,
+    onUser: 3,
+}
 // variable
+let  focusActuel = focusCurser.onTerm;
 let input = document.getElementById('inputid');
 let submit = document.getElementById('submitBtn');
 let historique = [];
@@ -31,48 +44,56 @@ let located = '/home';
 let part;
 let CDAudio;
 let echoval = 0;
+let cptform = 0
 
 // Gestion Document & initialisation de la page 
 document.getElementById('prefix').textContent = session.currentUser +'@' + located + "$"
-    // Envoyer le courseur de l'utilisateur dans le input
-document.addEventListener('keydown',function() {
-    input.focus();
-});
+
     // Validation Enter
 document.addEventListener('keydown',function(enter){  // Interaction entrée du terminal
-    if (enter.key === "Enter") {
-        enter.preventDefault();
-        let command = input.innerText;
-        let inputCommand = readline(command);
-        submit.click();
-        document.getElementById('inputid').textContent = '';
-        window.scrollTo(0, document.body.scrollHeight);
-        historique.push(command);
-        historiqueIndex = -1; // reset l'index 
-    }
-    else if ( enter.key === "ArrowUp") { //historique remonter
-        if (historiqueIndex < historique.length - 1) {
-            historiqueIndex++;
-        }
-        document.getElementById('inputid').textContent = historique[historique.length - 1 - historiqueIndex];
-    }
-    else if (enter.key === 'ArrowDown') { //historique redescend
-        if (historiqueIndex > -1) {
-            historiqueIndex--;
-        }
-        if (historiqueIndex === -1) { 
+    if (focusActuel === focusCurser.onTerm) { // quand il n'y a rien d'ouvert focus au termial
+        // Envoyer le courseur de l'utilisateur dans le input
+        input.focus();
+        if (enter.key === "Enter") {
+            enter.preventDefault();
+            let command = input.innerText;
+            let inputCommand = readline(command);
+            submit.click();
             document.getElementById('inputid').textContent = '';
-        } else {
+            window.scrollTo(0, document.body.scrollHeight);
+            historique.push(command);
+            historiqueIndex = -1; // reset l'index 
+        }
+        else if ( enter.key === "ArrowUp") { //historique remonter
+            if (historiqueIndex < historique.length - 1) {
+                historiqueIndex++;
+            }
             document.getElementById('inputid').textContent = historique[historique.length - 1 - historiqueIndex];
         }
+        else if (enter.key === 'ArrowDown') { //historique redescend
+            if (historiqueIndex > -1) {
+                historiqueIndex--;
+            }
+            if (historiqueIndex === -1) { 
+                document.getElementById('inputid').textContent = '';
+            } else {
+                document.getElementById('inputid').textContent = historique[historique.length - 1 - historiqueIndex];
+            }
+        }
+    } else if (focusActuel === focusCurser.onUser) { //quand l'utilisateur cree un compte
+        if (enter.key === "Enter") { //quand l'utilisateur lance la creation de compte et valide
+
+    } else if (enter.key ==="Escape") { //quand l'utilisateur annule la creation
+        input.focus();
+        focusActuel = focusCurser.onTerm;
     }
-});
+}});
 
 /////////////////////
 //fonction Commande//
 /////////////////////
 function help(args) { 
-    getdatafromfile('/bin/help');
+    getdatafromfile('/bin/help', 'non-raw');
 };
 function pwd(inputCommandpart) {
     outputoutput(located);
@@ -84,7 +105,7 @@ function cat(inputCommandpart) {
             console.log("bleu")
             playCd();
         }
-        getdatafromfile(inputCommandpart)
+        getdatafromfile(inputCommandpart, 'non-raw')
     };
     
 };
@@ -142,10 +163,24 @@ function exit(){
     alert("Connexion fermée. Vous pouvez fermer cet onglet.");
 };
 function sl(){
-    getdatafromfile('/bin/sl');
+    getdatafromfile('/bin/sl', 'non-raw');
 };
 
 function timedatctl(inputCommandpart) {};
+
+function adduser() {
+    cptform ++;
+    if (cptform > 2) {
+        outputoutput('Veuillez recharger la  connexion (exit)', 'non-raw');
+        return;
+    } else {
+        focusActuel = focusCurser.onUser;
+        getdatafromfile('/bin/adduser', 'raw');
+        const formUsr = document.createElement('form');
+        formUsr.submit();
+    };
+};
+
 
 function ollama(inputCommandpart) {};
 
@@ -249,7 +284,7 @@ function doLine(inputCommandpart) { // retourne sur la fonction de la commande a
         };
     };
 };
-function outputoutput(inputoutput) { // retourne sous forme de texte dans le terminal le inputoutput
+function outputoutputraw(inputoutput) { // retourne sous forme de texte dans le terminal le inputoutput
     let output = document.getElementById('outputid');
     let newLine = document.createElement('div');
     newLine.innerHTML = inputoutput.replace(/\n/g, '<br>');
@@ -257,6 +292,14 @@ function outputoutput(inputoutput) { // retourne sous forme de texte dans le ter
     output.appendChild(newLine)
     console.log(inputoutput);
 };
+function outputoutput(inputoutput) {
+    let output = document.getElementById('outputid');
+    let newLine = document.createElement('div');
+    newLine.textContent = inputoutput; 
+    newLine.style.whiteSpace = 'pre-wrap';
+    output.appendChild(newLine);
+    console.log(inputoutput);
+}
 function chemin(inputCommandpart){ //resous le chemin de l'utilisateur quand il a (ex: ls, cd, echo)
     //located chemin actuel input command part chemin a tester
     part = located.split("/").filter(Boolean); //recupere le chemin dans un tableau et filtre les valeur null (ex : /home/user => ["home", "user"])
@@ -277,21 +320,30 @@ function chemin(inputCommandpart){ //resous le chemin de l'utilisateur quand il 
         return path.replace(/\/+/g, "/");
     };
 };
-function getdatafromfile(path) {
+function getdatafromfile(path, param) {
     if (Filesystem[path].autorised === PERMISSION.READ_WRITE || Filesystem[path].autorised === PERMISSION.READ_ONLY) {
-        fetch(Filesystem[path].content)
+        if (param === 'non-raw') {
+            fetch(Filesystem[path].content)
             .then(response => response.text())
             .then(data => {
                 const lignes = data.split('\n');
                 lignes.forEach(ligne => {
                     outputoutput(ligne);
                 });
-            }
-        );
+        })} else if (param === 'raw') {
+            fetch(Filesystem[path].content)
+            .then(response => response.text())
+            .then(data => {
+                const lignes = data.split('\n');
+                lignes.forEach(ligne => {
+                    outputoutputraw(ligne);
+                });
+        })}
     }else {
         outputoutput("Accès non Autorisé")
     }
 };
+
 function playCd() {
     if (!CDAudio) {
         CDAudio = new Audio('./data/racine/dev/CD.mp4');
