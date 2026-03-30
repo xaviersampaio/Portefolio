@@ -1,3 +1,8 @@
+// Copyright (C) 2026 Sampaio Xavier
+// This program is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License.
+
 export const PERMISSION = { // gestion des permissions plus lisible
 	NONE: 0,
 	READ_ONLY: 1,
