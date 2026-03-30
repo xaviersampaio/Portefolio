@@ -1,6 +1,6 @@
 <form action='' method='post'> 
     Ajout d'un utilisateur
-        Nom : <input type='text' id='name' name='user_name' placeholder='Nom'  style='background:transparent; border:none; border-bottom: 1px solid white; color:white; outline:none;' required />
+        Nom : <input type='text' id='name' name='user_name' placeholder='Nom'  style='background:transparent; border:none; border-bottom: 1px solid white; color:white; outline:none;'  />
         Ecrire le mot de passe: <input type='password' id='passwd1' name='Mot de passe' placeholder='••••••••' style='background:transparent; border:none; border-bottom: 1px solid white; color:white; outline:none;' required />
         Reécrire le mot de passe: <input type='password' id='passwd2' name='Mot de passe' placeholder='••••••••' style='background:transparent; border:none; border-bottom: 1px solid white; color:white; outline:none;' required />
     Entrer les information suivante (optionnel):
@@ -9,8 +9,7 @@
         Numero de travail: <input type='tel' placeholder='01 23 45 67 89' style='background:transparent; border:none; border-bottom: 1px solid white; color:white; outline:none;'/>
         Numero Perso: <input type='tel' placeholder='06 78 90 12 34' style='background:transparent; border:none; border-bottom: 1px solid white; color:white; outline:none;'/>
         Autre: <input type='tel' placeholder='...' style='background:transparent; border:none; border-bottom: 1px solid white; color:white; outline:none;'/>
-        <input type='submit' name='Valider' class='bg-red-600 border-solid rounded-full'>
 </form>
 <!-- Le champs tel n'est pas traité -->
 Esc pour Annuler 
-Entrer pour valider (Recharge le navigateur)
+Entrer pour valider
