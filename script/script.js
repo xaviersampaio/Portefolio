@@ -5,7 +5,7 @@ import { Filesystem } from './filesystem.js';
 //import du systeme
 
 
-// variable / contante
+//  Commande Systeme 
 const commands = {
     help: help,                                     //fait
     pwd: pwd,                                       //fait
@@ -13,27 +13,51 @@ const commands = {
     su: (args) => su(args),                         //fait
     ls: (args) => ls(args),                         //fait
     cd: (args) => cd(args),                         //fait
-    timedatctl: timedatctl,                         //
-    adduser: (args) => adduser(args,''),            //en cours
+    timedatctl: timedatctl,                         // 1
+    adduser: (args) => adduser(args,''),            //fait
     clear: clear,                                   //fait
     exit: exit,                                     //fait
     sl: sl,                                         //fait
     echo: (args) => echo(args),                     //fait
-    vim: vim,                                       //
-    mkdir: mkdir,                                   //
-    alsamixer : alsamixer,                          //
+    vim: vim,                                       // 2
+    mkdir: mkdir,                                   // 1
+    alsamixer: alsamixer,                           // 2
+    whoami: whoami,                                 //fait
+    login: (args) => sulogin(args, 'login'),        //fait
+    su: (args) => sulogin(args, 'su'),              //fait
+    uname: (args) => uname(args),                   // 1
+    man: (args) => uname(args),                     // 1
+    ollama: ollama,                                 // 3
+
 };
+// Constantes UI 
+const input = document.getElementById('inputid');
+const submit = document.getElementById('submitBtn');
+
+// État du focus 
 const focusCurser = {
     onTerm: 0,
     onVim: 1,
-    onUser: 2
+    onUserConnect: 2,
+    onUserCreate: 3,
 };
-let  focusActuel = focusCurser.onTerm;
-let input = document.getElementById('inputid');
-let submit = document.getElementById('submitBtn');
+let focusActuel = focusCurser.onTerm;
+
+// État du système 
+let located = '/home';
+let part;
+let typeActuel;
+let echoval = 0;
+
+// Session / Auth
+let session = { currentUser: 'user' };
+let connectusrid = '';
+
+// Historique 
 let historique = [];
 let historiqueIndex = -1;
-let session = { currentUser : 'user'};
+
+// Utilisateurs
 let userlist = {
     1: {
         nom: 'user',
@@ -45,11 +69,10 @@ let userlist = {
         Permission: PERMISSION.NONE
     }
 };
-let cptuserlist = Object.keys(userlist).length + 1; // 3 au depart
-let located = '/home';
-let part;
+let cptuserlist = Object.keys(userlist).length + 1;
+
+// Audio
 let CDAudio;
-let echoval = 0;
 
 // Gestion Document & initialisation de la page 
 document.getElementById('prefix').textContent = session.currentUser +'@' + located + "$"
@@ -85,7 +108,7 @@ document.addEventListener('keydown',function(enter){  // Interaction entrée du 
                 document.getElementById('inputid').textContent = historique[historique.length - 1 - historiqueIndex];
             }
         }
-    } else if (focusActuel === focusCurser.onUser) {
+    } else if (focusActuel === focusCurser.onUserCreate) {
     if (enter.key === "Enter") {
         const passwd1 = document.getElementById('passwd1').value;
         const passwd2 = document.getElementById('passwd2').value;
@@ -109,7 +132,25 @@ document.addEventListener('keydown',function(enter){  // Interaction entrée du 
         session.pendingUsername = null;
         focus(focusCurser.onTerm);
         }
-}})
+    } else if (focusActuel === focusCurser.onUserConnect) {
+        if (enter.key === "Enter") {  // ← manquant !
+        const passwdconnect = document.getElementById('passwd');
+        const userFound = Object.values(userlist).find(
+            u => u.nom === connectusrid && u.passwd === passwdconnect.value
+        );
+        if (userFound) {
+            session.currentUser = connectusrid;
+            outputoutput("Connecté en tant que " + connectusrid);
+        } else {
+            outputoutput("Mot de passe incorrect");
+        }
+        connectusrid = '';
+        focus(focusCurser.onTerm);
+    } else if (enter.key === "Escape") {
+        connectusrid = '';
+        focus(focusCurser.onTerm);
+    }
+}});
 
 /////////////////////
 //fonction Commande//
@@ -182,9 +223,9 @@ function exit(){
 function sl(){
     getdatafromfile('/bin/sl', 'non-raw');
 };
+function timedatctl(inputCommandpart) {
 
-function timedatctl(inputCommandpart) {};
-
+};
 function adduser(inputCommandpart, paramuservalid) {
     if (inputCommandpart.length !== 1) {
         outputoutput("veillez mettre un nom d'utilisateur");
@@ -198,11 +239,9 @@ function adduser(inputCommandpart, paramuservalid) {
 
     // On stocke le username en attente et on affiche le form
     session.pendingUsername = username;
-    focus(focusCurser.onUser);
+    focus(focusCurser.onUserCreate);
     getdatafromfile("/bin/adduser", "raw"); // sort le form
 }
-
-
 function echo (inputCommandpart) {
     if (inputCommandpart.length === 0) {
         outputoutput("Veillez spécifier 1 ou 2 champs");
@@ -232,16 +271,36 @@ function echo (inputCommandpart) {
                     Filesystem[valeurEcho].content = valeurEcho;
 }}}}};
 
-
 // tester 
 // gerer si .content est distant
-
 
 function vim (inputCommandpart) {};
 
 function mkdir(inputCommandpart) {};
 
 function alsamixer(inputCommandpart) {};
+
+function whoami() {
+    outputoutput(session.currentUser)
+};
+
+function sulogin(inputCommandpart, type) {
+    typeActuel = type;
+    if (!inputCommandpart[0]) {
+        outputoutput('pour utiliser cette commande faire'+ typeActuel +' [nom d\'utilisateur]');
+    } else {
+        connectusrid = inputCommandpart[0]
+        outputoutputraw("Inserer le mot de passe : <input type='password' id='passwd' name='Mot de passe' placeholder='••••••••' style='background:transparent; border:none; border-bottom: 1px solid white; color:white; outline:none;' required />")
+        focus(focusCurser.onUserConnect);
+    }
+};
+function uname() {};
+
+function man(inputCommandpart) {// portefolio a dcerouler partie principale du projet
+};
+function ollama(ollama) {
+
+};
 
 ////////////////////
 //fonction systeme//
@@ -372,12 +431,12 @@ function playCd() {
 }
 
 function focus(inputCommandpart) {
-    focusActuel = inputCommandpart
-    if (inputCommandpart != focusCurser.onTerm) {
-        input.blur()
-        console.log('violet')
-    } else {
-        console.log('vert')
-        input.focus()
+    focusActuel = inputCommandpart;
+    input.blur();  
+
+    if (inputCommandpart === focusCurser.onTerm) {
+        input.focus();
+    } else if (inputCommandpart === focusCurser.onUserConnect) {
+        document.getElementById('passwd')?.focus();
     }
 }
