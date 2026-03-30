@@ -1,13 +1,11 @@
 import { PERMISSION } from './filesystem.js';
 import { NODE_TYPE } from './filesystem.js';
 import { Filesystem } from './filesystem.js';
-// erreur de adduser
 
-window.addEventListener('load', () => {
-        outputoutput("<?= $errorMsg ?>");
-    });
 //import du systeme
 
+
+// variable / contante
 const commands = {
     help: help,                                     //fait
     pwd: pwd,                                       //fait
@@ -16,35 +14,42 @@ const commands = {
     ls: (args) => ls(args),                         //fait
     cd: (args) => cd(args),                         //fait
     timedatctl: timedatctl,                         //
-    adduser: adduser,                               //en cours
+    adduser: (args) => adduser(args,''),            //en cours
     clear: clear,                                   //fait
     exit: exit,                                     //fait
     sl: sl,                                         //fait
-    ollama: (args) => console.log("ollama", args),  //
-    echo: (args) => echo(args),                     //
+    echo: (args) => echo(args),                     //fait
     vim: vim,                                       //
     mkdir: mkdir,                                   //
     alsamixer : alsamixer,                          //
 };
-
 const focusCurser = {
     onTerm: 0,
     onVim: 1,
-    onOllama: 2,
-    onUser: 3,
-}
-// variable
+    onUser: 2
+};
 let  focusActuel = focusCurser.onTerm;
 let input = document.getElementById('inputid');
 let submit = document.getElementById('submitBtn');
 let historique = [];
 let historiqueIndex = -1;
 let session = { currentUser : 'user'};
+let userlist = {
+    1: {
+        nom: 'user',
+        Permission: PERMISSION.USER_ACCESS,
+        passwd: ''
+    },
+    2: {
+        nom: 'root',
+        Permission: PERMISSION.NONE
+    }
+};
+let cptuserlist = Object.keys(userlist).length + 1; // 3 au depart
 let located = '/home';
 let part;
 let CDAudio;
 let echoval = 0;
-let cptform = 0
 
 // Gestion Document & initialisation de la page 
 document.getElementById('prefix').textContent = session.currentUser +'@' + located + "$"
@@ -80,14 +85,31 @@ document.addEventListener('keydown',function(enter){  // Interaction entrée du 
                 document.getElementById('inputid').textContent = historique[historique.length - 1 - historiqueIndex];
             }
         }
-    } else if (focusActuel === focusCurser.onUser) { //quand l'utilisateur cree un compte
-        if (enter.key === "Enter") { //quand l'utilisateur lance la creation de compte et valide
+    } else if (focusActuel === focusCurser.onUser) {
+    if (enter.key === "Enter") {
+        const passwd1 = document.getElementById('passwd1').value;
+        const passwd2 = document.getElementById('passwd2').value;
 
-    } else if (enter.key ==="Escape") { //quand l'utilisateur annule la creation
-        input.focus();
-        focusActuel = focusCurser.onTerm;
-    }
-}});
+        if (passwd1 !== passwd2) {
+            outputoutput("Les mots de passe sont différents");
+            return;
+        }
+        userlist[cptuserlist] = {
+            nom: session.pendingUsername,
+            Permission: PERMISSION.USER_ACCESS,
+            passwd: passwd1
+        };
+        cptuserlist++;
+        session.pendingUsername = null;
+
+        outputoutput("Utilisateur créé avec succès");
+        focus(focusCurser.onTerm);
+
+    } else if (enter.key === "Escape") {
+        session.pendingUsername = null;
+        focus(focusCurser.onTerm);
+        }
+}})
 
 /////////////////////
 //fonction Commande//
@@ -120,8 +142,7 @@ function ls(inputCommandpart) {
             outputoutput(Filesystem[inputCommandpart].children[i]);
         };
     };
-};
-    
+};  
 function cd(inputCommandpart) {
     inputCommandpart = chemin(inputCommandpart); // résout le chemin
 
@@ -136,11 +157,9 @@ function cd(inputCommandpart) {
     }
     located = inputCommandpart;
 }
-
 function clear() { 
     document.getElementById("outputid").innerHTML = "";
 }; 
-
 function su(inputCommandpart) {
     
     if (Filesystem["/home"].children.includes(inputCommandpart[0])) {
@@ -156,10 +175,8 @@ function su(inputCommandpart) {
         outputoutput('Utilisateur introuvable')
     };
 };
-
 function exit(){
     clear();
-    let newLine = document.createElement('div');
     alert("Connexion fermée. Vous pouvez fermer cet onglet.");
 };
 function sl(){
@@ -168,21 +185,23 @@ function sl(){
 
 function timedatctl(inputCommandpart) {};
 
-function adduser() {
-    cptform ++;
-    if (cptform > 2) {
-        outputoutput('Veuillez recharger la  connexion (exit)', 'non-raw');
+function adduser(inputCommandpart, paramuservalid) {
+    if (inputCommandpart.length !== 1) {
+        outputoutput("veillez mettre un nom d'utilisateur");
         return;
-    } else {
-        focusActuel = focusCurser.onUser;
-        getdatafromfile('/bin/adduser', 'raw');
-        const formUsr = document.createElement('form');
-        formUsr.submit();
-    };
-};
+    }
+    const username = inputCommandpart[0];
+    if (!/^[a-zA-Z0-9]+$/.test(username)) {
+        outputoutput("caracteres alphanumeriques uniquement");
+        return;
+    }
 
+    // On stocke le username en attente et on affiche le form
+    session.pendingUsername = username;
+    focus(focusCurser.onUser);
+    getdatafromfile("/bin/adduser", "raw"); // sort le form
+}
 
-function ollama(inputCommandpart) {};
 
 function echo (inputCommandpart) {
     if (inputCommandpart.length === 0) {
@@ -228,9 +247,9 @@ function alsamixer(inputCommandpart) {};
 //fonction systeme//
 ////////////////////
 function outputinput(inputCommand) { // retourne le prefix commandes [user]@[location]$[command]
-    let output = document.getElementById('outputid');
-    let newLine = document.createElement('div');
-    let prefixecomm = session.currentUser+'@' + located + "$"
+    const output = document.getElementById('outputid');
+    const newLine = document.createElement('div');
+    const prefixecomm = session.currentUser+'@' + located + "$"
     document.getElementById('prefix').textContent = prefixecomm
     document.getElementById('chemin-hero').innerHTML ="Terminal Sampaio-OS : " + prefixecomm
     newLine.className = 'text-green-300';
@@ -242,18 +261,18 @@ function readline(inputCommand) {
     outputinput(inputCommand)
     // traitement de la commande
     //let commandSplit = inputCommand.split(/\s+/).filter(p => p !== ''); // verifier que la ligne suivante ne casse pas
-    let commandSplit = (inputCommand.match(/(".*?"|[^\s]+)/g) || []).map(arg => arg.replace(/^"|"$/g, ''));
+    const commandSplit = (inputCommand.match(/(".*?"|[^\s]+)/g) || []).map(arg => arg.replace(/^"|"$/g, ''));
     // split en fonction du &&
     const split = '&&';
-    let  lenCommandSplit = commandSplit.filter(p => p === split).length; //compte le nombre de && inclue dans la commande
+    const  lenCommandSplit = commandSplit.filter(p => p === split).length; //compte le nombre de && inclue dans la commande
     // console.log("lenCommandSplit : " + lenCommandSplit)
     // console.log("commandSplit : " + commandSplit)
 
     if (lenCommandSplit === 0) {
         // Aucun '&&' 
-        let part1 = commandSplit;
+        const part1 = commandSplit;
         
-        let part2 = null;
+        const part2 = null;
         doLine(part1);    //faire traitement dans la nouvelle fonction x1
         
     } else if (lenCommandSplit === 1) {
@@ -269,7 +288,7 @@ function readline(inputCommand) {
 };
 function doLine(inputCommandpart) { // retourne sur la fonction de la commande associé
         // console.log('inputCommandpart[0]: ' + inputCommandpart[0]) 
-    let cmdName = inputCommandpart[0];
+    const cmdName = inputCommandpart[0];
 
     if (commands[cmdName]) {
         commands[cmdName](inputCommandpart.slice(1));
@@ -285,16 +304,16 @@ function doLine(inputCommandpart) { // retourne sur la fonction de la commande a
     };
 };
 function outputoutputraw(inputoutput) { // retourne sous forme de texte dans le terminal le inputoutput
-    let output = document.getElementById('outputid');
-    let newLine = document.createElement('div');
+    const output = document.getElementById('outputid');
+    const newLine = document.createElement('div');
     newLine.innerHTML = inputoutput.replace(/\n/g, '<br>');
-     newLine.style.whiteSpace = 'pre-wrap';
+    newLine.style.whiteSpace = 'pre-wrap';
     output.appendChild(newLine)
     console.log(inputoutput);
 };
 function outputoutput(inputoutput) {
-    let output = document.getElementById('outputid');
-    let newLine = document.createElement('div');
+    const output = document.getElementById('outputid');
+    const newLine = document.createElement('div');
     newLine.textContent = inputoutput; 
     newLine.style.whiteSpace = 'pre-wrap';
     output.appendChild(newLine);
@@ -350,4 +369,15 @@ function playCd() {
         CDAudio.volume = 0.4;
     }
     CDAudio.play();
+}
+
+function focus(inputCommandpart) {
+    focusActuel = inputCommandpart
+    if (inputCommandpart != focusCurser.onTerm) {
+        input.blur()
+        console.log('violet')
+    } else {
+        console.log('vert')
+        input.focus()
+    }
 }
