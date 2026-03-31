@@ -18,11 +18,12 @@ Ce portfolio a été conçu pour :
 
 Il s’agit d’un point central pour les recruteurs, collaborateurs et toute personne souhaitant découvrir mon travail.
 
+ - liste de toutes les commandes actuelles ()
 ---
 
 ## ✨ Fonctionnalités existantes
 
-- [x] Commande de base linux (cd,ls,cat,su) - - (echo vim mkdir sont en cour)
+- [x] Commande de base linux (cd,ls,cat,su) - - (vim mkdir sont en cour)
 - [x] Arborescence de Fichier a retrouver dans /data/Arborescence.txt
 - [x] Design moderne et épuré
 - [x] Ajout d’un historique
