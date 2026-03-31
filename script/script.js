@@ -58,9 +58,10 @@ let echoval = 0;
 let session = { currentUser: 'user' };
 let connectusrid = '';
 
-// Historique 
+// Historique / Pagination
 let historique = [];
 let historiqueIndex = -1;
+const PAGER_LIMIT = 20; 
 
 // Utilisateurs
 let userlist = {
@@ -139,23 +140,31 @@ document.addEventListener('keydown',function(enter){  // Interaction entrée du 
         }
     } else if (focusActuel === focusCurser.onUserConnect) {
         if (enter.key === "Enter") {  // ← manquant !
-        const passwdconnect = document.getElementById('passwd');
-        const userFound = Object.values(userlist).find(
-            u => u.nom === connectusrid && u.passwd === passwdconnect.value
-        );
-        if (userFound) {
-            session.currentUser = connectusrid;
-            outputoutput("Connecté en tant que " + connectusrid);
-        } else {
-            outputoutput("Mot de passe incorrect");
-        }
-        connectusrid = '';
-        focus(focusCurser.onTerm);
+            const passwdconnect = document.getElementById('passwd');
+            const userFound = Object.values(userlist).find(
+                u => u.nom === connectusrid && u.passwd === passwdconnect.value
+            );
+            if (userFound) {
+                session.currentUser = connectusrid;
+                outputoutput("Connecté en tant que " + connectusrid);
+            } else {
+                outputoutput("Mot de passe incorrect");
+            }
+            connectusrid = '';
+            focus(focusCurser.onTerm);
     } else if (enter.key === "Escape") {
         connectusrid = '';
         focus(focusCurser.onTerm);
     }
-}});
+    }  else if (focusActuel === focusCurser.onPager) {
+        if (enter.key === "Enter" || enter.key === " ") {
+            pager(session.pager.lignes, session.pager.index);
+        } else if (enter.key === "q") {
+            session.pager = null;
+            focus(focusCurser.onTerm);
+        }
+    }
+});
 
 /////////////////////
 //fonction Commande//
@@ -302,7 +311,20 @@ function sulogin(inputCommandpart, type) {
 function uname() {};
 
 function man(inputCommandpart) {// portefolio a dcerouler partie principale du projet
+    if (!inputCommandpart[0] && inputCommandpart[1]) {
+        outputoutput('pour utiliser cette commande faire man [commande]');
+        
+    } else if (inputCommandpart[0] === 'sampaio') {
+        fetch(Filesystem['/bin/man.d/sampaio'].content)
+            .then(r => r.text())
+            .then(data => pager(data.split('\n')));
+    } else {
+        fetch(Filesystem['/bin/man'+ inputCommandpart[0]].content)
+        .then(r => r.text())
+        .then(data => pager(data.split('\n')));
+    }
 };
+
 function ollama(ollama) {
 
 };
@@ -410,22 +432,20 @@ function getdatafromfile(path, param) {
             .then(response => response.text())
             .then(data => {
                 const lignes = data.split('\n');
-                lignes.forEach(ligne => {
-                    outputoutput(ligne);
+                afficherLignes(lignes);
                 });
-        })} else if (param === 'raw') {
-            fetch(Filesystem[path].content)
-            .then(response => response.text())
-            .then(data => {
-                const lignes = data.split('\n');
-                lignes.forEach(ligne => {
-                    outputoutputraw(ligne);
-                });
-        })}
-    }else {
+        }} else {
         outputoutput("Accès non Autorisé")
     }
 };
+
+function afficherLignes(lignes) {
+    if (lignes.length <= PAGER_LIMIT) {
+        lignes.forEach(ligne => outputoutput(ligne));
+    } else {
+        pager(lignes);
+    }
+}
 
 function playCd() {
     if (!CDAudio) {
@@ -443,5 +463,26 @@ function focus(inputCommandpart) {
         input.focus();
     } else if (inputCommandpart === focusCurser.onUserConnect) {
         document.getElementById('passwd')?.focus();
+    }
+}
+
+function pager(lignes, index = 0, nbLignes = 25) {
+    const slice = lignes.slice(index, index + nbLignes);
+    slice.forEach(ligne => outputoutput(ligne));
+
+    if (index + nbLignes < lignes.length) {
+        // il reste des lignes
+        outputoutput("-- Plus -- (Entrée/Espace: continuer, q: quitter)");
+        session.pager = {
+            lignes: lignes,
+            index: index + nbLignes,
+            nbLignes: nbLignes
+        };
+        focus(focusCurser.onPager);
+    } else {
+        // plus rien à afficher → on nettoie et on rend le focus
+        outputoutput("-- Fin --");
+        session.pager = null;
+        focus(focusCurser.onTerm);
     }
 }
