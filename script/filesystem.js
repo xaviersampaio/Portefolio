@@ -3,11 +3,12 @@
 // it under the terms of the GNU General Public License as published by
 // the Free Software Foundation, either version 3 of the License.
 
-export const PERMISSION = { // gestion des permissions plus lisible
+export const PERMISSION = { // gestion des permissions plus lisible fait aussi les utilisateur
 	NONE: 0,
 	READ_ONLY: 1,
 	READ_WRITE: 2,
 	ROOT_ONLY: 3,
+    USER_ACCESS: 4
 };
 
 export const NODE_TYPE = { // gestion des types plus lisible
