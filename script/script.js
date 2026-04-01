@@ -30,8 +30,8 @@ const commands = {
     whoami: whoami,                                 //fait
     login: (args) => sulogin(args, 'login'),        //fait
     su: (args) => sulogin(args, 'su'),              //fait
-    uname: (args) => uname(args),                   // 1
-    man: (args) => uname(args),                     //a continuer (partie portefolio)
+    uname: (args) => uname(args),                   //fait
+    man: (args) => man(args),                     //a continuer (partie portefolio)
     ollama: ollama,                                 // 3
     neofetch: neofetch                              // fait
 };
@@ -334,8 +334,38 @@ function sulogin(inputCommandpart, type) {
         focus(focusCurser.onUserConnect);
     }
 };
-function uname() {};
+function uname(inputCommandpart) {
+    if (inputCommandpart.length === 0) {
+        outputoutput('X-oS');
+        return;
+    }
+    if (inputCommandpart.includes('-a')) {
+        outputoutput('X-oS 6.19.10-generic xsa.webserver x86_64');
+        return;
+    }
 
+    let rep = '';
+    for (let i = 0; i < inputCommandpart.length; i++) {
+        const opt = inputCommandpart[i];
+        if (opt === '-s'){
+            rep += 'X-oS ';
+        }
+        else if (opt === '-r') {
+            rep += '6.19.10-generic ';
+        } 
+        else if (opt === '-m'){
+            rep += 'x86_64 ';
+        }  
+        else if (opt === '-n'){
+            rep += 'xsa.webserver ';
+        }  
+        else {
+            outputoutput('Option : ' + opt + ' n\'est pas connue du système');
+            return;
+        }
+    }
+    outputoutput(rep.trim());
+}
 function man(inputCommandpart) {// portefolio a dcerouler partie principale du projet
     if (!inputCommandpart[0] && inputCommandpart[1]) {
         outputoutput('pour utiliser cette commande faire man [commande]');
