@@ -1,0 +1,39 @@
+LS(1)                         Manuel de l'utilisateur                        LS(1)
+
+NOM
+       ls - Lister le contenu d'un répertoire
+
+SYNOPSIS
+       ls [CHEMIN]
+
+DESCRIPTION
+       ls affiche le contenu du répertoire spécifié.
+       Si aucun chemin n'est fourni, affiche le contenu du répertoire courant.
+       Supporte les chemins absolus et relatifs.
+
+OPTIONS
+       CHEMIN
+              Le répertoire dont afficher le contenu.
+              Si omis, utilise le répertoire courant.
+
+UTILISATION
+       ls
+              Affiche le contenu du répertoire courant.
+
+       ls /home
+              Affiche le contenu du répertoire /home.
+
+       ls ..
+              Affiche le contenu du répertoire parent.
+
+CODES D'ERREUR
+       C'est un fichier pas un chemin
+              Le chemin spécifié pointe vers un fichier et non un répertoire.
+
+VOIR AUSSI
+       cd(1), pwd(1), mkdir(1)
+
+AUTEUR
+       Sampaio - X-oS 1.0
+
+X-oS 1.0                                                                      LS(1)

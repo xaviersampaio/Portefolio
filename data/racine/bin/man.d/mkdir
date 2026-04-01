@@ -1,0 +1,35 @@
+MKDIR(1)                      Manuel de l'utilisateur                     MKDIR(1)
+
+NOM
+       mkdir - Créer un répertoire
+
+SYNOPSIS
+       mkdir [NOM]
+
+DESCRIPTION
+       mkdir crée un nouveau répertoire dans le répertoire courant.
+       Le répertoire est créé avec les permissions par défaut USER_ACCESS.
+
+OPTIONS
+       NOM
+              Le nom du répertoire à créer.
+              Doit contenir uniquement des caractères alphanumériques.
+
+UTILISATION
+       mkdir projets
+              Crée le répertoire "projets" dans le répertoire courant.
+
+CODES D'ERREUR
+       Nom invalide
+              Le nom contient des caractères non autorisés.
+
+       Répertoire existant
+              Un répertoire avec ce nom existe déjà.
+
+VOIR AUSSI
+       cd(1), ls(1), pwd(1)
+
+AUTEUR
+       Sampaio - X-oS 1.0
+
+X-oS 1.0                                                                   MKDIR(1)

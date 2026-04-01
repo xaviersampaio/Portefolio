@@ -1,0 +1,28 @@
+HELP(1)                       Manuel de l'utilisateur                      HELP(1)
+
+NOM
+       help - Afficher la liste des commandes disponibles
+
+SYNOPSIS
+       help
+
+DESCRIPTION
+       help affiche le menu d'aide listant toutes les commandes disponibles
+       sur le système X-oS, organisées par catégorie.
+       Pour obtenir des informations détaillées sur une commande spécifique,
+       utilisez la commande man.
+
+UTILISATION
+       help
+              Affiche le menu d'aide complet.
+
+       man [commande]
+              Affiche le manuel détaillé d'une commande.
+
+VOIR AUSSI
+       man(1)
+
+AUTEUR
+       Sampaio - X-oS 1.0
+
+X-oS 1.0                                                                    HELP(1)

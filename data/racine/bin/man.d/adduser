@@ -1,0 +1,39 @@
+ADDUSER(8)                Manuel de l'administrateur système               ADDUSER(8)
+
+NOM
+       adduser - Ajouter un utilisateur au système
+
+SYNOPSIS
+       adduser [NOM_UTILISATEUR]
+
+DESCRIPTION
+       adduser permet de créer un nouvel utilisateur sur le système X-oS.
+       La commande demande un mot de passe après la saisie du nom d'utilisateur.
+       Le nouvel utilisateur est créé avec les permissions USER_ACCESS par défaut.
+
+OPTIONS
+       NOM_UTILISATEUR
+              Le nom du nouvel utilisateur à créer.
+              Doit contenir uniquement des caractères alphanumériques (a-z, A-Z, 0-9).
+              Les caractères spéciaux et espaces ne sont pas autorisés.
+
+UTILISATION
+       adduser john
+              Crée un nouvel utilisateur nommé "john".
+              Le système demande ensuite un mot de passe.
+
+
+PERMISSIONS
+       Cette commande ne nécessite pas les droits administrateur pour être exécutée.
+
+FICHIERS
+       /home/
+              Répertoire où les utilisateurs sont enregistrés.
+
+VOIR AUSSI
+       su(1), login(1), passwd(8), userdel(8)
+
+AUTEUR
+       Sampaio - X-oS 1.0
+
+X-oS 1.0                                                               ADDUSER(8)

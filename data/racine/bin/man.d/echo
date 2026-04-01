@@ -1,0 +1,54 @@
+ECHO(1)                       Manuel de l'utilisateur                      ECHO(1)
+
+NOM
+       echo - Afficher un texte dans le terminal
+
+SYNOPSIS
+       echo [TEXTE]
+       echo [TEXTE] > [FICHIER]
+       echo [TEXTE] >> [FICHIER]
+
+DESCRIPTION
+       echo affiche le texte spécifié dans le terminal.
+       Peut également écrire ou ajouter du contenu dans un fichier
+       si les opérateurs de redirection sont utilisés.
+
+OPTIONS
+       TEXTE
+              Le texte à afficher ou à écrire dans le fichier.
+
+       > FICHIER
+              Écrit le texte dans le fichier en écrasant son contenu existant.
+              Le fichier doit exister et avoir les permissions READ_WRITE.
+
+       >> FICHIER
+              Ajoute le texte à la fin du fichier sans écraser son contenu.
+              Le fichier doit exister et avoir les permissions READ_WRITE.
+
+UTILISATION
+       echo Bonjour
+              Affiche "Bonjour" dans le terminal.
+
+       echo Bonjour > /home/notes
+              Écrit "Bonjour" dans le fichier /home/notes.
+
+       echo Bonjour >> /home/notes
+              Ajoute "Bonjour" à la fin du fichier /home/notes.
+
+CODES D'ERREUR
+       Chemin invalide
+              Le fichier de destination n'existe pas.
+
+       Ce n'est pas un fichier
+              Le chemin de destination pointe vers un répertoire.
+
+       Permission refusée
+              Le fichier de destination n'a pas les permissions READ_WRITE.
+
+VOIR AUSSI
+       cat(1), vim(1)
+
+AUTEUR
+       Sampaio - X-oS 1.0
+
+X-oS 1.0                                                                    ECHO(1)

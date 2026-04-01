@@ -1,0 +1,42 @@
+SU(1)                         Manuel de l'utilisateur                        SU(1)
+
+NOM
+       su - Changer d'utilisateur
+
+SYNOPSIS
+       su [NOM_UTILISATEUR]
+
+DESCRIPTION
+       su permet de changer de session utilisateur sur le système X-oS.
+       Le mot de passe est demandé de manière sécurisée après la saisie
+       du nom d'utilisateur. Equivalent à la commande login.
+
+OPTIONS
+       NOM_UTILISATEUR
+              Le nom de l'utilisateur auquel se connecter.
+
+UTILISATION
+       su user
+              Demande le mot de passe et connecte en tant que "user".
+
+       su root
+              Connexion en tant que root non autorisée.
+
+CODES D'ERREUR
+       Veuillez spécifier un utilisateur
+              Aucun nom d'utilisateur fourni en argument.
+
+       Utilisateur introuvable
+              Le nom d'utilisateur spécifié n'existe pas sur le système.
+
+       Mot de passe incorrect
+              Le mot de passe saisi ne correspond pas à l'utilisateur.
+
+VOIR AUSSI
+       login(1), adduser(8), whoami(1)
+
+AUTEUR
+       Sampaio - X-oS 1.0
+
+X-oS 1.0                                                                      SU(1)
+X-oS 1.0                                                               ALSAMIXER(1)

@@ -1,0 +1,25 @@
+SL(1)                         Manuel de l'utilisateur                        SL(1)
+
+NOM
+       sl - Steam Locomotive
+
+SYNOPSIS
+       sl
+
+DESCRIPTION
+       sl est un easter egg classique des systèmes Unix/Linux.
+       A l'origine créé pour piéger les utilisateurs qui tapent "sl"
+       au lieu de "ls" par erreur.
+
+HISTORIQUE
+       La commande sl originale a été créée par Toyoda Masashi en 1993
+       à l'Université de Tokyo. Elle est depuis devenue un classique
+       incontournable de la culture Unix.
+
+VOIR AUSSI
+       ls(1)
+
+AUTEUR
+       Sampaio - X-oS 1.0
+
+X-oS 1.0                                                                      SL(1)

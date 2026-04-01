@@ -1,0 +1,29 @@
+ALSAMIXER(1)                  Manuel de l'utilisateur                  ALSAMIXER(1)
+
+NOM
+       alsamixer - Contrôleur de volume audio
+
+SYNOPSIS
+       alsamixer
+
+DESCRIPTION
+       alsamixer ouvre une interface interactive de contrôle du volume audio
+       du système X-oS. Permet de régler le volume de la sortie principale.
+
+UTILISATION
+       alsamixer
+              Ouvre l'interface de contrôle audio.
+
+       Touches disponibles dans l'interface :
+              Flèche Haut    Augmenter le volume
+              Flèche Bas     Diminuer le volume
+              m              Muet / Démuter
+              q / Echap      Quitter alsamixer
+
+VOIR AUSSI
+       cat(1), sl(1)
+
+AUTEUR
+       Sampaio - X-oS 1.0
+
+X-oS 1.0                                                               ALSAMIXER(1)

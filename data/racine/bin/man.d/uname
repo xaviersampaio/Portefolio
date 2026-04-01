@@ -1,0 +1,47 @@
+UNAME(1)                      Manuel de l'utilisateur                     UNAME(1)
+
+NOM
+       uname - Afficher les informations système
+
+SYNOPSIS
+       uname [OPTION]
+
+DESCRIPTION
+       uname affiche les informations du système X-oS.
+       Sans option, affiche uniquement le nom du système.
+
+OPTIONS
+       Sans option    Affiche le nom du système
+       -s             Nom du noyau (kernel name)
+       -r             Version du noyau (kernel release)
+       -m             Architecture matérielle
+       -n             Nom du noeud réseau (nodename)
+       -a             Affiche toutes les informations
+
+UTILISATION
+       uname
+              Affiche : X-oS
+
+       uname -a
+              Affiche : X-oS 6.19.10-generic xsa.webserver x86_64
+
+       uname -r
+              Affiche : 6.19.10-generic
+
+       uname -m
+              Affiche : x86_64
+
+       uname -s -r
+              Affiche : X-oS 6.19.10-generic
+
+CODES D'ERREUR
+       Option inconnue
+              L'option spécifiée n'est pas reconnue par le système.
+
+VOIR AUSSI
+       neofetch(1), timedatectl(1)
+
+AUTEUR
+       Sampaio - X-oS 1.0
+
+X-oS 1.0                                                                   UNAME(1)

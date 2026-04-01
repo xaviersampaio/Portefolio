@@ -1,0 +1,46 @@
+VIM(1)                        Manuel de l'utilisateur                       VIM(1)
+
+NOM
+       vim - Editeur de texte
+
+SYNOPSIS
+       vim [FICHIER]
+
+DESCRIPTION
+       vim est un éditeur de texte modal inspiré de Vi/Vim.
+       Ouvre le fichier spécifié dans une interface d'édition dédiée.
+       Le fichier doit exister et avoir les permissions READ_WRITE.
+
+MODES
+       Normal    Mode par défaut, navigation et commandes
+       Insertion Mode d'édition du texte (touche i)
+
+TOUCHES EN MODE NORMAL
+       i              Passer en mode insertion
+       Echap          Revenir en mode normal
+       :w             Sauvegarder le fichier
+       :q             Quitter vim
+       :wq            Sauvegarder et quitter
+
+TOUCHES EN MODE INSERTION
+       Echap          Revenir en mode normal
+       Toutes les autres touches écrivent dans le fichier
+
+UTILISATION
+       vim /home/notes
+              Ouvre le fichier /home/notes en édition.
+
+CODES D'ERREUR
+       Fichier introuvable
+              Le chemin spécifié n'existe pas.
+
+       Permission refusée
+              Le fichier n'a pas les permissions READ_WRITE.
+
+VOIR AUSSI
+       cat(1), echo(1)
+
+AUTEUR
+       Sampaio - X-oS 1.0
+
+X-oS 1.0                                                                     VIM(1)

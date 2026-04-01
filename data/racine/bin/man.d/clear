@@ -1,0 +1,25 @@
+CLEAR(1)                      Manuel de l'utilisateur                     CLEAR(1)
+
+NOM
+       clear - Effacer le terminal
+
+SYNOPSIS
+       clear
+
+DESCRIPTION
+       clear efface tout le contenu affiché dans le terminal.
+       L'historique des commandes est conservé et reste accessible
+       via les touches fléchées haut bas.
+
+UTILISATION
+       clear
+              Efface le terminal.
+
+VOIR AUSSI
+       exit(1)
+
+AUTEUR
+       Sampaio - X-oS 1.0
+
+X-oS 1.0                                                                   CLEAR(1)
+X-oS 1.0                                                               ALSAMIXER(1)
