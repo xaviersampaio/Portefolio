@@ -18,7 +18,7 @@ const commands = {
     su: (args) => su(args),                         //fait
     ls: (args) => ls(args),                         //fait
     cd: (args) => cd(args),                         //fait
-    timedatctl: timedatctl,                         // prochain
+    timedatctl: timedatctl,                         //fait
     adduser: (args) => adduser(args,''),            //fait
     clear: clear,                                   //fait
     exit: exit,                                     //fait
@@ -247,7 +247,24 @@ function sl(){
     getdatafromfile('/bin/sl', 'non-raw');
 };
 function timedatctl(inputCommandpart) {
-
+    const now = new Date();
+    
+    // Extraction des infos
+    const localTime = now.toString().split(' (')[0]; // Format standard
+    const universalTime = now.toUTCString();
+    const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+    
+    // Simulation du statut NTP (Network Time Protocol) 
+    // On considère que si le navigateur est en ligne, le temps est synchronisé
+    const ntpSynced = navigator.onLine ? "yes" : "no";
+    outputoutputraw(`Local time: ${localTime}
+           Universal time: ${universalTime}
+                 RTC time: ${now.toISOString().replace('T', ' ').split('.')[0]}
+                Time zone: ${timeZone}
+System clock synchronized: ${ntpSynced}
+              NTP service: active
+          RTC in local TZ: no
+    `)
 };
 function adduser(inputCommandpart, paramuservalid) {
     if (inputCommandpart.length !== 1) {
