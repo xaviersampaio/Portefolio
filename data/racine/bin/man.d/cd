@@ -1,0 +1,43 @@
+CD(1)                         Manuel de l'utilisateur                        CD(1)
+
+NOM
+       cd - Changer de répertoire
+
+SYNOPSIS
+       cd [CHEMIN]
+
+DESCRIPTION
+       cd permet de se déplacer dans l'arborescence du système de fichiers X-oS.
+       Supporte les chemins absolus, relatifs et les raccourcis standards.
+
+OPTIONS
+       CHEMIN
+              Le répertoire de destination.
+
+UTILISATION
+       cd /home
+              Se déplace vers le répertoire /home.
+
+       cd ..
+              Remonte d'un niveau dans l'arborescence.
+
+       cd .
+              Reste dans le répertoire courant.
+
+       cd ./dossier
+              Se déplace vers un sous-dossier du répertoire courant.
+
+CODES D'ERREUR
+       Chemin non connu
+              Le répertoire spécifié n'existe pas.
+
+       Ce n'est pas un dossier
+              Le chemin spécifié pointe vers un fichier et non un répertoire.
+
+VOIR AUSSI
+       ls(1), pwd(1), mkdir(1)
+
+AUTEUR
+       Sampaio - X-oS 1.0
+
+X-oS 1.0                                                                      CD(1)

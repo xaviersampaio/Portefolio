@@ -1,0 +1,23 @@
+PWD(1)                        Manuel de l'utilisateur                       PWD(1)
+
+NOM
+       pwd - Afficher le répertoire courant
+
+SYNOPSIS
+       pwd
+
+DESCRIPTION
+       pwd affiche le chemin absolu du répertoire de travail courant.
+
+UTILISATION
+       pwd
+              Affiche le chemin du répertoire courant.
+              Exemple de sortie : /home/user
+
+VOIR AUSSI
+       cd(1), ls(1)
+
+AUTEUR
+       Sampaio - X-oS 1.0
+
+X-oS 1.0                                                                     PWD(1)

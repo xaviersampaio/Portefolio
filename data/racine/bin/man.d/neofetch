@@ -1,0 +1,36 @@
+NEOFETCH(1)                   Manuel de l'utilisateur                  NEOFETCH(1)
+
+NOM
+       neofetch - Afficher les informations système avec un logo ASCII
+
+SYNOPSIS
+       neofetch
+
+DESCRIPTION
+       neofetch affiche les informations du système et du navigateur
+       accompagnées du logo ASCII de X-oS.
+       Les informations affichées sont collectées en temps réel
+       depuis le navigateur du visiteur.
+
+INFORMATIONS AFFICHÉES
+       OS             Nom et version du système X-oS
+       Host           Système d'exploitation du visiteur
+       Navigateur     Navigateur et version utilisés
+       Langue         Langue configurée dans le navigateur
+       RAM            Mémoire RAM disponible (approximative) (Ne fonctione pas avec tout les navigateur)
+       CPU            Nombre de coeurs logiques
+       Chargement     Temps de chargement de la page en millisecondes
+       Uptime         Heure de la session en cours
+
+NOTES
+       Les valeurs de RAM sont arrondies par le navigateur pour des
+       raisons de confidentialité (2, 4, 8 Go...).
+       Le modèle exact du CPU n'est pas accessible depuis le navigateur.
+
+VOIR AUSSI
+       uname(1), timedatectl(1)
+
+AUTEUR
+       Sampaio - X-oS 1.0
+
+X-oS 1.0                                                                NEOFETCH(1)

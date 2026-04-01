@@ -1,0 +1,32 @@
+OLLAMA(1)                     Manuel de l'utilisateur                    OLLAMA(1)
+
+NOM
+       ollama - Interface avec l'assistant IA local
+
+SYNOPSIS
+       ollama run
+
+DESCRIPTION
+       ollama permet d'interagir avec un modèle de langage hébergé localement
+       sur les serveurs X-oS. La commande ouvre une interface de conversation
+       dans une nouvelle page dédiée.
+       Le modèle utilisé est Mistral 7B, optimisé pour le français.
+       L'assistant est configuré pour répondre aux questions sur le portfolio
+       et les compétences de Sampaio.
+
+UTILISATION
+       ollama run
+              Ouvre l'interface de conversation avec l'assistant IA.
+
+NOTES
+       La connexion est établie via une requête sécurisée vers le serveur.
+       Les temps de réponse peuvent varier selon la charge du serveur.
+       L'assistant ne répond qu'aux questions relatives au portfolio.
+
+VOIR AUSSI
+       man(1), whoami(1)
+
+AUTEUR
+       Sampaio - X-oS 1.0
+
+X-oS 1.0                                                                  OLLAMA(1)

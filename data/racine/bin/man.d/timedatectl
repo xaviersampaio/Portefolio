@@ -1,0 +1,29 @@
+TIMEDATECTL(1)                Manuel de l'utilisateur                TIMEDATECTL(1)
+
+NOM
+       timedatectl - Afficher la date et l'heure système
+
+SYNOPSIS
+       timedatectl
+
+DESCRIPTION
+       timedatectl affiche la date et l'heure courantes du système X-oS.
+       Les informations sont récupérées en temps réel depuis le navigateur
+       du visiteur.
+
+INFORMATIONS AFFICHÉES
+       Local time      Date et heure locale du visiteur
+       Time zone       Fuseau horaire du navigateur
+       Universal time  Heure UTC
+
+UTILISATION
+       timedatectl
+              Affiche la date et l'heure système.
+
+VOIR AUSSI
+       uname(1), neofetch(1)
+
+AUTEUR
+       Sampaio - X-oS 1.0
+
+X-oS 1.0                                                             TIMEDATECTL(1)

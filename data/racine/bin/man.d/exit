@@ -1,0 +1,25 @@
+EXIT(1)                       Manuel de l'utilisateur                      EXIT(1)
+
+NOM
+       exit - Fermer la connexion
+
+SYNOPSIS
+       exit
+
+DESCRIPTION
+       exit ferme la session en cours et efface le terminal.
+       Un message est affiché à la fermeture.
+       Cette action est irréversible, la session ne peut pas être restaurée.
+       L'historique est perdu
+
+UTILISATION
+       exit
+              Ferme la connexion et efface le terminal.
+
+VOIR AUSSI
+       clear(1), login(1), su(1)
+
+AUTEUR
+       Sampaio - X-oS 1.0
+
+X-oS 1.0                                                                    EXIT(1)

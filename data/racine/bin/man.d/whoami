@@ -1,0 +1,24 @@
+WHOAMI(1)                     Manuel de l'utilisateur                    WHOAMI(1)
+
+NOM
+       whoami - Afficher l'utilisateur courant
+
+SYNOPSIS
+       whoami
+
+DESCRIPTION
+       whoami affiche le nom de l'utilisateur actuellement connecté
+       sur le système X-oS.
+
+UTILISATION
+       whoami
+              Affiche le nom de l'utilisateur courant.
+              Exemple de sortie : user
+
+VOIR AUSSI
+       su(1), login(1), adduser(8)
+
+AUTEUR
+       Sampaio - X-oS 1.0
+
+X-oS 1.0                                                                  WHOAMI(1)

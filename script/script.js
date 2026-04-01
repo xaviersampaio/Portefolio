@@ -31,9 +31,9 @@ const commands = {
     login: (args) => sulogin(args, 'login'),        //fait
     su: (args) => sulogin(args, 'su'),              //fait
     uname: (args) => uname(args),                   //fait
-    man: (args) => man(args),                     //a continuer (partie portefolio)
+    man: (args) => man(args),                       //en cours (partie portefolio)
     ollama: ollama,                                 // 3
-    neofetch: neofetch                              // fait
+    neofetch: neofetch,                             // fait
 };
 // Constantes UI 
 const input = document.getElementById('inputid');
@@ -383,20 +383,21 @@ function uname(inputCommandpart) {
     }
     outputoutput(rep.trim());
 }
-function man(inputCommandpart) {// portefolio a dcerouler partie principale du projet
-    if (!inputCommandpart[0] && inputCommandpart[1]) {
-        outputoutput('pour utiliser cette commande faire man [commande]');
-        
-    } else if (inputCommandpart[0] === 'sampaio') {
-        if (inputCommandpart.filter(i => i === '-i')) { // si l'utilisateur demande l'interface 
-            }
-        fetch(Filesystem['/bin/man.d/sampaio'].content)
+function man(inputCommandpart) {
+    if (!inputCommandpart || inputCommandpart.length === 0) {
+        outputoutput('Quelle page du manuel voulez-vous ? (ex: man sampaio)');
+        return;
+    }
+    const commandName = inputCommandpart[0];
+
+    if (commandName === 'sampaio') {}
+
+    if (Filesystem['/bin/man.d/' + commandName]) {
+        fetch(Filesystem['/bin/man.d/' + commandName].content)
             .then(r => r.text())
-            .then(data => pager(data.split('\n')));
+            .then(data => pager(data.split('\n')))
     } else {
-        fetch(Filesystem['/bin/man'+ inputCommandpart[0]].content)
-        .then(r => r.text())
-        .then(data => pager(data.split('\n')));
+        outputoutput(`pas d'entré pour la commande ${commandName}`);
     }
 };
 function ollama(ollama) {

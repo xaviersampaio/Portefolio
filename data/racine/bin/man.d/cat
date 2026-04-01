@@ -1,0 +1,50 @@
+CAT(1)                        Manuel de l'utilisateur                       CAT(1)
+
+NOM
+       cat - Afficher le contenu d'un fichier
+
+SYNOPSIS
+       cat [FICHIER]
+
+DESCRIPTION
+       cat lit le fichier spécifié et affiche son contenu dans le terminal.
+       Si le fichier est trop long, le contenu est automatiquement paginé.
+       Utilisez Entrée ou Espace pour avancer, q pour quitter la pagination.
+
+OPTIONS
+       FICHIER
+              Chemin absolu ou relatif du fichier à afficher.
+              Supporte les chemins relatifs (ex: cat fichier.txt)
+              et les chemins absolus (ex: cat /home/user/fichier.txt)
+
+UTILISATION
+       cat /home/readme
+              Affiche le contenu du fichier readme.
+
+       cat ./notes
+              Affiche le contenu du fichier notes dans le répertoire courant.
+
+       cat ..
+              Remonte d'un niveau dans l'arborescence.
+
+CAS PARTICULIERS
+       /dev/cdrom
+              Lit et lance la lecture du CD audio inséré dans le lecteur.
+
+CODES D'ERREUR
+       Fichier introuvable
+              Le chemin spécifié n'existe pas dans le système de fichiers.
+
+       Ce n'est pas un fichier
+              Le chemin spécifié pointe vers un répertoire et non un fichier.
+
+       Accès non autorisé
+              Vous ne disposez pas des permissions nécessaires pour lire ce fichier.
+
+VOIR AUSSI
+       ls(1), cd(1), vim(1), echo(1)
+
+AUTEUR
+       Sampaio - X-oS 1.0
+
+X-oS 1.0                                                                     CAT(1)

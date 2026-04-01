@@ -1,0 +1,46 @@
+MAN(1)                        Manuel de l'utilisateur                       MAN(1)
+
+NOM
+       man - Afficher le manuel d'une commande
+
+SYNOPSIS
+       man [COMMANDE]
+
+DESCRIPTION
+       man affiche la page de manuel de la commande spécifiée.
+       Les pages de manuel contiennent la description complète de la commande,
+       ses options, ses exemples d'utilisation et ses codes d'erreur.
+       Si le contenu est trop long, il est automatiquement paginé.
+
+OPTIONS
+       COMMANDE
+              Le nom de la commande dont afficher le manuel.
+
+UTILISATION
+       man ls
+              Affiche le manuel de la commande ls.
+
+       man adduser
+              Affiche le manuel de la commande adduser.
+
+PAGINATION
+       Entrée / Espace    Afficher la page suivante
+       q                  Quitter la pagination
+
+COMMANDES DISPONIBLES
+       adduser, alsamixer, cat, cd, clear, echo, exit, help, login,
+       ls, man, mkdir, neofetch, ollama, ping, pwd, sl, su,
+       timedatectl, uname, vim, whoami
+
+CODES D'ERREUR
+       Commande inconnue
+              Aucune page de manuel trouvée pour la commande spécifiée.
+
+VOIR AUSSI
+       help(1)
+
+AUTEUR
+       Sampaio - X-oS 1.0
+
+X-oS 1.0                                                                     MAN(1)
+X-oS 1.0                                                               ALSAMIXER(1)
