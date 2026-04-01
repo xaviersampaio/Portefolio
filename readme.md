@@ -18,7 +18,8 @@ Ce portfolio a été conçu pour :
 
 Il s’agit d’un point central pour les recruteurs, collaborateurs et toute personne souhaitant découvrir mon travail.
 
- - liste de toutes les commandes actuelles ()
+ - liste de toutes les commandes actuelles (help,pwd,cat,ls,cd,clear,su,exit,sl,timedatctl,adduser(local),echo,whoami,su/login,man,neofetch)
+ 
 ---
 
 ## ✨ Fonctionnalités existantes
