@@ -3,11 +3,11 @@
 // it under the terms of the GNU General Public License as published by
 // the Free Software Foundation, either version 3 of the License.
 
+//import du systeme
 import { PERMISSION } from './filesystem.js';
 import { NODE_TYPE } from './filesystem.js';
 import { Filesystem } from './filesystem.js';
 
-//import du systeme
 
 
 //  Commande Systeme 
@@ -18,7 +18,7 @@ const commands = {
     su: (args) => su(args),                         //fait
     ls: (args) => ls(args),                         //fait
     cd: (args) => cd(args),                         //fait
-    timedatctl: timedatctl,                         // 1
+    timedatctl: timedatctl,                         //fait
     adduser: (args) => adduser(args,''),            //fait
     clear: clear,                                   //fait
     exit: exit,                                     //fait
@@ -31,9 +31,9 @@ const commands = {
     login: (args) => sulogin(args, 'login'),        //fait
     su: (args) => sulogin(args, 'su'),              //fait
     uname: (args) => uname(args),                   // 1
-    man: (args) => uname(args),                     // 1
+    man: (args) => uname(args),                     //a continuer (partie portefolio)
     ollama: ollama,                                 // 3
-
+    neofetch: neofetch                              // fait
 };
 // Constantes UI 
 const input = document.getElementById('inputid');
@@ -79,6 +79,15 @@ let cptuserlist = Object.keys(userlist).length + 1;
 
 // Audio
 let CDAudio;
+
+// neofetch
+const ram = navigator.deviceMemory || '?';
+const cpu = navigator.hardwareConcurrency || '?';
+const loadTime = performance.getEntriesByType('navigation')[0]?.duration;
+
+//////////////
+// DOCUMENT //
+//////////////
 
 // Gestion Document & initialisation de la page 
 document.getElementById('prefix').textContent = session.currentUser +'@' + located + "$"
@@ -238,7 +247,24 @@ function sl(){
     getdatafromfile('/bin/sl', 'non-raw');
 };
 function timedatctl(inputCommandpart) {
-
+    const now = new Date();
+    
+    // Extraction des infos
+    const localTime = now.toString().split(' (')[0]; // Format standard
+    const universalTime = now.toUTCString();
+    const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+    
+    // Simulation du statut NTP (Network Time Protocol) 
+    // On considère que si le navigateur est en ligne, le temps est synchronisé
+    const ntpSynced = navigator.onLine ? "yes" : "no";
+    outputoutputraw(`Local time: ${localTime}
+           Universal time: ${universalTime}
+                 RTC time: ${now.toISOString().replace('T', ' ').split('.')[0]}
+                Time zone: ${timeZone}
+System clock synchronized: ${ntpSynced}
+              NTP service: active
+          RTC in local TZ: no
+    `)
 };
 function adduser(inputCommandpart, paramuservalid) {
     if (inputCommandpart.length !== 1) {
@@ -324,10 +350,25 @@ function man(inputCommandpart) {// portefolio a dcerouler partie principale du p
         .then(data => pager(data.split('\n')));
     }
 };
-
 function ollama(ollama) {
 
 };
+function neofetch() {    
+    outputoutputraw(`<span style="color:#00ff00"> 
+    ██╗  ██╗       ██████╗ ███████╗ 
+    ╚██╗██╔╝      ██╔═══██╗██╔════╝ 
+     ╚███╔╝ █████╗██║   ██║███████╗ 
+     ██╔██╗ ╚════╝██║   ██║╚════██║ 
+    ██╔╝ ██╗      ╚██████╔╝███████║ 
+    ╚═╝  ╚═╝       ╚═════╝ ╚══════╝ </span>
+<span style="color:white">
+OS: Sampaio-OS 2.0
+Navigateur: ${navigator.userAgent.split(' ').pop()}
+RAM: ${ram}Go
+CPU cores: ${cpu}
+Chargement: ${loadTime}ms
+</span>`)
+}
 
 ////////////////////
 //fonction systeme//
@@ -391,7 +432,7 @@ function doLine(inputCommandpart) { // retourne sur la fonction de la commande a
 };
 function outputoutputraw(inputoutput) { // retourne sous forme de texte dans le terminal le inputoutput
     const output = document.getElementById('outputid');
-    const newLine = document.createElement('div');
+    const newLine = document.createElement('pre');
     newLine.innerHTML = inputoutput.replace(/\n/g, '<br>');
     newLine.style.whiteSpace = 'pre-wrap';
     output.appendChild(newLine)
