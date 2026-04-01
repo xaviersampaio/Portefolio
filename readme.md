@@ -47,7 +47,7 @@ Selon la configuration du projet :
 
 - **HTML5**
 - **CSS3**
-- **JavaScript**
+- **JavaScript** + **PapaParse**
 - **TailWindCss**
 - **PHP** (bientôt)
 

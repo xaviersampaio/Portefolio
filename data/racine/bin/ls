@@ -1,0 +1,13 @@
+function ls(inputCommandpart) {
+    inputCommandpart = chemin(inputCommandpart);
+    console.log(inputCommandpart);
+    if (Filesystem[inputCommandpart].type === "file") {
+        outputoutput("C'est un fichier pas un chemin")
+    } else if (Filesystem[inputCommandpart].type === "dir") {
+        console.log("dir validé")
+        for (let i = 0; i<Filesystem[inputCommandpart].children.length; i++) {
+            outputoutput(Filesystem[inputCommandpart].children[i]);
+        };
+    };
+};  
+func

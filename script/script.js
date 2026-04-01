@@ -45,6 +45,7 @@ const focusCurser = {
     onVim: 1,
     onUserConnect: 2,
     onUserCreate: 3,
+    onPager: 4,
 };
 let focusActuel = focusCurser.onTerm;
 
@@ -166,35 +167,51 @@ document.addEventListener('keydown',function(enter){  // Interaction entrée du 
         focus(focusCurser.onTerm);
     }
     }  else if (focusActuel === focusCurser.onPager) {
-        if (enter.key === "Enter" || enter.key === " ") {
+    document.querySelector('.page')?.remove(); 
+    if (enter.key === "Enter" || enter.key === " ") {
+        if (session.pager.raw) {
+            pagerRaw(session.pager.lignes, session.pager.index);
+        } else {
             pager(session.pager.lignes, session.pager.index);
-        } else if (enter.key === "q") {
-            session.pager = null;
-            focus(focusCurser.onTerm);
         }
+    } else if (enter.key === "q") {
+        session.pager = null;
+        focus(focusCurser.onTerm);
     }
+}
 });
 
 /////////////////////
 //fonction Commande//
 /////////////////////
 function help(args) { 
-    getdatafromfile('/bin/help', 'non-raw');
-};
+    getdatafromfile('/bin/help')
+        .then(lignes => {
+            if (lignes) afficherLignesRaw(lignes); // ← était outputoutputraw direct
+        });
+}
 function pwd(inputCommandpart) {
     outputoutput(located);
 };
 function cat(inputCommandpart) {
-    inputCommandpart = chemin(inputCommandpart)
-    if (Filesystem[inputCommandpart].type === "file") {
-        if (inputCommandpart === '/dev/cdrom') {
-            console.log("bleu")
-            playCd();
-        }
-        getdatafromfile(inputCommandpart, 'non-raw')
-    };
-    
-};
+    inputCommandpart = chemin(inputCommandpart);
+    if (!Filesystem[inputCommandpart]) {
+        outputoutput("Fichier introuvable");
+        return;
+    }
+    if (Filesystem[inputCommandpart].type !== "file") {
+        outputoutput("Ce n'est pas un fichier");
+        return;
+    }
+    if (inputCommandpart === '/dev/cdrom') {
+        playCd();
+        return;
+    }
+    getdatafromfile(inputCommandpart)
+        .then(lignes => {
+            if (lignes) afficherLignes(lignes); // toujours non-raw
+        });
+}
 function ls(inputCommandpart) {
     inputCommandpart = chemin(inputCommandpart);
     console.log(inputCommandpart);
@@ -371,6 +388,8 @@ function man(inputCommandpart) {// portefolio a dcerouler partie principale du p
         outputoutput('pour utiliser cette commande faire man [commande]');
         
     } else if (inputCommandpart[0] === 'sampaio') {
+        if (inputCommandpart.filter(i => i === '-i')) { // si l'utilisateur demande l'interface 
+            }
         fetch(Filesystem['/bin/man.d/sampaio'].content)
             .then(r => r.text())
             .then(data => pager(data.split('\n')));
@@ -496,20 +515,15 @@ function chemin(inputCommandpart){ //resous le chemin de l'utilisateur quand il 
         return path.replace(/\/+/g, "/");
     };
 };
-function getdatafromfile(path, param) {
+function getdatafromfile(path) {
     if (Filesystem[path].autorised === PERMISSION.READ_WRITE || Filesystem[path].autorised === PERMISSION.READ_ONLY) {
-        if (param === 'non-raw') {
-            fetch(Filesystem[path].content)
+        return fetch(Filesystem[path].content)
             .then(response => response.text())
-            .then(data => {
-                const lignes = data.split('\n');
-                afficherLignes(lignes);
-                });
-        }} else {
-        outputoutput("Accès non Autorisé")
+            .then(data => data.split('\n'));
+    } else {
+        outputoutput("Accès non Autorisé");
     }
-};
-
+}
 function afficherLignes(lignes) {
     if (lignes.length <= PAGER_LIMIT) {
         lignes.forEach(ligne => outputoutput(ligne));
@@ -517,7 +531,13 @@ function afficherLignes(lignes) {
         pager(lignes);
     }
 }
-
+function afficherLignesRaw(lignes) {
+    if (lignes.length <= PAGER_LIMIT) {
+        outputoutputraw(lignes.join('\n'));
+    } else {
+        pagerRaw(lignes);
+    }
+}
 function playCd() {
     if (!CDAudio) {
         CDAudio = new Audio('./data/racine/dev/CD.mp4');
@@ -525,7 +545,6 @@ function playCd() {
     }
     CDAudio.play();
 }
-
 function focus(inputCommandpart) {
     focusActuel = inputCommandpart;
     input.blur();  
@@ -536,14 +555,13 @@ function focus(inputCommandpart) {
         document.getElementById('passwd')?.focus();
     }
 }
-
 function pager(lignes, index = 0, nbLignes = 25) {
     const slice = lignes.slice(index, index + nbLignes);
     slice.forEach(ligne => outputoutput(ligne));
 
     if (index + nbLignes < lignes.length) {
         // il reste des lignes
-        outputoutput("-- Plus -- (Entrée/Espace: continuer, q: quitter)");
+        outputoutputraw("<div class=page>-- Plus -- (Entrée/Espace: continuer, q: quitter)</div>");
         session.pager = {
             lignes: lignes,
             index: index + nbLignes,
@@ -552,6 +570,25 @@ function pager(lignes, index = 0, nbLignes = 25) {
         focus(focusCurser.onPager);
     } else {
         // plus rien à afficher → on nettoie et on rend le focus
+        outputoutput("-- Fin --");
+        session.pager = null;
+        focus(focusCurser.onTerm);
+    }
+}
+function pagerRaw(lignes, index = 0, nbLignes = 25) {
+    const slice = lignes.slice(index, index + nbLignes);
+    outputoutputraw(slice.join('\n'));
+
+    if (index + nbLignes < lignes.length) {
+        outputoutputraw("<div class=page>-- Plus -- (Entrée/Espace: continuer, q: quitter)</div>");
+        session.pager = {
+            lignes: lignes,
+            index: index + nbLignes,
+            nbLignes: nbLignes,
+            raw: true  
+        };
+        focus(focusCurser.onPager);
+    } else {
         outputoutput("-- Fin --");
         session.pager = null;
         focus(focusCurser.onTerm);

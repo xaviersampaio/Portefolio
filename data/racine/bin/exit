@@ -1,0 +1,4 @@
+function exit(){
+    clear();
+    alert("Connexion fermée. Vous pouvez fermer cet onglet.");
+};
