@@ -1,0 +1,14 @@
+function cd(inputCommandpart) {
+    inputCommandpart = chemin(inputCommandpart); // résout le chemin
+
+    if (!inputCommandpart) {
+        return; // aucun chemin fourni 
+    } else if (!Filesystem[inputCommandpart]) {
+        outputoutput("Chemin non connu");
+        return;
+    } else if (Filesystem[inputCommandpart].type !== "dir") {
+        outputoutput("Ce n'est pas un dossier");
+        return;
+    }
+    located = inputCommandpart;
+}

@@ -1,0 +1,19 @@
+function cat(inputCommandpart) {
+    inputCommandpart = chemin(inputCommandpart);
+    if (!Filesystem[inputCommandpart]) {
+        outputoutput("Fichier introuvable");
+        return;
+    }
+    if (Filesystem[inputCommandpart].type !== "file") {
+        outputoutput("Ce n'est pas un fichier");
+        return;
+    }
+    if (inputCommandpart === '/dev/cdrom') {
+        playCd();
+        return;
+    }
+    getdatafromfile(inputCommandpart)
+        .then(lignes => {
+            if (lignes) afficherLignes(lignes); // toujours non-raw
+        });
+}

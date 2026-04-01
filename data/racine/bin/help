@@ -1,34 +1,53 @@
-=============
-||Help menu||
-=============
- help
-       | Open this menu
- pwd
-       | Print Working Directory
- cat
-       | Concatenate file
- ls
-       | Display the content of directories
- cd
-       | Change Directory
- clear
-       | Clear terminal script
- su
-       | Change User
-       | update after 2 enter 
-       | root unallowed
- exit
-       | Exit connexion
-       | not recommend
- su
-       | Change User
-       | root unallowed
- timedatctl
-       | Show Time and Date 
-       | on dev
- ollama
-       | Chatbot see /etc/ollama
-       | on dev
-       | can be monitored by me
- echo
-       | affiche un texte
+╔═══════════════════════════════════════════╗
+║              X-oS Help Menu               ║
+╚═══════════════════════════════════════════╝
+
+ Navigation
+ ──────────────────────────────────────────
+ pwd                  Ecrit le chemin actuel
+ ls     [chemin]      Liste le contenu du chemin
+ cd     [chemin]      Changer d'emplacemen
+ cat    [fichier]     Affiche le contenu d'un dossier
+
+ Système
+ ──────────────────────────────────────────
+ uname  [-a|-s|-r|-m|-n]  Information système
+ timedatectl              Affiche la date et l'heure
+ screenfetch              Information système et art ascii
+ clear                    Vide le terminal
+ exit                     Ferme la connection
+
+ Utilisateurs
+ ──────────────────────────────────────────
+ whoami               Affiche l'utilisateur actuel
+ su     [user]        Changer d'utilisateur
+ login  [user]        Se connecter a un utilsateur
+ adduser [user]       Ajoute un utilisateur
+
+ Fichiers
+ ──────────────────────────────────────────
+ echo   [texte]       Affiche du texte
+ vim    [fichier]     Editer des fichier (bientôt)
+ mkdir  [nom]         Creer des repertoire (bientôt)
+
+ Réseau
+ ──────────────────────────────────────────
+ ping   [hôte]        ping un ordinateur distant (bientôt)
+ ifconfig             Interface Internet (bientôt)
+ netstat              Connextion internet (bientôt)
+ ssh    [hôte]        Connexion SSH (bientôt)
+
+ Divertissement
+ ──────────────────────────────────────────
+ alsamixer            ajustement audio (bientôt)
+ ollama run           AI assistant (bientôt)
+
+ Documentation
+ ──────────────────────────────────────────
+ help                 Ce menu
+ man    [commande]    Manuel de commande
+
+
+╔═══════════════════════════════════════════╗
+║         X-oS 1.0 - Sampaio 2026           ║
+╚═══════════════════════════════════════════╝
