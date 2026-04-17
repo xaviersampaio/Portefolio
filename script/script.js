@@ -31,7 +31,7 @@ const commands = {
     login: (args) => sulogin(args, 'login'),        //fait
     su: (args) => sulogin(args, 'su'),              //fait
     uname: (args) => uname(args),                   //fait
-    man: (args) => man(args),                       //en cours (partie portefolio)
+    man: (args) => man(args),                       //en cours (partie portfolio)
     ollama: ollama,                                 // 3
     neofetch: neofetch,                             // fait
 };
@@ -46,6 +46,7 @@ const focusCurser = {
     onUserConnect: 2,
     onUserCreate: 3,
     onPager: 4,
+    onManSampaio: 5,
 };
 let focusActuel = focusCurser.onTerm;
 
@@ -113,6 +114,7 @@ document.addEventListener('keydown',function(enter){  // Interaction entrée du 
                 historiqueIndex++;
             }
             document.getElementById('inputid').textContent = historique[historique.length - 1 - historiqueIndex];
+
         }
         else if (enter.key === 'ArrowDown') { //historique redescend
             if (historiqueIndex > -1) {
@@ -120,10 +122,13 @@ document.addEventListener('keydown',function(enter){  // Interaction entrée du 
             }
             if (historiqueIndex === -1) { 
                 document.getElementById('inputid').textContent = '';
+                
             } else {
                 document.getElementById('inputid').textContent = historique[historique.length - 1 - historiqueIndex];
             }
+            
         }
+        setCursorToEnd(input);
     } else if (focusActuel === focusCurser.onUserCreate) {
     if (enter.key === "Enter") {
         const passwd1 = document.getElementById('passwd1').value;
@@ -166,7 +171,7 @@ document.addEventListener('keydown',function(enter){  // Interaction entrée du 
         connectusrid = '';
         focus(focusCurser.onTerm);
     }
-    }  else if (focusActuel === focusCurser.onPager) {
+    } else if (focusActuel === focusCurser.onPager) {
     document.querySelector('.page')?.remove(); 
     if (enter.key === "Enter" || enter.key === " ") {
         if (session.pager.raw) {
@@ -178,14 +183,34 @@ document.addEventListener('keydown',function(enter){  // Interaction entrée du 
         session.pager = null;
         focus(focusCurser.onTerm);
     }
-}
+
+    } else if (focusActuel === focusCurser.onManSampaio) {
+        if (enter.key === "Enter") {
+            const response = document.getElementById('manSampaioInput')?.value.toLowerCase().trim();
+            
+            if (response === 'oui' || response === 'o' || response === 'yes' || response === 'y') {
+                outputoutput("Ouverture de l'interface...");
+                interfacesampaio();
+                focus(focusCurser.onTerm);
+            } else if (response === 'non' || response === 'n' || response === 'no') {
+                outputoutput("Annulation.");
+                focus(focusCurser.onTerm);
+            } else {
+                outputoutput("Réponse non reconnue. Veuillez répondre par oui ou non.");
+                // Reste dans le mode onManSampaio
+            }
+        } else if (enter.key === "Escape") {
+            outputoutput("Annulation.");
+            focus(focusCurser.onTerm);
+        }
+    }
 });
 
 /////////////////////
 //fonction Commande//
 /////////////////////
 function help(args) { 
-    getdatafromfile('/bin/help')
+    getdatafromfile('/bin/help', 'raw')
         .then(lignes => {
             if (lignes) afficherLignesRaw(lignes); // ← était outputoutputraw direct
         });
@@ -297,7 +322,7 @@ function adduser(inputCommandpart, paramuservalid) {
     // On stocke le username en attente et on affiche le form
     session.pendingUsername = username;
     focus(focusCurser.onUserCreate);
-    getdatafromfile("/bin/adduser", "raw"); // sort le form
+    console.log(getdatafromfile("/bin/adduser")); // sort le form
 }
 function echo (inputCommandpart) {
     if (inputCommandpart.length === 0) {
@@ -390,8 +415,11 @@ function man(inputCommandpart) {
     }
     const commandName = inputCommandpart[0];
 
-    if (commandName === 'sampaio') {}
-
+    if (commandName === 'sampaio') {
+        outputoutputraw("Voulez-vous accéder au portfolio de Sampaio Xavier ? (oui/non) <input type='text' id='manSampaioInput' style='background:transparent; border:none; border-bottom: 1px solid white; color:white; outline:none;' />");
+        focus(focusCurser.onManSampaio);
+        return;
+    }
     if (Filesystem['/bin/man.d/' + commandName]) {
         fetch(Filesystem['/bin/man.d/' + commandName].content)
             .then(r => r.text())
@@ -412,7 +440,7 @@ function neofetch() {
     ██╔╝ ██╗      ╚██████╔╝███████║ 
     ╚═╝  ╚═╝       ╚═════╝ ╚══════╝ </span>
 <span style="color:white">
-OS: Sampaio-OS 2.0
+OS: Sampaio-OS 2.1
 Navigateur: ${navigator.userAgent.split(' ').pop()}
 RAM: ${ram}Go
 CPU cores: ${cpu}
@@ -554,6 +582,8 @@ function focus(inputCommandpart) {
         input.focus();
     } else if (inputCommandpart === focusCurser.onUserConnect) {
         document.getElementById('passwd')?.focus();
+    } else if (inputCommandpart === focusCurser.onManSampaio) {
+        document.getElementById('manSampaioInput')?.focus();
     }
 }
 function pager(lignes, index = 0, nbLignes = 25) {
@@ -595,3 +625,62 @@ function pagerRaw(lignes, index = 0, nbLignes = 25) {
         focus(focusCurser.onTerm);
     }
 }
+function interfacesampaio(){
+    const modal = document.getElementById('modalManSampaio');
+    modal.classList.remove('hidden');
+    modal.classList.add('flex');
+    
+    // Initialiser les onglets
+    initTabs();
+    
+    // Fermer avec le bouton X
+    document.getElementById('closeModal').onclick = function() {
+        closeinterfacesampaio();
+    };
+    
+    // Fermer en cliquant sur le fond
+    modal.onclick = function(e) {
+        if (e.target === modal) {
+            closeinterfacesampaio();
+        }
+    };
+};
+function closeinterfacesampaio() {
+    const modal = document.getElementById('modalManSampaio');
+    modal.classList.add('hidden');
+    modal.classList.remove('flex');
+    focus(focusCurser.onTerm);
+}
+function initTabs() {
+    const tabButtons = document.querySelectorAll('.tab-button');
+    
+    tabButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            const tabName = this.getAttribute('data-tab');
+            
+            // Retirer la classe active de tous les boutons
+            tabButtons.forEach(btn => btn.classList.remove('active'));
+            
+            // Ajouter la classe active au bouton cliqué
+            this.classList.add('active');
+            
+            // Cacher tous les contenus d'onglets
+            document.querySelectorAll('.tab-pane').forEach(pane => {
+                pane.classList.add('hidden');
+            });
+            
+            // Afficher le contenu de l'onglet sélectionné
+            document.getElementById('tab-' + tabName).classList.remove('hidden');
+        });
+    });
+}
+function setCursorToEnd(element) {
+    element.focus();
+    const range = document.createRange();
+    const selection = window.getSelection();
+    range.selectNodeContents(element);
+    range.collapse(false); // false = à la fin
+    selection.removeAllRanges();
+    selection.addRange(range);
+}
+
