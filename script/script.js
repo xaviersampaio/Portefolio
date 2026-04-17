@@ -34,6 +34,7 @@ const commands = {
     man: (args) => man(args),                       //en cours (partie portfolio)
     ollama: ollama,                                 // 3
     neofetch: neofetch,                             // fait
+    
 };
 // Constantes UI 
 const input = document.getElementById('inputid');
@@ -320,10 +321,23 @@ function adduser(inputCommandpart, paramuservalid) {
     }
 
     // On stocke le username en attente et on affiche le form
+<<<<<<< Updated upstream
     session.pendingUsername = username;
     focus(focusCurser.onUserCreate);
     console.log(getdatafromfile("/bin/adduser")); // sort le form
 }
+=======
+    getdatafromfile("/bin/adduser").then(content => {
+        if (content) {
+            // 1. On transforme le tableau en texte (puisque getdatafromfile fait un .split('\n'))
+            const texteFormulaire = content.join('\n');
+            outputoutputraw(texteFormulaire);
+            focus(focusCurser.onTerm); // faire descendre le terminal avant de laisser la main
+            focus(focusCurser.onUserCreate);
+        }
+    }
+)};
+>>>>>>> Stashed changes
 function echo (inputCommandpart) {
     if (inputCommandpart.length === 0) {
         outputoutput("Veillez spécifier 1 ou 2 champs");
@@ -577,6 +591,7 @@ function playCd() {
 function focus(inputCommandpart) {
     focusActuel = inputCommandpart;
     input.blur();  
+<<<<<<< Updated upstream
 
     if (inputCommandpart === focusCurser.onTerm) {
         input.focus();
@@ -585,6 +600,17 @@ function focus(inputCommandpart) {
     } else if (inputCommandpart === focusCurser.onManSampaio) {
         document.getElementById('manSampaioInput')?.focus();
     }
+=======
+    setTimeout(() => {
+        if (inputCommandpart === focusCurser.onTerm) {
+            input.focus();
+        } else if (inputCommandpart === focusCurser.onUserConnect) {
+            document.getElementById('passwd')?.focus();
+        } else if (inputCommandpart === focusCurser.onManSampaio) {
+            document.getElementById('manSampaioInput')?.focus();
+        }
+    }, 0);
+>>>>>>> Stashed changes
 }
 function pager(lignes, index = 0, nbLignes = 25) {
     const slice = lignes.slice(index, index + nbLignes);
