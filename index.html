@@ -19,8 +19,30 @@
             </div>
 
             <div id="terminal-output"> 
+<<<<<<< Updated upstream
                 <div id="outputid" class="text-white flex-1 overflow-y-auto bottom-25px"> 
                     <div>Type help for more command</div>
+=======
+                <div id="outputid" class="text-white flex-1 overflow-y-auto bottom-25px "> 
+                    <p>Bienvenue sur Sampai-OS 2.1</p>
+                    <br>
+                    <p>LinkedIn: linkedin.com/in/xavier-sampaio</p>
+                    <p>Gitub: github.com/xaviersampaio</p>
+                    <br>
+                    <pre id="sysinfo"> </pre> 
+                    <br>
+                    <div class="grid grid-cols-2 grid-rows-5 gap-0 max-w-3xl">
+                        <pre >Charge système:  0.08 </pre><pre>Processus:             148</pre>
+                        <pre >Usage de /:      45.2% of 19.56GB</pre><pre>Utilisateurs:          2</pre>
+                        <pre >Usage mémoire:   23%</pre><pre >Adresse IPv4 eth0:     192.168.1.100</pre>
+                        <pre >Usage swap:      0%</pre>
+                    </div>
+                    <p>Derniere connexion: Aucune date  depuis Localhost</p>
+                    <br>
+                    <p>Utiliser help pour plus de commandes</p>
+                    <p>Utiliser man sampaio pour derouler le portfolio</p>
+                    <br>
+>>>>>>> Stashed changes
                 </div>
             </div>
             <div id="terminal-input" class="flex absolute  left-0 right-0 bg-gray-900">
@@ -33,6 +55,68 @@
                 </div>
             </div>
         </div>
+<<<<<<< Updated upstream
+=======
+        <div id="modalManSampaio" class="hidden fixed top-0 left-0 w-full h-full bg-black bg-opacity-55 flex justify-center items-center z-50">
+    <div class="bg-gray-900 border-2 border-zinc-800 rounded-lg max-w-4xl max-h-[80vh] overflow-hidden relative shadow-2xl flex flex-col">
+        
+        <!-- Header comme le terminal -->
+        <div class="right-0 left-0 grid grid-rows-1 gap-0 grid-cols-[1fr_auto] bg-zinc-800">
+            <div class="text-center text-white font-bold right-0 left-0 py-1">
+                &nbsp;Portfolio Sampaio Xavier&nbsp;
+            </div>
+                <button id="closeModal" class="justify-self-end bg-zinc-800 text-white font-bold hover:rounded-xl hover:bg-red-600">&nbsp;x&nbsp;</button>
+        </div>
+        
+        <!-- Navigation des onglets collée en haut -->
+        <div class="grid grid-cols-6 grid-rows-1 gap-1 bg-zinc-800  text-white">
+            <div class="tab-button active text-center cursor-pointer transition" data-tab="accueil">Accueil</div>
+            <div class="tab-button text-center cursor-pointer transition" data-tab="formation">Formation</div>
+            <div class="tab-button text-center cursor-pointer transition" data-tab="competence">Compétence</div>
+            <div class="tab-button text-center cursor-pointer transition" data-tab="projet">Projet</div>
+            <div class="tab-button text-center cursor-pointer transition" data-tab="documentation">Documentation</div>
+            <div class="tab-button text-center cursor-pointer transition" data-tab="contact">Contact</div>
+        </div>
+        
+        <div id="modalBody" class="text-white overflow-y-auto p-4 flex-1">
+            <div class="tab-content">
+                <div id="tab-accueil" class="tab-pane ">
+                    <h3 class="text-xl font-bold text-green-400 mb-2">Accueil</h3>
+                    <div class="rounded bg-red-600 ">
+                        <img> 
+                        <h4> Etudiant en BTS SIO - Option SISR</h4>
+                        <p> Bienvenue dans mon portfolio </p>
+                    </div>
+                </div>
+                <div id="tab-formation" class="tab-pane hidden">
+                    <h3 class="text-xl font-bold text-green-400 mb-2"> Formation</h3>
+                    <p>Mes formations...</p>
+                </div>
+                <div id="tab-competence" class="tab-pane hidden">
+                    <h3 class="text-xl font-bold text-green-400 mb-2"> Compétences</h3>
+                    <p>Mes compétences...</p>
+                </div>
+                <div id="tab-projet" class="tab-pane hidden">
+                    <h3 class="text-xl font-bold text-green-400 mb-2"> Projet</h3>
+                    <p>Mes projet...</p>
+                </div>
+                <div id="tab-documentation" class="tab-pane hidden">Documentation</div>
+                
+                </div>
+                <div id="tab-contact" class="tab-pane hidden">
+                    <h3 class="text-xl font-bold text-green-400 mb-2"> Contact</h3>
+                    <p>Me contacter...</p>   
+                </div>
+            </div>
+        </div>
+    </div>
+
+   
+
+    <script type= module src="./script/script.js"></script>
+    <script src="./script/prep.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/dompurify@3.0.6/dist/purify.min.js"></script>
+>>>>>>> Stashed changes
         
         <script type= module src="./script/script.js"></script>
     
