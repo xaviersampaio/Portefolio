@@ -5,3 +5,9 @@
     0%, 50% { opacity: 1; }
     51%, 100% { opacity: 0; }
 }
+
+.tab-button.active {
+    background-color: #10b981; /* vert */
+    color: white;
+    font-weight: bold;
+}
