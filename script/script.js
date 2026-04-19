@@ -80,13 +80,12 @@ let userlist = {
 };
 let cptuserlist = Object.keys(userlist).length + 1;
 
-// Audio
-let CDAudio;
 
 // neofetch
 const ram = navigator.deviceMemory || '?';
 const cpu = navigator.hardwareConcurrency || '?';
 const loadTime = performance.getEntriesByType('navigation')[0]?.duration;
+
 
 //////////////
 // DOCUMENT //
@@ -321,12 +320,6 @@ function adduser(inputCommandpart, paramuservalid) {
     }
 
     // On stocke le username en attente et on affiche le form
-<<<<<<< Updated upstream
-    session.pendingUsername = username;
-    focus(focusCurser.onUserCreate);
-    console.log(getdatafromfile("/bin/adduser")); // sort le form
-}
-=======
     getdatafromfile("/bin/adduser").then(content => {
         if (content) {
             // 1. On transforme le tableau en texte (puisque getdatafromfile fait un .split('\n'))
@@ -337,7 +330,6 @@ function adduser(inputCommandpart, paramuservalid) {
         }
     }
 )};
->>>>>>> Stashed changes
 function echo (inputCommandpart) {
     if (inputCommandpart.length === 0) {
         outputoutput("Veillez spécifier 1 ou 2 champs");
@@ -582,25 +574,15 @@ function afficherLignesRaw(lignes) {
     }
 }
 function playCd() {
-    if (!CDAudio) {
-        CDAudio = new Audio('./data/racine/dev/CD.mp4');
-        CDAudio.volume = 0.4;
-    }
-    CDAudio.play();
+    const audio = new Audio();
+    audio.src = getdatafromfile("/dev/CD.m4a");
+    CDAudio.volume = 0.4;
+    audio.play();
 }
 function focus(inputCommandpart) {
     focusActuel = inputCommandpart;
     input.blur();  
-<<<<<<< Updated upstream
 
-    if (inputCommandpart === focusCurser.onTerm) {
-        input.focus();
-    } else if (inputCommandpart === focusCurser.onUserConnect) {
-        document.getElementById('passwd')?.focus();
-    } else if (inputCommandpart === focusCurser.onManSampaio) {
-        document.getElementById('manSampaioInput')?.focus();
-    }
-=======
     setTimeout(() => {
         if (inputCommandpart === focusCurser.onTerm) {
             input.focus();
@@ -610,7 +592,6 @@ function focus(inputCommandpart) {
             document.getElementById('manSampaioInput')?.focus();
         }
     }, 0);
->>>>>>> Stashed changes
 }
 function pager(lignes, index = 0, nbLignes = 25) {
     const slice = lignes.slice(index, index + nbLignes);
@@ -653,53 +634,81 @@ function pagerRaw(lignes, index = 0, nbLignes = 25) {
 }
 function interfacesampaio(){
     const modal = document.getElementById('modalManSampaio');
-    modal.classList.remove('hidden');
-    modal.classList.add('flex');
+    modal.style.display = 'flex';
     
     // Initialiser les onglets
     initTabs();
     
     // Fermer avec le bouton X
     document.getElementById('closeModal').onclick = function() {
-        closeinterfacesampaio();
+        modal.style.display = 'none';
+        focus(focusCurser.onTerm);
     };
     
     // Fermer en cliquant sur le fond
     modal.onclick = function(e) {
         if (e.target === modal) {
-            closeinterfacesampaio();
+            modal.style.display = 'none';
+            focus(focusCurser.onTerm);
         }
     };
 };
-function closeinterfacesampaio() {
-    const modal = document.getElementById('modalManSampaio');
-    modal.classList.add('hidden');
-    modal.classList.remove('flex');
-    focus(focusCurser.onTerm);
-}
 function initTabs() {
-    const tabButtons = document.querySelectorAll('.tab-button');
-    
+    const tabButtons = document.querySelectorAll('.tabPrimBtn');
+    const tabPanes = document.querySelectorAll('.tab-pane');
+    const docButtons = document.querySelectorAll('.doc-btn');
+    const docContents = document.querySelectorAll('.doc-content');
+
+    // --- 1. Gestion du Menu Principal ---
     tabButtons.forEach(button => {
         button.addEventListener('click', function() {
             const tabName = this.getAttribute('data-tab');
+            const targetPane = document.getElementById('tab-' + tabName);
+
+            tabButtons.forEach(btn => {
+            btn.style.backgroundColor = ''; 
+            btn.style.color = '';
+            btn.style.borderRadius = '';
+            btn.style.fontWeight = 'normal';
+        });
+            tabPanes.forEach(pane => pane.style.display = 'none');
+
             
-            // Retirer la classe active de tous les boutons
-            tabButtons.forEach(btn => btn.classList.remove('active'));
-            
-            // Ajouter la classe active au bouton cliqué
-            this.classList.add('active');
-            
-            // Cacher tous les contenus d'onglets
-            document.querySelectorAll('.tab-pane').forEach(pane => {
-                pane.classList.add('hidden');
+            this.style.backgroundColor = '#166534';
+            this.style.color = '#ffffff';
+            this.style.borderRadius = '15px';
+            this.style.fontWeight = 'bold';
+            if (targetPane) {
+            targetPane.style.display = 'block'; 
+        }
+        });
+    });
+
+    // --- 2. Gestion de la partie Documentation ---
+    docButtons.forEach(btn => {
+        btn.addEventListener('click', function() {
+            const docName = this.getAttribute('data-doc');
+            const targetDoc = document.getElementById('doc-' + docName);
+
+            // ON CACHE TOUT : Réinitialise boutons et contenus de doc
+            docButtons.forEach(b => {
+                b.style.backgroundColor = '';
+                b.style.color = '';
             });
-            
-            // Afficher le contenu de l'onglet sélectionné
-            document.getElementById('tab-' + tabName).classList.remove('hidden');
+            docContents.forEach(content => {
+                content.style.display = 'none'; // Ferme le précédent
+            });
+
+            // ON AFFICHE LE BON :
+            if (targetDoc) {
+                this.style.backgroundColor = '#4b5563';
+                this.style.color = 'white';
+                targetDoc.style.display = 'block';
+            }
         });
     });
 }
+
 function setCursorToEnd(element) {
     element.focus();
     const range = document.createRange();
@@ -708,5 +717,4 @@ function setCursorToEnd(element) {
     range.collapse(false); // false = à la fin
     selection.removeAllRanges();
     selection.addRange(range);
-}
-
+};

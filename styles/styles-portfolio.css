@@ -1,0 +1,225 @@
+/* Modal = systeme de fenetre du portefolio */
+.modalManSampaio {
+    background-color: #1f2937;
+    border-radius: 25px;
+}
+.modal-overlay.modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.55);
+    z-index: 50;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-header {
+    display: grid;
+    grid-template-columns: 1fr auto; /* Le texte prend tout le reste, le X prend sa place */
+    align-items: center;            /* Aligne verticalement le texte et le X */
+    background-color: #27272a;
+    width: 100%;
+}
+
+.modal-body {
+    color: white;              /* text-white */
+    background-color: #1f2937;
+    overflow-y: auto;          /* overflow-y-auto */
+    padding: 16px;             /* p-4 (16px) */
+    flex: 1 1 0%;              /* flex-1 */
+}
+
+#modalPrimMenu {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    grid-template-rows: auto;
+    gap: 4px;
+    background-color: #27272a;
+    border-radius: 15px;
+    text-decoration: underline;
+}
+
+/* Onglet Primaire */
+.tabPrimBtn {
+    text-align: center;
+    cursor: pointer;
+    padding: 8px;
+    text-align: center;
+}
+.tabPrimBtn:hover {
+    background-color: #166534;
+    color: #ffffff;
+    border-radius: 15px;
+}
+.tabPrimBtn.active {
+    text-decoration: underline;
+    
+}
+.tab-content {
+    color: #ffffff;
+    background-color: #1f2937;
+
+}
+.tab-pane {
+    display: none;
+}
+.doc-content {
+    display: none;
+}
+
+/*documentation*/
+#tab-documentation {
+    margin: 0% 3% 0% 3%;
+        max-height: 50%;
+    overflow-y: auto;
+}
+#tab-documentation p:first-child {
+    text-decoration: underline;
+}
+#tab-documentation > div:first-of-type {
+    display: flex;
+    gap: 4px;
+    margin-top: 8px;
+}
+#tab-documentation  h4 {
+    color: #22c55e;
+    font-weight: 700;
+    margin-bottom: 1rem;
+}
+/*onglet*/
+.tabSecbtn {
+    cursor: pointer;
+    padding: 2px;
+    border-radius: 35px;
+    margin: 3%;
+    padding-left: 5%
+}
+.tabSecbtn:hover {
+    background-color: #27272a;
+    text-decoration: underline #22c55e;
+}
+
+/*Document Page*/
+.instructions {
+    color: #a1a1aa;
+    margin-bottom: 1rem;
+}
+.code {
+    display: block;
+    background-color: #000000;
+    padding: 0.5rem;
+    border-radius: 0.25rem;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    color: #93c5fd;
+}
+.indice {
+    font-size: 0.75rem;
+    line-height: 1rem;
+    color: #71717a;
+    margin-top: 0.25rem;
+    font-style: italic;
+}
+.predata {
+    background-color: #27272a;
+    padding: 1rem;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    color: #fdba74;
+    font-size: 0.75rem;
+    line-height: 1rem;
+    overflow-x: auto;
+}
+.rappelbleu {
+    background-color: #1e3a8a33; 
+    border-left-width: 4px;
+    border-left-style: solid;
+    border-left-color: #3b82f6;
+    padding: 0.5rem;
+}
+.rappelbleu > p {
+    color: #3b82f6;
+    text-decoration: underline;
+}
+.rappelrouge {
+     
+}
+.rappelvert {
+    background-color: #14532d33;  /* bg-green-900/20 */
+    border-left: 4px solid #22c55e;           /* border-l-4 + border-green-500 */
+    padding: 0.5rem;
+}
+.rappelvert > p {
+    color: #22c55e;
+}
+
+/*Contact */
+#tab-contact {
+    padding: 0% 3% 0% 3%;
+    background-color: #1f2937;
+    max-height: 50%;
+    overflow-y: auto;
+    display: none;
+}
+#tab-contact > h4 {
+    color: white;
+    text-decoration: underline;
+}
+#tab-contact > div:first-of-type {
+display: grid;
+    /* grid-cols-1 */
+    grid-template-columns: repeat(1, minmax(0, 1fr));
+    /* grid-rows-3 */
+    grid-template-rows: repeat(3, minmax(0, 1fr));
+    /* gap-4 */
+    gap: 16px;
+    /* mx-auto */
+    margin-left: auto;
+    margin-right: auto;
+    /* px-4 */
+    padding-left: 16px;
+    padding-right: 16px;
+    
+    /* Optionnel : pour que les 3 lignes soient visibles, 
+       il faut souvent une hauteur définie */
+    min-height: 200px;
+}
+#tab-contact > div:first-of-type > div:first-of-type {
+    display: flex;
+    align-items: center;
+    gap: 5%;
+}
+#tab-contact > div:first-of-type > div:first-of-type > div:first-of-type {
+    border-radius: 50%;
+    background-color: #1e293b;
+    border: 4px solid #334155;
+    font-size: 2.25rem;
+    line-height: 2.5rem;
+    height: 128px;
+    width: 128px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: none;
+    color: white;
+}
+#tab-contact > div:first-of-type > div:first-of-type > div:nth-child(2) {
+    flex: 1
+}
+#tab-contact h4 {
+    font-weight: 700;
+    margin: 1%;
+    color: #22c55e;
+}
+#tab-contact h2{
+    color: white;
+    font-size: larger;
+    font-weight: 700;
+}
+#tab-contact pre {
+    color: #3b82f6;
+    font-style: italic;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    margin-top: 4px;
+}
+#tab-contact span {
+    color: white;
+}
