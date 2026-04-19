@@ -582,6 +582,7 @@ function playCd() {
 function focus(inputCommandpart) {
     focusActuel = inputCommandpart;
     input.blur();  
+
     setTimeout(() => {
         if (inputCommandpart === focusCurser.onTerm) {
             input.focus();

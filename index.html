@@ -8,7 +8,7 @@
         <link href="./styles/styles-portfolio.css" rel="stylesheet">
         <script src="https://cdn.tailwindcss.com"></script>
 
-        <title>Portefolio Sampaio Xavier</title>
+        <title>Portfolio Sampaio Xavier</title>
     </head>
     <body >
         <div id="hero" class=" fixed">
@@ -65,7 +65,29 @@
                 </div>
         
             </div>
-            
+        </div>
+        <div id="modalManSampaio" class="hidden fixed top-0 left-0 w-full h-full bg-black bg-opacity-55 flex justify-center items-center z-50">
+    <div class="bg-gray-900 border-2 border-zinc-800 rounded-lg max-w-4xl max-h-[80vh] overflow-hidden relative shadow-2xl flex flex-col">
+        
+        <!-- Header comme le terminal -->
+        <div class="right-0 left-0 grid grid-rows-1 gap-0 grid-cols-[1fr_auto] bg-zinc-800">
+            <div class="text-center text-white font-bold right-0 left-0 py-1">
+                &nbsp;Portfolio Sampaio Xavier&nbsp;
+            </div>
+                <button id="closeModal" class="justify-self-end bg-zinc-800 text-white font-bold hover:rounded-xl hover:bg-red-600">&nbsp;x&nbsp;</button>
+        </div>
+        
+        <!-- Navigation des onglets collée en haut -->
+        <div class="grid grid-cols-6 grid-rows-1 gap-1 bg-zinc-800  text-white">
+            <div class="tab-button active text-center cursor-pointer transition" data-tab="accueil">Accueil</div>
+            <div class="tab-button text-center cursor-pointer transition" data-tab="formation">Formation</div>
+            <div class="tab-button text-center cursor-pointer transition" data-tab="competence">Compétence</div>
+            <div class="tab-button text-center cursor-pointer transition" data-tab="projet">Projet</div>
+            <div class="tab-button text-center cursor-pointer transition" data-tab="documentation">Documentation</div>
+            <div class="tab-button text-center cursor-pointer transition" data-tab="contact">Contact</div>
+        </div>
+        
+        <div id="modalBody" class="text-white overflow-y-auto p-4 flex-1">
             <div class="tab-content">
                 <div id="tab-accueil" class="tab-pane">
                     <h3>Accueil</h3>
