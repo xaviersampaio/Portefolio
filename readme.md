@@ -3,7 +3,7 @@
 Bienvenue sur le dépôt de mon portfolio personnel !  
 Ce projet présente mes compétences, mes projets et mon parcours en tant que développeur réseaux.
 
-🌐 **Démo en ligne :** xavier-sampaio.me/portefolio (déploiement prochainement)  
+🌐 **Démo en ligne :** portfolio.xavier-sampaio.me (en ligne) 
 📫 **Contact :** contact@xavier-sampaio.me
 
 ---
@@ -47,8 +47,7 @@ Selon la configuration du projet :
 
 - **HTML5**
 - **CSS3**
-- **JavaScript** + **PapaParse**
-- **TailWindCss**
+- **JavaScript** 
 - **PHP** (bientôt)
 
 ---
@@ -56,32 +55,24 @@ Selon la configuration du projet :
 ## 📂 Structure du projet
 
 ```
-├── 📁 SAMPAIO
-│   ├── 📁 data
-│   │   ├── 📁 racine⚙️
-│   │   │   │   └──  A découvrir
-│   │   │   └── 📁 home
-│   │   │       ├── 📁 root
-│   │   │       └── 📁 user
-│   │   │           └── 📁 lab
-│   │   │               ├── 📁 projetDevPerso
-│   │   │               │   ├── 📁 portfolio
-│   │   │               │   │   └── 📄 A découvrir
-│   │   │               │   ├── 📁 zengarden
-│   │   │               │   │   └── 📄 A découvrir
-│   │   │               │   └── 📁 messagerie web 
-│   │   │               │       └── 📄 A découvrir
-│   │   │               └── 📁 projetInfraPerso
-│   │   └── 📄 Arborescence.txt
-│   ├── 📁 script
-│   │   ├── 📄 filesystem.js
-│   │   └── 📄 script.js
-│   ├── 📁 styles
-│   │   ├── 🎨 input.css
-│   │   ├── 🎨 output.css
-│   │   └── 🎨 styles.css
-│   ├── 🌐 index.html
-│   ├── 📝 readme.md
-│   └── 📄 tailwind.config.js
-└── ⚙️ .gitignore
+
+├── 📁 css
+│   └── 🎨 style.css
+├── 📁 data
+│   └── 📁 racine
+│       └──  A découvrir
+├── 📁 script
+│   ├── 📄 filesystem.js
+│   ├── 📄 prep.js
+│   └── 📄 script.js
+├── 📁 styles
+│   ├── 🎨 input.css
+│   ├── 🎨 output.css
+│   ├── 🎨 styles-input.css
+│   └── 🎨 styles-portfolio.css
+├── ⚙️ .gitignore
+├── 📄 LICENSE
+├── 🌐 index.html
+├── 📝 readme.md
+└── 📄 tailwind.config.js #en migration vers css pure
 ```

@@ -1,0 +1,77 @@
+body {
+    background-color: #111827;
+}
+#hero{
+    right: 0;
+    left: 0;
+    display: flex;
+    grid-auto-rows: auto;
+    background-color: #27272a;
+}
+#chemin-hero {
+    flex: 1;
+    text-align: center;
+    color: white;
+    font-weight: bold;
+
+    right: 0;
+    left: 0;
+}
+.btn-close {
+    justify-self: self-end;
+    color: white;
+    padding-left: 8px;
+    padding-right: 8px;
+    margin-left: 12px;
+    margin-right: 12px;
+    font-weight: bold;
+}
+.btn-close:hover {
+    background-color: #ff0000;
+    border-radius: 12px;
+    cursor: pointer;
+}
+
+/* Partie Terminal */
+#outputid{
+    color: white;
+    flex: 1;
+    flex-wrap: wrap;
+    bottom: 25px;
+    overflow-y: auto;
+}
+#outputid  span {
+    color: #86efac;
+    text-decoration: underline;
+}
+
+/* Partie Entree*/
+#terminal-input {
+    display: flex;
+    position: absolute;
+    left: 0;
+    right: 0;
+}
+#terminal-input div:first-of-type {
+    color: #86efac;
+
+}
+#terminal-input > span  {
+    color: #86efac;
+    inset-block: initial;
+    min-width: 1ch;
+    white-space: nowrap;
+}
+#terminal-input > button {
+    opacity: 0;
+}
+/* underscore clignotant */
+.blink {
+    animation: blinker 1s infinite;
+    color: #86efac;
+
+}
+@keyframes blinker {
+    0%, 50% { opacity: 1; }
+    51%, 100% { opacity: 0; }
+}

@@ -31,7 +31,7 @@ const commands = {
     login: (args) => sulogin(args, 'login'),        //fait
     su: (args) => sulogin(args, 'su'),              //fait
     uname: (args) => uname(args),                   //fait
-    man: (args) => man(args),                       //en cours (partie portefolio)
+    man: (args) => man(args),                       //en cours (partie portfolio)
     ollama: ollama,                                 // 3
     neofetch: neofetch,                             // fait
     
@@ -47,6 +47,7 @@ const focusCurser = {
     onUserConnect: 2,
     onUserCreate: 3,
     onPager: 4,
+    onManSampaio: 5,
 };
 let focusActuel = focusCurser.onTerm;
 
@@ -79,13 +80,12 @@ let userlist = {
 };
 let cptuserlist = Object.keys(userlist).length + 1;
 
-// Audio
-let CDAudio;
 
 // neofetch
 const ram = navigator.deviceMemory || '?';
 const cpu = navigator.hardwareConcurrency || '?';
 const loadTime = performance.getEntriesByType('navigation')[0]?.duration;
+
 
 //////////////
 // DOCUMENT //
@@ -114,6 +114,7 @@ document.addEventListener('keydown',function(enter){  // Interaction entrée du 
                 historiqueIndex++;
             }
             document.getElementById('inputid').textContent = historique[historique.length - 1 - historiqueIndex];
+
         }
         else if (enter.key === 'ArrowDown') { //historique redescend
             if (historiqueIndex > -1) {
@@ -121,10 +122,13 @@ document.addEventListener('keydown',function(enter){  // Interaction entrée du 
             }
             if (historiqueIndex === -1) { 
                 document.getElementById('inputid').textContent = '';
+                
             } else {
                 document.getElementById('inputid').textContent = historique[historique.length - 1 - historiqueIndex];
             }
+            
         }
+        setCursorToEnd(input);
     } else if (focusActuel === focusCurser.onUserCreate) {
     if (enter.key === "Enter") {
         const passwd1 = document.getElementById('passwd1').value;
@@ -167,7 +171,7 @@ document.addEventListener('keydown',function(enter){  // Interaction entrée du 
         connectusrid = '';
         focus(focusCurser.onTerm);
     }
-    }  else if (focusActuel === focusCurser.onPager) {
+    } else if (focusActuel === focusCurser.onPager) {
     document.querySelector('.page')?.remove(); 
     if (enter.key === "Enter" || enter.key === " ") {
         if (session.pager.raw) {
@@ -179,14 +183,34 @@ document.addEventListener('keydown',function(enter){  // Interaction entrée du 
         session.pager = null;
         focus(focusCurser.onTerm);
     }
-}
+
+    } else if (focusActuel === focusCurser.onManSampaio) {
+        if (enter.key === "Enter") {
+            const response = document.getElementById('manSampaioInput')?.value.toLowerCase().trim();
+            
+            if (response === 'oui' || response === 'o' || response === 'yes' || response === 'y') {
+                outputoutput("Ouverture de l'interface...");
+                interfacesampaio();
+                focus(focusCurser.onTerm);
+            } else if (response === 'non' || response === 'n' || response === 'no') {
+                outputoutput("Annulation.");
+                focus(focusCurser.onTerm);
+            } else {
+                outputoutput("Réponse non reconnue. Veuillez répondre par oui ou non.");
+                // Reste dans le mode onManSampaio
+            }
+        } else if (enter.key === "Escape") {
+            outputoutput("Annulation.");
+            focus(focusCurser.onTerm);
+        }
+    }
 });
 
 /////////////////////
 //fonction Commande//
 /////////////////////
 function help(args) { 
-    getdatafromfile('/bin/help')
+    getdatafromfile('/bin/help', 'raw')
         .then(lignes => {
             if (lignes) afficherLignesRaw(lignes); // ← était outputoutputraw direct
         });
@@ -296,12 +320,6 @@ function adduser(inputCommandpart, paramuservalid) {
     }
 
     // On stocke le username en attente et on affiche le form
-<<<<<<< Updated upstream
-    session.pendingUsername = username;
-    focus(focusCurser.onUserCreate);
-    getdatafromfile("/bin/adduser", "raw"); // sort le form
-}
-=======
     getdatafromfile("/bin/adduser").then(content => {
         if (content) {
             // 1. On transforme le tableau en texte (puisque getdatafromfile fait un .split('\n'))
@@ -312,7 +330,6 @@ function adduser(inputCommandpart, paramuservalid) {
         }
     }
 )};
->>>>>>> Stashed changes
 function echo (inputCommandpart) {
     if (inputCommandpart.length === 0) {
         outputoutput("Veillez spécifier 1 ou 2 champs");
@@ -404,8 +421,11 @@ function man(inputCommandpart) {
     }
     const commandName = inputCommandpart[0];
 
-    if (commandName === 'sampaio') {}
-
+    if (commandName === 'sampaio') {
+        outputoutputraw("Voulez-vous accéder au portfolio de Sampaio Xavier ? (oui/non) <input type='text' id='manSampaioInput' style='background:transparent; border:none; border-bottom: 1px solid white; color:white; outline:none;' />");
+        focus(focusCurser.onManSampaio);
+        return;
+    }
     if (Filesystem['/bin/man.d/' + commandName]) {
         fetch(Filesystem['/bin/man.d/' + commandName].content)
             .then(r => r.text())
@@ -426,7 +446,7 @@ function neofetch() {
     ██╔╝ ██╗      ╚██████╔╝███████║ 
     ╚═╝  ╚═╝       ╚═════╝ ╚══════╝ </span>
 <span style="color:white">
-OS: Sampaio-OS 2.0
+OS: Sampaio-OS 2.1
 Navigateur: ${navigator.userAgent.split(' ').pop()}
 RAM: ${ram}Go
 CPU cores: ${cpu}
@@ -554,23 +574,14 @@ function afficherLignesRaw(lignes) {
     }
 }
 function playCd() {
-    if (!CDAudio) {
-        CDAudio = new Audio('./data/racine/dev/CD.mp4');
-        CDAudio.volume = 0.4;
-    }
-    CDAudio.play();
+    const audio = new Audio();
+    audio.src = getdatafromfile("/dev/CD.m4a");
+    CDAudio.volume = 0.4;
+    audio.play();
 }
 function focus(inputCommandpart) {
     focusActuel = inputCommandpart;
     input.blur();  
-<<<<<<< Updated upstream
-
-    if (inputCommandpart === focusCurser.onTerm) {
-        input.focus();
-    } else if (inputCommandpart === focusCurser.onUserConnect) {
-        document.getElementById('passwd')?.focus();
-    }
-=======
     setTimeout(() => {
         if (inputCommandpart === focusCurser.onTerm) {
             input.focus();
@@ -580,7 +591,6 @@ function focus(inputCommandpart) {
             document.getElementById('manSampaioInput')?.focus();
         }
     }, 0);
->>>>>>> Stashed changes
 }
 function pager(lignes, index = 0, nbLignes = 25) {
     const slice = lignes.slice(index, index + nbLignes);
@@ -621,3 +631,89 @@ function pagerRaw(lignes, index = 0, nbLignes = 25) {
         focus(focusCurser.onTerm);
     }
 }
+function interfacesampaio(){
+    const modal = document.getElementById('modalManSampaio');
+    modal.style.display = 'flex';
+    
+    // Initialiser les onglets
+    initTabs();
+    
+    // Fermer avec le bouton X
+    document.getElementById('closeModal').onclick = function() {
+        modal.style.display = 'none';
+        focus(focusCurser.onTerm);
+    };
+    
+    // Fermer en cliquant sur le fond
+    modal.onclick = function(e) {
+        if (e.target === modal) {
+            modal.style.display = 'none';
+            focus(focusCurser.onTerm);
+        }
+    };
+};
+function initTabs() {
+    const tabButtons = document.querySelectorAll('.tabPrimBtn');
+    const tabPanes = document.querySelectorAll('.tab-pane');
+    const docButtons = document.querySelectorAll('.doc-btn');
+    const docContents = document.querySelectorAll('.doc-content');
+
+    // --- 1. Gestion du Menu Principal ---
+    tabButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            const tabName = this.getAttribute('data-tab');
+            const targetPane = document.getElementById('tab-' + tabName);
+
+            tabButtons.forEach(btn => {
+            btn.style.backgroundColor = ''; 
+            btn.style.color = '';
+            btn.style.borderRadius = '';
+            btn.style.fontWeight = 'normal';
+        });
+            tabPanes.forEach(pane => pane.style.display = 'none');
+
+            
+            this.style.backgroundColor = '#166534';
+            this.style.color = '#ffffff';
+            this.style.borderRadius = '15px';
+            this.style.fontWeight = 'bold';
+            if (targetPane) {
+            targetPane.style.display = 'block'; 
+        }
+        });
+    });
+
+    // --- 2. Gestion de la partie Documentation ---
+    docButtons.forEach(btn => {
+        btn.addEventListener('click', function() {
+            const docName = this.getAttribute('data-doc');
+            const targetDoc = document.getElementById('doc-' + docName);
+
+            // ON CACHE TOUT : Réinitialise boutons et contenus de doc
+            docButtons.forEach(b => {
+                b.style.backgroundColor = '';
+                b.style.color = '';
+            });
+            docContents.forEach(content => {
+                content.style.display = 'none'; // Ferme le précédent
+            });
+
+            // ON AFFICHE LE BON :
+            if (targetDoc) {
+                this.style.backgroundColor = '#4b5563';
+                this.style.color = 'white';
+                targetDoc.style.display = 'block';
+            }
+        });
+    });
+}
+
+function setCursorToEnd(element) {
+    element.focus();
+    const range = document.createRange();
+    const selection = window.getSelection();
+    range.selectNodeContents(element);
+    range.collapse(false); // false = à la fin
+    selection.removeAllRanges();
+    selection.addRange(range);
+};
