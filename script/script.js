@@ -8,6 +8,10 @@ import { PERMISSION } from './filesystem.js';
 import { NODE_TYPE } from './filesystem.js';
 import { Filesystem } from './filesystem.js';
 
+//circulaire du systeme
+Filesystem.children['var'].children['www'].children['portfolio'] = Filesystem;
+//le /bin et /usr/bin identique
+Filesystem.children['usr'].children['bin'] = Filesystem.children['bin'];
 
 
 //  Commande Systeme 
@@ -15,7 +19,6 @@ const commands = {
     help: help,                                     //fait
     pwd: pwd,                                       //fait
     cat: cat,                                       //fait
-    su: (args) => su(args),                         //fait
     ls: (args) => ls(args),                         //fait
     cd: (args) => cd(args),                         //fait
     timedatctl: timedatctl,                         //fait
@@ -39,6 +42,7 @@ const commands = {
 // Constantes UI 
 const input = document.getElementById('inputid');
 const submit = document.getElementById('submitBtn');
+const openBtn = document.getElementById('openPortfolioBtn');
 
 // État du focus 
 const focusCurser = {
@@ -79,6 +83,7 @@ let userlist = {
     }
 };
 let cptuserlist = Object.keys(userlist).length + 1;
+let tabsInitialized = false;
 
 
 // neofetch
@@ -94,115 +99,117 @@ const loadTime = performance.getEntriesByType('navigation')[0]?.duration;
 // Gestion Document & initialisation de la page 
 document.getElementById('prefix').textContent = session.currentUser +'@' + located + "$"
 
-    // Validation Enter
-document.addEventListener('keydown',function(enter){  // Interaction entrée du terminal
-    if (focusActuel === focusCurser.onTerm) { // quand il n'y a rien d'ouvert focus au termial
-        // Envoyer le courseur de l'utilisateur dans le input
-        input.focus();
-        if (enter.key === "Enter") {
-            enter.preventDefault();
-            let command = input.innerText;
-            let inputCommand = readline(command);
-            submit.click();
-            document.getElementById('inputid').textContent = '';
-            window.scrollTo(0, document.body.scrollHeight);
-            historique.push(command);
-            historiqueIndex = -1; // reset l'index 
-        }
-        else if ( enter.key === "ArrowUp") { //historique remonter
-            if (historiqueIndex < historique.length - 1) {
-                historiqueIndex++;
-            }
-            document.getElementById('inputid').textContent = historique[historique.length - 1 - historiqueIndex];
 
-        }
-        else if (enter.key === 'ArrowDown') { //historique redescend
-            if (historiqueIndex > -1) {
-                historiqueIndex--;
-            }
-            if (historiqueIndex === -1) { 
+// passage par btn-close
+document.addEventListener('DOMContentLoaded', function() {
+    document.getElementById('openPortfolioBtn').addEventListener('click', function() {
+        interfacesampaio();
+    });
+});
+
+//
+
+// Validation Enter
+document.addEventListener('keydown', function(enter) {
+    switch (focusActuel) {
+
+        case focusCurser.onTerm:
+            input.focus();
+            if (enter.key === 'Enter') {
+                enter.preventDefault();
+                const command = input.innerText;
+                readline(command);
                 document.getElementById('inputid').textContent = '';
-                
-            } else {
+                window.scrollTo(0, document.body.scrollHeight);
+                historique.push(command);
+                historiqueIndex = -1;
+
+            } else if (enter.key === 'ArrowUp') {
+                if (historiqueIndex < historique.length - 1) historiqueIndex++;
                 document.getElementById('inputid').textContent = historique[historique.length - 1 - historiqueIndex];
+
+            } else if (enter.key === 'ArrowDown') {
+                if (historiqueIndex > -1) historiqueIndex--;
+                document.getElementById('inputid').textContent = historiqueIndex === -1
+                    ? ''
+                    : historique[historique.length - 1 - historiqueIndex];
             }
-            
-        }
-        setCursorToEnd(input);
-    } else if (focusActuel === focusCurser.onUserCreate) {
-    if (enter.key === "Enter") {
-        const passwd1 = document.getElementById('passwd1').value;
-        const passwd2 = document.getElementById('passwd2').value;
-
-        if (passwd1 !== passwd2) {
-            outputoutput("Les mots de passe sont différents");
-            return;
-        }
-        userlist[cptuserlist] = {
-            nom: session.pendingUsername,
-            Permission: PERMISSION.USER_ACCESS,
-            passwd: passwd1
-        };
-        cptuserlist++;
-        session.pendingUsername = null;
-
-        outputoutput("Utilisateur créé avec succès");
-        focus(focusCurser.onTerm);
-
-    } else if (enter.key === "Escape") {
-        session.pendingUsername = null;
-        focus(focusCurser.onTerm);
-        }
-    } else if (focusActuel === focusCurser.onUserConnect) {
-        if (enter.key === "Enter") {  // ← manquant !
-            const passwdconnect = document.getElementById('passwd');
-            const userFound = Object.values(userlist).find(
-                u => u.nom === connectusrid && u.passwd === passwdconnect.value
-            );
-            if (userFound) {
-                session.currentUser = connectusrid;
-                outputoutput("Connecté en tant que " + connectusrid);
-            } else {
-                outputoutput("Mot de passe incorrect");
-            }
-            connectusrid = '';
-            focus(focusCurser.onTerm);
-    } else if (enter.key === "Escape") {
-        connectusrid = '';
-        focus(focusCurser.onTerm);
-    }
-    } else if (focusActuel === focusCurser.onPager) {
-    document.querySelector('.page')?.remove(); 
-    if (enter.key === "Enter" || enter.key === " ") {
-        if (session.pager.raw) {
-            pagerRaw(session.pager.lignes, session.pager.index);
-        } else {
-            pager(session.pager.lignes, session.pager.index);
-        }
-    } else if (enter.key === "q") {
-        session.pager = null;
-        focus(focusCurser.onTerm);
-    }
-
-    } else if (focusActuel === focusCurser.onManSampaio) {
-        if (enter.key === "Enter") {
-            const response = document.getElementById('manSampaioInput')?.value.toLowerCase().trim();
-            
-            if (response === 'oui' || response === 'o' || response === 'yes' || response === 'y') {
-                outputoutput("Ouverture de l'interface...");
-                interfacesampaio();
+            setCursorToEnd(input);
+            break;
+        case focusCurser.onUserCreate:
+            if (enter.key === 'Enter') {
+                const passwd1 = document.getElementById('passwd1').value;
+                const passwd2 = document.getElementById('passwd2').value;
+                if (passwd1 !== passwd2) {
+                    outputoutput('Les mots de passe sont différents');
+                    return;
+                }
+                userlist[cptuserlist] = {
+                    nom: session.pendingUsername,
+                    Permission: PERMISSION.USER_ACCESS,
+                    passwd: passwd1
+                };
+                cptuserlist++;
+                session.pendingUsername = null;
+                outputoutput('Utilisateur créé avec succès');
                 focus(focusCurser.onTerm);
-            } else if (response === 'non' || response === 'n' || response === 'no') {
-                outputoutput("Annulation.");
+
+            } else if (enter.key === 'Escape') {
+                session.pendingUsername = null;
                 focus(focusCurser.onTerm);
-            } else {
-                outputoutput("Réponse non reconnue. Veuillez répondre par oui ou non.");
-                // Reste dans le mode onManSampaio
             }
-        } else if (enter.key === "Escape") {
-            outputoutput("Annulation.");
-            focus(focusCurser.onTerm);
-        }
+            break;
+        case focusCurser.onUserConnect:
+            if (enter.key === 'Enter') {
+                const passwdconnect = document.getElementById('passwd');
+                const userFound = Object.values(userlist).find(
+                    u => u.nom === connectusrid && u.passwd === passwdconnect.value
+                );
+                if (userFound) {
+                    session.currentUser = connectusrid;
+                    outputoutput('Connecté en tant que ' + connectusrid);
+                } else {
+                    outputoutput('Mot de passe incorrect');
+                }
+                connectusrid = '';
+                focus(focusCurser.onTerm);
+
+            } else if (enter.key === 'Escape') {
+                connectusrid = '';
+                focus(focusCurser.onTerm);
+            }
+            break;
+        case focusCurser.onPager:
+            if (enter.key === 'Enter' || enter.key === ' ') {
+                document.querySelector('.page')?.remove();
+                if (session.pager.raw) {
+                    pagerRaw(session.pager.lignes, session.pager.index);
+                } else {
+                    pager(session.pager.lignes, session.pager.index);
+                }
+            } else if (enter.key === 'q') {
+                document.querySelector('.page')?.remove();
+                session.pager = null;
+                focus(focusCurser.onTerm);
+            }
+            break;
+        case focusCurser.onManSampaio:
+            if (enter.key === 'Enter') {
+                const response = document.getElementById('manSampaioInput')?.value.toLowerCase().trim();
+                if (response === 'oui' || response === 'o' || response === 'yes' || response === 'y') {
+                    outputoutput("Ouverture de l'interface...");
+                    interfacesampaio();
+                } else if (response === 'non' || response === 'n' || response === 'no') {
+                    outputoutput('Annulation.');
+                    focus(focusCurser.onTerm);
+                } else {
+                    outputoutput('Réponse non reconnue. Veuillez répondre par oui ou non.');
+                }
+            } else if (enter.key === 'Escape') {
+                outputoutput('Annulation.');
+                focus(focusCurser.onTerm);
+            }
+            break;
     }
 });
 
@@ -212,81 +219,70 @@ document.addEventListener('keydown',function(enter){  // Interaction entrée du 
 function help(args) { 
     getdatafromfile('/bin/help', 'raw')
         .then(lignes => {
-            if (lignes) afficherLignesRaw(lignes); // ← était outputoutputraw direct
+            if (lignes) afficherLignesRaw(lignes);
         });
-}
+};
 function pwd(inputCommandpart) {
     outputoutput(located);
 };
 function cat(inputCommandpart) {
-    inputCommandpart = chemin(inputCommandpart);
-    if (!Filesystem[inputCommandpart]) {
-        outputoutput("Fichier introuvable");
+    if (!inputCommandpart || inputCommandpart.length === 0) {
+        outputoutput('cat: aucun chemin fourni');
         return;
     }
-    if (Filesystem[inputCommandpart].type !== "file") {
-        outputoutput("Ce n'est pas un fichier");
-        return;
-    }
-    if (inputCommandpart === '/dev/cdrom') {
+    const path = chemin(inputCommandpart);
+    const node = getNode(path);
+
+    if (errchemin(node, path, 'cat',
+        ': Aucun fichier ou dossier de ce type',
+        ": C'est un dossier")) return;
+
+    if (path === '/dev/cdrom') {
         playCd();
         return;
     }
-    getdatafromfile(inputCommandpart)
-        .then(lignes => {
-            if (lignes) afficherLignes(lignes); // toujours non-raw
-        });
-}
-function ls(inputCommandpart) {
-    inputCommandpart = chemin(inputCommandpart);
-    console.log(inputCommandpart);
-    if (Filesystem[inputCommandpart].type === "file") {
-        outputoutput("C'est un fichier pas un chemin")
-    } else if (Filesystem[inputCommandpart].type === "dir") {
-        console.log("dir validé")
-        for (let i = 0; i<Filesystem[inputCommandpart].children.length; i++) {
-            outputoutput(Filesystem[inputCommandpart].children[i]);
-        };
-    };
-};  
-function cd(inputCommandpart) {
-    inputCommandpart = chemin(inputCommandpart); // résout le chemin
 
-    if (!inputCommandpart) {
-        return; // aucun chemin fourni 
-    } else if (!Filesystem[inputCommandpart]) {
-        outputoutput("Chemin non connu");
-        return;
-    } else if (Filesystem[inputCommandpart].type !== "dir") {
-        outputoutput("Ce n'est pas un dossier");
-        return;
+    getdatafromfile(path).then(lines => {
+        if (lines) outputoutput(lines.join('\n'));
+    });
+};
+function ls(inputCommandpart) {
+    const path = chemin(inputCommandpart);
+    const node = getNode(path);
+    if (errchemin(node, path, 'ls',
+        ': Aucun fichier ou dossier de ce type',
+        ": C'est un fichier pas un dossier")) return;
+    
+    if (node.type === NODE_TYPE.DIR) {
+        const entries = Object.keys(node.children);
+        if (entries.length === 0) {
+            outputoutput('(dossier vide)');
+        } else {
+            outputoutput(entries.join('  '));
+        }
     }
-    located = inputCommandpart;
-}
+};
+function cd(inputCommandpart) {
+    const path = chemin(inputCommandpart);
+    const node = getNode(path);
+    if (errchemin(node, path, 'cd',
+        ': Aucun fichier ou dossier de ce type',
+        ": C'est un fichier pas un dossier")) return;
+
+    located = path;
+};
 function clear() { 
     document.getElementById("outputid").innerHTML = "";
 }; 
-function su(inputCommandpart) {
-    
-    if (Filesystem["/home"].children.includes(inputCommandpart[0])) {
-        console.log('vert');
-        if (inputCommandpart[0]!== 'root') {
-            session.currentUser = inputCommandpart[0]; // cas ou l'utilisateur existe et n'est pas root
-        } else { //cas ou l'utilisateur existe et est root
-            outputoutput('Root non autorisé');
-        } 
-    } else if (inputCommandpart[0] === undefined) {
-        outputoutput('veuillez spécifier un utilisateur');
-    } else {
-        outputoutput('Utilisateur introuvable')
-    };
-};
 function exit(){
     clear();
     alert("Connexion fermée. Vous pouvez fermer cet onglet.");
 };
-function sl(){
-    getdatafromfile('/bin/sl', 'non-raw');
+function sl() { 
+    getdatafromfile('/bin/sl', 'raw')
+        .then(lignes => {
+            if (lignes) afficherLignesRaw(lignes);
+        });
 };
 function timedatctl(inputCommandpart) {
     const now = new Date();
@@ -371,7 +367,6 @@ function alsamixer(inputCommandpart) {};
 function whoami() {
     outputoutput(session.currentUser)
 };
-
 function sulogin(inputCommandpart, type) {
     typeActuel = type;
     if (!inputCommandpart[0]) {
@@ -438,147 +433,165 @@ function ollama(ollama) {
 
 };
 function neofetch() {    
-    outputoutputraw(`<span style="color:#00ff00"> 
+    outputoutputraw(`<pre id="neofetch"> 
     ██╗  ██╗       ██████╗ ███████╗ 
     ╚██╗██╔╝      ██╔═══██╗██╔════╝ 
      ╚███╔╝ █████╗██║   ██║███████╗ 
      ██╔██╗ ╚════╝██║   ██║╚════██║ 
     ██╔╝ ██╗      ╚██████╔╝███████║ 
-    ╚═╝  ╚═╝       ╚═════╝ ╚══════╝ </span>
-<span style="color:white">
+    ╚═╝  ╚═╝       ╚═════╝ ╚══════╝ </pre>
+<pre>
 OS: Sampaio-OS 2.1
 Navigateur: ${navigator.userAgent.split(' ').pop()}
 RAM: ${ram}Go
 CPU cores: ${cpu}
 Chargement: ${loadTime}ms
-</span>`)
+</pre>`)
 }
-
 ////////////////////
 //fonction systeme//
 ////////////////////
-function outputinput(inputCommand) { // retourne le prefix commandes [user]@[location]$[command]
+
+// Utilitaire : navigue dans Filesystem à partir d'un chemin string, retourne le noeud ou null
+function getNode(path) {
+    const parts = path.split('/').filter(Boolean);
+    let node = Filesystem;
+    for (const part of parts) {
+        if (!node.children || !node.children[part]) return null;
+        node = node.children[part];
+    }
+    return node;
+};
+function outputinput(inputCommand) {
     const output = document.getElementById('outputid');
     const newLine = document.createElement('div');
-    const prefixecomm = session.currentUser+'@' + located + "$"
-    document.getElementById('prefix').textContent = prefixecomm
-    document.getElementById('chemin-hero').innerHTML ="Terminal Sampaio-OS : " + prefixecomm
+    const prefixecomm = session.currentUser + '@' + located + '$';
+    document.getElementById('prefix').textContent = prefixecomm;
+    document.getElementById('chemin-hero').innerHTML = 'Terminal Sampaio-OS : ' + prefixecomm;
     newLine.className = 'text-green-300';
-    newLine.textContent = prefixecomm + inputCommand; // Preparation de la commande
+    newLine.textContent = prefixecomm + inputCommand;
     output.appendChild(newLine);
 };
 function readline(inputCommand) {
-    // sortie de l'entrée uilisateur dans la console
-    outputinput(inputCommand)
-    // traitement de la commande
-    //let commandSplit = inputCommand.split(/\s+/).filter(p => p !== ''); // verifier que la ligne suivante ne casse pas
+    outputinput(inputCommand);
     const commandSplit = (inputCommand.match(/(".*?"|[^\s]+)/g) || []).map(arg => arg.replace(/^"|"$/g, ''));
-    // split en fonction du &&
     const split = '&&';
-    const  lenCommandSplit = commandSplit.filter(p => p === split).length; //compte le nombre de && inclue dans la commande
-    // console.log("lenCommandSplit : " + lenCommandSplit)
-    // console.log("commandSplit : " + commandSplit)
+    const lenCommandSplit = commandSplit.filter(p => p === split).length;
 
     if (lenCommandSplit === 0) {
-        // Aucun '&&' 
-        const part1 = commandSplit;
-        
-        const part2 = null;
-        doLine(part1);    //faire traitement dans la nouvelle fonction x1
-        
+        doLine(commandSplit);
     } else if (lenCommandSplit === 1) {
-        // Un seul '&&'
-        let part1 = commandSplit.slice(0, commandSplit.indexOf(split));
-        let part2 = commandSplit.slice(commandSplit.indexOf(split) + 1);
-        doLine(part1);
-        doLine(part2)
-                //faire traitement dans nouvelle fonction x2
+        const idx = commandSplit.indexOf(split);
+        doLine(commandSplit.slice(0, idx));
+        doLine(commandSplit.slice(idx + 1));
     } else {
-        console.log('plusieurs séparations détecté');
-    };
+        console.log('plusieurs séparations détectées');
+    }
 };
-function doLine(inputCommandpart) { // retourne sur la fonction de la commande associé
-        // console.log('inputCommandpart[0]: ' + inputCommandpart[0]) 
+function doLine(inputCommandpart) {
     const cmdName = inputCommandpart[0];
+    if (!cmdName) return;
 
     if (commands[cmdName]) {
         commands[cmdName](inputCommandpart.slice(1));
     } else {
-        if (cmdName !== undefined){
-            console.log("Commande inconnue :", cmdName);
-            let output = document.getElementById('outputid');
-            let newLine = document.createElement('div');
-            // console.log("located " + located);
-            newLine.textContent = 'Command unkown'; 
-            output.appendChild(newLine);
-        };
-    };
+        console.log('Commande inconnue :', cmdName);
+        const output = document.getElementById('outputid');
+        const newLine = document.createElement('div');
+        newLine.textContent = 'Command unknown';
+        output.appendChild(newLine);
+    }
 };
-function outputoutputraw(inputoutput) { // retourne sous forme de texte dans le terminal le inputoutput
+function outputoutputraw(inputoutput) {
     const output = document.getElementById('outputid');
     const newLine = document.createElement('pre');
     newLine.innerHTML = inputoutput.replace(/\n/g, '<br>');
     newLine.style.whiteSpace = 'pre-wrap';
-    output.appendChild(newLine)
-    console.log(inputoutput);
+    output.appendChild(newLine);
 };
 function outputoutput(inputoutput) {
     const output = document.getElementById('outputid');
     const newLine = document.createElement('div');
-    newLine.textContent = inputoutput; 
+    newLine.textContent = inputoutput;
     newLine.style.whiteSpace = 'pre-wrap';
     output.appendChild(newLine);
-    console.log(inputoutput);
-}
-function chemin(inputCommandpart){ //resous le chemin de l'utilisateur quand il a (ex: ls, cd, echo)
-    //located chemin actuel input command part chemin a tester
-    part = located.split("/").filter(Boolean); //recupere le chemin dans un tableau et filtre les valeur null (ex : /home/user => ["home", "user"])
-    if (!inputCommandpart || inputCommandpart.length === 0) {
-        return located;
-    } else if (inputCommandpart[0].startsWith("/")) {   // chemin absolu
-        return inputCommandpart[0];
-    } else if (inputCommandpart[0] === "." || inputCommandpart[0] === "./") { // chemin courant
-        return located;
-    } else if (inputCommandpart[0] === "..") { // remonter
-        part.pop();
-        return "/" + part.join("/");
-    } else if (inputCommandpart[0].startsWith("./")) {// //gestion du chemin supp
-        let path = located + "/" + inputCommandpart[0].slice(2);
-        return path.replace(/\/+/g, "/");
-    } else { // chemin relatif simple
-        let path = located + "/" + inputCommandpart[0];
-        return path.replace(/\/+/g, "/");
-    };
 };
-function getdatafromfile(path) {
-    if (Filesystem[path].autorised === PERMISSION.READ_WRITE || Filesystem[path].autorised === PERMISSION.READ_ONLY) {
-        return fetch(Filesystem[path].content)
-            .then(response => response.text())
-            .then(data => data.split('\n'));
-    } else {
-        outputoutput("Accès non Autorisé");
+function chemin(inputCommandpart) {
+    if (!inputCommandpart || inputCommandpart.length === 0) return located;
+
+    const target = inputCommandpart[0];
+
+    if (target.startsWith('/')) {                   // absolu
+        return target.replace(/\/+/g, '/');
     }
-}
+    if (target === '.' || target === './') {        // courant
+        return located;
+    }
+    // construction de la base sous forme de tableau
+    let parts = located.split('/').filter(Boolean);
+    if (target === '..') {                          // parent
+        parts.pop();
+        return '/' + parts.join('/');
+    }
+    // relatif (avec ou sans ./)
+    const rel = target.startsWith('./') ? target.slice(2) : target;
+    const segments = rel.split('/').filter(Boolean);
+
+    for (const seg of segments) {
+        if (seg === '..') {
+            parts.pop();
+        } else if (seg !== '.') {
+            parts.push(seg);
+        }
+    }
+
+    return '/' + parts.join('/');
+};
+async function getdatafromfile(path) {
+    const node = getNode(path);
+
+    if (!node) {
+        outputoutput('Fichier introuvable : ' + path);
+        return Promise.resolve(null);
+    } else if (node.type !== NODE_TYPE.FILE) {
+        outputoutput(path + ' : est un répertoire');
+        return Promise.resolve(null);
+    }
+
+    if (node.Permission === PERMISSION.NONE) {
+        outputoutput('Accès non autorisé');
+        return Promise.resolve(null);
+    }
+
+    if (!node.content) {
+        outputoutput(path + ' : aucun contenu');
+        return Promise.resolve(null);
+    }
+
+    return fetch(node.content)
+        .then(r => r.text())
+        .then(data => data.split('\n'));
+};
 function afficherLignes(lignes) {
     if (lignes.length <= PAGER_LIMIT) {
         lignes.forEach(ligne => outputoutput(ligne));
     } else {
         pager(lignes);
     }
-}
+};
 function afficherLignesRaw(lignes) {
     if (lignes.length <= PAGER_LIMIT) {
         outputoutputraw(lignes.join('\n'));
     } else {
         pagerRaw(lignes);
     }
-}
+};
 function playCd() {
     const audio = new Audio();
     audio.src = getdatafromfile("/dev/CD.m4a");
     CDAudio.volume = 0.4;
     audio.play();
-}
+};
 function focus(inputCommandpart) {
     focusActuel = inputCommandpart;
     input.blur();  
@@ -592,12 +605,13 @@ function focus(inputCommandpart) {
             document.getElementById('manSampaioInput')?.focus();
         }
     }, 0);
-}
+};
 function pager(lignes, index = 0, nbLignes = 25) {
     const slice = lignes.slice(index, index + nbLignes);
     slice.forEach(ligne => outputoutput(ligne));
 
     if (index + nbLignes < lignes.length) {
+         focus(focusCurser.onTerm);
         // il reste des lignes
         outputoutputraw("<div class=page>-- Plus -- (Entrée/Espace: continuer, q: quitter)</div>");
         session.pager = {
@@ -612,7 +626,7 @@ function pager(lignes, index = 0, nbLignes = 25) {
         session.pager = null;
         focus(focusCurser.onTerm);
     }
-}
+};
 function pagerRaw(lignes, index = 0, nbLignes = 25) {
     const slice = lignes.slice(index, index + nbLignes);
     outputoutputraw(slice.join('\n'));
@@ -632,83 +646,114 @@ function pagerRaw(lignes, index = 0, nbLignes = 25) {
         focus(focusCurser.onTerm);
     }
 }
-function interfacesampaio(){
+function interfacesampaio() {
     const modal = document.getElementById('modalManSampaio');
-    modal.style.display = 'flex';
+    modal.classList.add('show');  // Au lieu de remove('hidden')
     
-    // Initialiser les onglets
     initTabs();
+    initVoirPlus();
+    initDocTabs();
     
-    // Fermer avec le bouton X
+    // Fermeture
     document.getElementById('closeModal').onclick = function() {
-        modal.style.display = 'none';
+        modal.classList.remove('show');
         focus(focusCurser.onTerm);
     };
     
-    // Fermer en cliquant sur le fond
     modal.onclick = function(e) {
         if (e.target === modal) {
-            modal.style.display = 'none';
+            modal.classList.remove('show');
             focus(focusCurser.onTerm);
         }
     };
-};
+}
 function initTabs() {
-    const tabButtons = document.querySelectorAll('.tabPrimBtn');
-    const tabPanes = document.querySelectorAll('.tab-pane');
-    const docButtons = document.querySelectorAll('.doc-btn');
+  if (tabsInitialized) return;
+  tabsInitialized = true;
+
+  const tabButtons = document.querySelectorAll('.tabPrimBtn');
+  const tabPanes = document.querySelectorAll('.tab-pane');
+
+  tabButtons.forEach(button => {
+    button.addEventListener('click', function() {
+      const tabName = this.getAttribute('data-tab');
+
+      tabButtons.forEach(btn => btn.classList.remove('active'));
+      tabPanes.forEach(pane => pane.style.display = 'none');
+
+      this.classList.add('active');
+      const targetPane = document.getElementById('tab-' + tabName);
+      if (targetPane) targetPane.style.display = 'block';
+    });
+  });
+
+  tabPanes.forEach(pane => pane.style.display = 'none');
+  const first = document.querySelector('.tabPrimBtn.active');
+  if (first) {
+    const targetPane = document.getElementById('tab-' + first.dataset.tab);
+    if (targetPane) targetPane.style.display = 'block';
+  }
+};
+function initVoirPlus() {
+    // Boutons Voir plus
+    document.querySelectorAll('.voir-plus-btn').forEach(btn => {
+        btn.addEventListener('click', function (e) {
+            e.preventDefault();
+
+            const parent = this.parentElement;
+            const modal = parent.querySelector('.details-modal');
+
+            console.log('parent:', parent);
+            console.log('modal:', modal);
+
+            if (modal) {
+                modal.classList.add('show');
+            }
+        });
+});
+
+    // Croix de fermeture
+    document.querySelectorAll('.close-details').forEach(close => {
+        close.onclick = function(e) {
+            e.stopPropagation();
+            // Trouve le modal parent et enlève la classe
+            this.closest('.details-modal').classList.remove('show');
+        };
+    });
+}
+function initDocTabs() {
+    const docButtons = document.querySelectorAll('.tabSecbtn');
     const docContents = document.querySelectorAll('.doc-content');
 
-    // --- 1. Gestion du Menu Principal ---
-    tabButtons.forEach(button => {
+    docButtons.forEach(button => {
         button.addEventListener('click', function() {
-            const tabName = this.getAttribute('data-tab');
-            const targetPane = document.getElementById('tab-' + tabName);
-
-            tabButtons.forEach(btn => {
-            btn.style.backgroundColor = ''; 
-            btn.style.color = '';
-            btn.style.borderRadius = '';
-            btn.style.fontWeight = 'normal';
-        });
-            tabPanes.forEach(pane => pane.style.display = 'none');
-
-            
-            this.style.backgroundColor = '#166534';
-            this.style.color = '#ffffff';
-            this.style.borderRadius = '15px';
-            this.style.fontWeight = 'bold';
-            if (targetPane) {
-            targetPane.style.display = 'block'; 
-        }
-        });
-    });
-
-    // --- 2. Gestion de la partie Documentation ---
-    docButtons.forEach(btn => {
-        btn.addEventListener('click', function() {
             const docName = this.getAttribute('data-doc');
+            
+            // Retire l'état actif de tous les boutons
+            docButtons.forEach(btn => btn.classList.remove('active'));
+            
+            // Cache tous les contenus
+            docContents.forEach(content => content.style.display = 'none');
+            
+            // Active le bouton cliqué
+            this.classList.add('active');
+            
+            // Affiche le contenu correspondant
             const targetDoc = document.getElementById('doc-' + docName);
-
-            // ON CACHE TOUT : Réinitialise boutons et contenus de doc
-            docButtons.forEach(b => {
-                b.style.backgroundColor = '';
-                b.style.color = '';
-            });
-            docContents.forEach(content => {
-                content.style.display = 'none'; // Ferme le précédent
-            });
-
-            // ON AFFICHE LE BON :
             if (targetDoc) {
-                this.style.backgroundColor = '#4b5563';
-                this.style.color = 'white';
                 targetDoc.style.display = 'block';
             }
         });
     });
-}
 
+    // Affiche le premier document par défaut
+    docContents.forEach(content => content.style.display = 'none');
+    const firstBtn = document.querySelector('.tabSecbtn.active');
+    if (firstBtn) {
+        const targetDoc = document.getElementById('doc-' + firstBtn.dataset.doc);
+        if (targetDoc) targetDoc.style.display = 'block';
+    }
+};
 function setCursorToEnd(element) {
     element.focus();
     const range = document.createRange();
@@ -717,4 +762,16 @@ function setCursorToEnd(element) {
     range.collapse(false); // false = à la fin
     selection.removeAllRanges();
     selection.addRange(range);
+};
+function errchemin(nodeerr, patherr, commerr, typeerr, rais1err, rais2err) {
+    if (!patherr) {
+        return true;
+    } else if (!nodeerr) {
+        outputoutput(commerr+ ': ' + patherr + rais1err);
+        return true;
+    } else if (nodeerr.type === typeerr) {
+        outputoutput(commerr + ': ' + patherr + rais2err);
+        return true;
+    }
+    return false;
 };

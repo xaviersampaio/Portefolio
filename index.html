@@ -1,175 +1,431 @@
 <!DOCTYPE html>
 <html lang="fr-FR">
-    <head>
-        <meta charset="UTF-8"/>
-        <meta name="Sampaio Xavier"/>
-        <link href="./styles/output.css" rel="stylesheet">
-        <link href="./styles/styles-input.css" rel="stylesheet">
-        <link href="./styles/styles-portfolio.css" rel="stylesheet">
-        <script src="https://cdn.tailwindcss.com"></script>
 
-        <title>Portfolio Sampaio Xavier</title>
-    </head>
-    <body >
-        <div id="hero" class=" fixed">
-            <div id="chemin-hero">
-                Terminal Sampaio-OS : user@/home$
-            </div>
-            <div class="btn-close"> x </div>
-                
+<head>
+    <meta charset="UTF-8" />
+    <meta name="Sampaio Xavier" />
+    <link href="./styles/output.css" rel="stylesheet">
+    <link href="./styles/styles-input.css" rel="stylesheet">
+    <link href="./styles/styles-portfolio.css" rel="stylesheet">
+    <title>Portfolio Sampaio Xavier</title>
+</head>
+
+<body>
+    <!-- TERMINAL -->
+    <div id="hero" class="fixed">
+        <div id="chemin-hero">
+            Terminal Sampaio-OS : user@/home$
         </div>
+        <div class="btn-close" id="openPortfolioBtn">
+            Passer à l'interface
+        </div>
+    </div>
 
-            <div id="terminal-output"> 
-                <div id="outputid" ><br> 
-                    <p>Bienvenue sur Sampai-OS 2.1</p>
-                    <br>
-                    <p><span>LinkedIn</span>: linkedin.com/in/xavier-sampaio</p>
-                    <p><span>Gitub</span>: github.com/xaviersampaio</p>
-                    <br>
-                    <pre id="sysinfo">Erreur de Chargement de l'heure</pre> 
-                    <br>
-                    <div id="gridsys" >
-                        <pre >Charge système:  0.08                 Processus:             148</pre>
-                        <pre >Usage de /:      45.2% of 19.56GB     Utilisateurs:          2</pre>
-                        <pre >Usage mémoire:   23%                  Adresse IPv4 eth0:     192.168.1.100</pre>
-                        <pre >Usage swap:      0%</pre><br>
-                    </div>
-                    <p>Derniere connexion: Aucune date  depuis Localhost</p>
-                    <br>
-                    <p>Utiliser <span> help</span> pour plus de commandes</p>
-                    <p>Utiliser <span> man sampaio</span> pour derouler le portfolio</p>
-                    <br>
+    <div id="terminal-output">
+        <div id="outputid"><br>
+            <p>Bienvenue sur Sampai-OS 2.1</p>
+            <br>
+            <p><a href="https://linkedin.com/in/xavier-sampaio">LinkedIn</a>: linkedin.com/in/xavier-sampaio</p>
+            <p><a href="https://github.com/xaviersampaio">Github</a>: github.com/xaviersampaio</p>
+            <br>
+            <pre id="sysinfo">Erreur de Chargement de l'heure</pre>
+            <br>
+            <div id="gridsys">
+                <pre>Charge système:  0.08                 Processus:             148</pre>
+                <pre>Usage de /:      45.2% of 19.56GB     Utilisateurs:          2</pre>
+                <pre>Usage mémoire:   23%                  Adresse IPv4 eth0:     192.168.1.100</pre>
+                <pre>Usage swap:      0%</pre><br>
+            </div>
+            <p>Derniere connexion: Aucune date depuis Localhost</p>
+            <br>
+            <p>Utiliser <a href="#"
+                    onclick="document.getElementById('inputid').textContent = 'help'; return false;">help</a> pour plus
+                de commandes</p>
+            <p>Utiliser <a href="#"
+                    onclick="document.getElementById('inputid').textContent = 'man sampaio'; return false;">man
+                    sampaio</a> pour dérouler le portfolio</p>
+            <br>
+        </div>
+    </div>
+
+    <div id="terminal-input">
+        <div id="prefix">Chargement</div>
+        <span contenteditable="true" id="inputid"></span>
+        <p class="blink">_</p>
+        <button type="submit" id="submitBtn"></button>
+    </div>
+
+    <!-- MODALE -->
+    <div id="modalManSampaio">
+        <div id="modalManSampaio2">
+
+            <!-- Header -->
+            <div class="modalManSampaio3">
+                <div>
+                    Portfolio Sampaio Xavier
                 </div>
+                <button id="closeModal" class=" btn-close"> x </button>
             </div>
-            <div id="terminal-input">
-                <div id="prefix">Chargement</div>
-                <span contenteditable="true" id="inputid"></span>
-                <p class="blink">_</p>
-                <button type="submit" id="submitBtn"></button>
-                <br>
-            </div>
-        <div id="modalManSampaio" class="modal-overlay">
-            <div>
-                    <div class="modal-header">
-                    <div id="chemin-hero">Terminal Sampaio-OS : user@/home$</div>
-                    <div id="closeModal" class="btn-close"> x </div>
-            </div>
-            <div class="modal-body">
-                <div id="modalPrimMenu" >
+
+            <!-- Navigation principale -->
+            <div id="modalNav" class="modal-body">
+                <div id="modalPrimMenu">
                     <div class="tabPrimBtn active" data-tab="accueil">Accueil</div>
                     <div class="tabPrimBtn" data-tab="formation">Formation</div>
-                    <div class="tabPrimBtn" data-tab="competence">Compétence</div>
                     <div class="tabPrimBtn" data-tab="projet">Projet</div>
                     <div class="tabPrimBtn" data-tab="documentation">Documentation</div>
                     <div class="tabPrimBtn" data-tab="contact">Contact</div>
                 </div>
-        
             </div>
-        </div>
-        <div id="modalManSampaio" class="hidden fixed top-0 left-0 w-full h-full bg-black bg-opacity-55 flex justify-center items-center z-50">
-    <div class="bg-gray-900 border-2 border-zinc-800 rounded-lg max-w-4xl max-h-[80vh] overflow-hidden relative shadow-2xl flex flex-col">
-        
-        <!-- Header comme le terminal -->
-        <div class="right-0 left-0 grid grid-rows-1 gap-0 grid-cols-[1fr_auto] bg-zinc-800">
-            <div class="text-center text-white font-bold right-0 left-0 py-1">
-                &nbsp;Portfolio Sampaio Xavier&nbsp;
-            </div>
-                <button id="closeModal" class="justify-self-end bg-zinc-800 text-white font-bold hover:rounded-xl hover:bg-red-600">&nbsp;x&nbsp;</button>
-        </div>
-        
-        <!-- Navigation des onglets collée en haut -->
-        <div class="grid grid-cols-6 grid-rows-1 gap-1 bg-zinc-800  text-white">
-            <div class="tab-button active text-center cursor-pointer transition" data-tab="accueil">Accueil</div>
-            <div class="tab-button text-center cursor-pointer transition" data-tab="formation">Formation</div>
-            <div class="tab-button text-center cursor-pointer transition" data-tab="competence">Compétence</div>
-            <div class="tab-button text-center cursor-pointer transition" data-tab="projet">Projet</div>
-            <div class="tab-button text-center cursor-pointer transition" data-tab="documentation">Documentation</div>
-            <div class="tab-button text-center cursor-pointer transition" data-tab="contact">Contact</div>
-        </div>
-        
-        <div id="modalBody" class="text-white overflow-y-auto p-4 flex-1">
-            <div class="tab-content">
+
+            <!-- Contenu modale -->
+            <div id="modalBody">
+
+                <!-- Accueil -->
                 <div id="tab-accueil" class="tab-pane">
-                    <h3>Accueil</h3>
-                    <div>
-                        <img> 
-                        <h4> Etudiant en BTS SIO - Option SISR</h4>
-                        <p> Bienvenue dans mon portfolio  Cette partie est encore en developpement </p>
-                    </div>
+                    <h3 class="text-2xl font-bold mb-4">Accueil</h3>
+                    <h4 class="text-xl mb-2">Etudiant en BTS SIO - Option SISR</h4>
+                    <p>Bienvenue dans mon portfolio. Cette partie est encore en développement.</p>
                 </div>
-                <div id="tab-formation" class="tab-pane ">
-                    <h3> Formation</h3>
+
+                <!-- Formation -->
+                <div id="tab-formation" class="tab-pane">
+                    <h3 class="text-2xl font-bold mb-4">Formation</h3>
                     <p>Mes formations...</p>
                 </div>
 
-                <div id="tab-competence" class="tab-pane ">
-                    <h3> Compétences</h3>
-                    <p>Mes compétences...</p>
-                </div>
+                <!-- Projet  teck sio gsb zengarden-->
+                <div id="tab-projet" class="tab-pane">
+                    <h3>Projets Scolaire</h3>
+                    <div id='projet-lst'>
+                        <!-- Projet 1 -->
+                        <div class="prog">
+                            <img src="data/image/projet/TekSIO/preview.png">
+                            <h3> Teck sio </h3>
 
-                <div id="tab-projet" class="tab-pane ">
-                    <h3> Projet</h3>
-                    <p>Mes projet...</p>
-                </div>
+                            <p>
+                                Le projet consister a amenager des locaux a partir d'un cahier des charge.
 
-                <div id="tab-documentation" class="tab-pane ">
-                    <p>Documentation</p><br>
-                     Parce qu'on ne peut pas tout retenir, je documente ici chaque étape de mes projets système. Cet onglet me sert de base de connaissances pour reproduire mes environnements de travail.
-                    </p>
-                    <div>
-                        <div> <!--ss onglet-->
-                            <li><div class="doc-btn tabSecbtn active" data-doc="monit-dsk">  Monitoring disques</div></li>
-                            <li><div class="doc-btn tabSecbtn" data-doc="cron"> Cron</div></li>
-                            <li><div class="doc-btn tabSecbtn" data-doc="SSH"> SSH connexion</div></li>
-                            <li><div class="doc-btn tabSecbtn" data-doc="F2B"> Fail2Ban</div></li>
-                            <li><div class="doc-btn tabSecbtn" data-doc="RDNS"> DNS Registrar(prochainement)</div></li>
-                            <li><div class="doc-btn tabSecbtn" data-doc="DDNS"> DNS domaine(prochainement)</div></li>
-                            <li><div class="doc-btn tabSecbtn" data-doc="LDNS"> DNS Local (pihole) (prochainement)</div></li>
-                            <li><div class="doc-btn tabSecbtn" data-doc="UBUNTU"> Preparation Ubuntu Server (prochainement)</div></li>
-                            <li><div class="doc-btn tabSecbtn" data-doc="HA-Bases"> Ha Proxy | Bases (prochainement)</div></li>
-                            <li><div class="doc-btn tabSecbtn" data-doc="HA-Adv"> Ha Proxy | Avancé (prochainement)</div></li>
-                            <li><div class="doc-btn tabSecbtn" data-doc="Apache"> Apache2 (prochainement)</div></li>
-                            <li><div class="doc-btn tabSecbtn"> Mdadm (prochainement)</div></li>
-                            <li><div class="doc-btn tabSecbtn"> Repos Linux (prochainement)</div></li>
-                            <li><div class="doc-btn tabSecbtn" data-doc="Rpi5"> RouteurPi5 (prochainement)</div></li>
+                            </p>
+                            <button class="voir-plus-btn">Voir plus</button>
+                            <!-- Détails cachés -->
+                            <div class="details-modal">
+                                <div class="details-content">
+                                    <div class="details-header">
+                                        <pre> Portfolio Sampaio Xavier | Détails Teck SIO </pre>
+                                        <span class="close-details">&times;</span>
+                                    </div>
+
+                                    <div class="details-body">
+                                        <h5>Contexte</h5><br>
+                                        <p>
+                                            Conception des locaux de l’entreprise TechSIO en respectant un budget raisonnable.
+                                        </p>
+
+                                        <h5>Objectif</h5><br>
+                                        <p>
+                                            Réaliser un cahier des charges comprenant : une salle de réunion, une salle technique, une salle de repos, un bureau secrétaire, un bureau directeur et un open space.
+                                        </p>
+
+                                        <h5>Point de réalisation</h5><br>
+                                        <p>
+                                            Planification des espaces, du réseau et du budget en fonction des contraintes du cahier des charges.
+                                        </p>
+
+                                        <h5>Difficultés</h5><br>
+                                        <p>
+                                            Répartition des tâches au sein de l’équipe et coordination du travail.
+                                        </p>
+                                        <h5> Competence :</h5><br>
+                                        <div class="competence">
+                                            <p> <strong>D2 </strong> Travailler en mode projet - Planifier les activités.</p><br>
+                                            <p> <strong>D3</strong> Travailler en mode projet - Évaluer les indicateurs de suivi d’un projet et analyser les écarts..</p><br>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <div> <!--docs-->
-                            <div id="doc-monit-dsk" class="doc-content"> <!-- 1.Monit disques -->
-                                <h4>Surveillance de disque </h4>
+                        
+                        <!-- Projet 2-->
+                        <div class="prog">
+                            <img src="data/image/projet/GSB/preview.png">
+                            <h3> GSB </h3>
+
+                            <p>
+                                Dans le contexte GSB, j'ai du monter un reseau WAN/LAN/DMZ.
+                                Le projet permet le deployement de service de redondance, Monitoring, Windows server, Ticketing
+                            </p> 
+                            <button class="voir-plus-btn">Voir plus</button>
+                            <!-- Détails cachés -->
+                            <div class="details-modal">
+                                <div class="details-content">
+                                    <div class="details-header">
+                                        <pre> Portfolio Sampaio Xavier | Détails AP GSB </pre>
+                                        <span class="close-details">&times;</span>
+                                    </div>
+
+                                    <div class="details-body">
+                                        <p class="indice"> Date de realisation: 08/09/25  08/12/25 </p> <br>
+                                        <p> plan du projet </p>
+                                        <img src="/data/image/projet/GSB/GSB_Plan.png">
+                                        <br>
+                                        <h5>Contexte</h5><br>
+                                        <p>
+                                            Mise en place d’une infrastructure réseau WAN/LAN/DMZ avec des règles de sécurité, dans le cadre du projet GSB.
+                                        </p>
+
+                                        <h5>Objectif</h5><br>
+                                        <p>
+                                            Concevoir et déployer une architecture réseau fonctionnelle et sécurisée basée sur le contexte GSB.
+                                        </p>
+
+                                        <h5>Point de réalisation</h5><br>
+                                        <p>
+                                            LAN : Windows Server 2019 (DNS, Active Directory, DHCP), OCS et GLPI.<br>
+                                            DMZ : HAProxy, Checkmk (monitoring), serveur web.<br>
+                                            Routage et sécurité assurés via IPFire.
+                                        </p>
+
+                                        <h5>Difficultés</h5><br>
+                                        <p>
+                                            Configuration et communication entre les différentes zones (LAN/DMZ), gestion des règles de sécurité et mise en place des services réseau.
+                                        </p>
+                                        <h5> Competence :</h5><br>
+                                        <div class="competence">
+                                            <p> <strong>B1 | B2 | B3</strong> Répondre aux incidents et aux demandes d'assistance et d'évolution </p><br>
+                                            <p> <strong>A1 | A6</strong> Gérer le patrimoine Informatique - Vérifier le respect des règles d’utilisation des ressources numériques.</p><br>
+                                            <p> <strong>F1</strong> Organiser son dÈveloppement professionnel - Mettre en œuvre des outils et stratégies de veille informationnelle.</p><br>
+                                            <p> <strong>E2</strong> Mettre à disposition des utilisateurs un service informatique</p><br>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            </div>
+
+                        <!-- Projet 3-->
+                        <div class="prog">
+                            <img src="data/image/projet/Zengarden/preview.png">
+                            <h3> Zengarden </h3>
+
+                            <p>Un projet dans le but de decouvrir le css </p>
+                            <a href="https://zengarden.xavier-sampaio.me">Lien</a> 
+                            <button class="voir-plus-btn">Voir plus</button>
+                            <!-- Détails cachés -->
+                            <div class="details-modal">
+                                <div class="details-content">
+                                    <div class="details-header">
+                                        <pre> Portfolio Sampaio Xavier | Détails CSS Zengarden </pre>
+                                        <span class="close-details">&times;</span>
+                                    </div>
+
+                                    <div class="details-body">
+                                        <p class="indice"> Date de realisation: 07/11/25  19/12/25 </p> <br>
+                                        <img src="data/image/projet/Zengarden/SiteOff.png">
+                                        <h5>Contexte :</h5><br>
+                                        <p>
+                                            Le projet Zengarden vise à apprendre le CSS en séparant le fond (HTML) et la forme (CSS), afin de transformer visuellement une même structure.
+                                        </p><br>
+
+                                        <h5>Objectif :</h5><br> 
+                                        <p>
+                                            Créer une version personnalisée du site uniquement en CSS, avec une identité visuelle unique tout en respectant le HTML imposé.
+                                        </p><br>
+
+                                        <h5>Point de réalisation :</h5><br>
+                                        <p>
+                                            Plus de 300 lignes de CSS ont permis d’utiliser flexbox, grid et divers effets visuels, en assurant cohérence graphique et lisibilité.
+                                        </p><br>
+
+                                        <h5>Difficultés :</h5><br>
+                                        <p>
+                                            Trouver un thème cohérent et gérer certaines contraintes CSS, notamment le responsive et les layouts complexes.
+                                        </p><br>
+
+                                        <h5> Competence :</h5><br>
+                                        <div class="competence">
+                                            <p> <strong> C-3 </strong> Developper la presence en ligne de l'organisation - Participer à l’évolution d’un site Web exploitant les données de l’organisation.</p><br>
+                                            <p> <strong> F-2 </strong> Organiser son developpement professionnel - Mettre en œuvre des outils et stratégies de veille informationnelle.</p>
+                                        </div>
+
+                                        <div class="allerplusloin">
+                                            <a href="https://csszengarden.com/">Site officiel </a><br><br>                                        
+                                            <a href="https://zengarden.xavier-sampaio.me">Voir Mon Zengarden</a><br><br>
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+
+                    <!-- Documentation -->
+                    <div id="tab-documentation" class="tab-pane">
+                        <h3>Documentation</h3>
+                        <p class="mb-4">Parce qu'on ne peut pas tout retenir, je documente ici chaque étape de mes
+                            projets système. Cet onglet me sert de base de connaissances pour reproduire mes
+                            environnements de travail.</p>
+
+                        <div>
+                            <ul> <!--ss onglet-->
+                                <li>
+                                    <div class="doc-btn tabSecbtn active" data-doc="monit-dsk"> 
+                                        Monitoring disques
+                                        <div class="tags">
+                                            <span class="tag">Scripting</span>
+                                            <span class="tag">Monitoring</span>
+                                        </div>
+                                    </div>
+                                </li><hr>
+                                <li>
+                                    <div class="doc-btn tabSecbtn" data-doc="cron"> 
+                                        Cron
+                                        <div class="tags">
+                                            <span class="tag">Scripting</span>
+                                            <span class="tag">Automatisation</span>
+                                        </div>
+                                    </div>
+                                </li><hr>
+                                <li>
+                                    <div class="doc-btn tabSecbtn" data-doc="SSH"> 
+                                        SSH connexion
+                                        <div class="tags">
+                                            <span class="tag">Connexion</span>
+                                            <span class="tag">Securité</span>
+                                        </div>
+                                    </div>
+                                </li><hr>
+                                <li>
+                                    <div class="doc-btn tabSecbtn" data-doc="F2B"> 
+                                        Fail2Ban
+                                        <div class="tags">
+                                            <span class="tag">Securité</span>
+                                            <span class="tag">intrusions</span>
+                                        </div>
+                                    </div>
+                                </li><hr>
+                                <li>
+                                    <div class="doc-btn tabSecbtn" data-doc="RDNS"> 
+                                        DNS Registrar(prochainement)
+                                        <div class="tags">
+                                            <span class="tag">DNS</span>
+                                            <span class="tag">Service</span>
+                                        </div>
+                                    </div>
+                                </li><hr>
+                                <li>
+                                    <div class="doc-btn tabSecbtn" data-doc="DDNS"> 
+                                        DNS domaine(prochainement)
+                                        <div class="tags">
+                                            <span class="tag">DNS</span>
+                                            <span class="tag">Service</span>
+                                        </div>
+                                    </div>
+                                </li><hr>
+                                <li>
+                                    <div class="doc-btn tabSecbtn" data-doc="LDNS"> 
+                                        DNS Local (pihole) (prochainement)
+                                        <div class="tags">
+                                            <span class="tag">DNS</span>
+                                            <span class="tag">Service</span>
+                                        </div>
+                                    </div>
+                                </li><hr>
+                                <li>
+                                    <div class="doc-btn tabSecbtn" data-doc="HA-Bases"> 
+                                        Ha Proxy | Bases (prochainement)
+                                        <div class="tags">
+                                            <span class="tag">Reverse proxy</span>
+                                            <span class="tag">Load Balancing</span>
+                                        </div>
+                                    </div>
+                                </li><hr>
+                                <li>
+                                    <div class="doc-btn tabSecbtn" data-doc="HA-Adv"> 
+                                        Ha Proxy | Avancé (prochainement)
+                                        <div class="tags">
+                                            <span class="tag">Filtrage</span>
+                                            <span class="tag">ACL</span>
+                                        </div>
+                                    </div>
+                                </li><hr>
+                                <li>
+                                    <div class="doc-btn tabSecbtn" data-doc="Apache"> 
+                                        Apache2 (prochainement)
+                                        <div class="tags">
+                                            <span class="tag">Serveur</span>
+                                            <span class="tag">Web</span>
+                                        </div>
+                                    </div>
+                                </li><hr>
+                                <li>
+                                    <div class="doc-btn tabSecbtn"> 
+                                        Mdadm (prochainement)
+                                        <div class="tags">
+                                            <span class="tag">RAID</span>
+                                            <span class="tag">Tolerance de panne</span>
+                                        </div>
+                                    </div>
+                                </li><hr>
+                                <li>
+                                    <div class="doc-btn tabSecbtn"> 
+                                        Repos Linux (prochainement)
+                                        <div class="tags">
+                                            <span class="tag">Depot de Paquets</span>
+                                            <span class="tag">fedora/arch/alpine</span>
+                                        </div>
+                                    </div>
+                                </li><hr>
+                                <li>
+                                    <div class="doc-btn tabSecbtn" data-doc="Rpi5">
+                                        RouteurPi5 (en cours)
+                                        <div class="tags">
+                                            <span class="tag">Routage</span>
+                                            <span class="tag">IPtables/Nftables</span>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+
+                            <!-- Contenu documentation -->
+                            <div>
+                                <div id="doc-monit-dsk" class="doc-content"> <!-- 1.Monit disques -->
+                                    <h4>Surveillance de disque </h4>
                                     <p class="instructions">1. Installer l'outils :</p>
                                     <code class="block bg-black p-2 rounded font-mono text-blue-300">
-                                        # Debian/Ubuntu : apt install smartmontools
-                                        # RHEL/CentOS : dnf install smartmontools<br>
-                                        # Arch : pacman -S smartmontools<br>
-                                    </code>
-                                <div><br>
-                                    <p class="instructions">2. Vérification manuelle de la santé :</p>
-                                    <code class="code">
-                                        sudo smartctl -H /dev/sda
-                                    </code>
-                                    <p class="indice">Chercher la ligne : "SMART overall-health self-assessment test result: PASSED"</p>
-                                </div>
-                                <div><br>
-                                    <p class="instructions">3. Script de monitoring global :</p>
-                                    <pre class="predata">
+                                            # Debian/Ubuntu : apt install smartmontools
+                                            # RHEL/CentOS : dnf install smartmontools<br>
+                                            # Arch : pacman -S smartmontools<br>
+                                        </code>
+                                    <div><br>
+                                        <p class="instructions">2. Vérification manuelle de la santé :</p>
+                                        <code class="code">
+                                            sudo smartctl -H /dev/sda
+                                        </code>
+                                        <p class="indice">Chercher la ligne : "SMART overall-health self-assessment test
+                                            result: PASSED"</p>
+                                    </div>
+                                    <div><br>
+                                        <p class="instructions">3. Script de monitoring global :</p>
+                                        <pre class="predata">
 # Récupérer la santé globale
 health=$(smartctl -H /dev/sda | grep "test result" | awk '{print $6}')
 
 # Récupérer la température
 temp=$(smartctl -A /dev/sda | grep "Temperature_Celsius" | awk '{print $10}')</pre>
-                                </div><br>
-                                <div class="rappelbleu">
-                                    <p>Pour surveiller en temps réel (toutes les 5s) :</p>
-                                    <code>watch -n 5 './check-disk-temp.sh'</code>
-                                </div><br>
-                            </div>
-                            <div id="doc-cron" class="doc-content "> <!-- 2.Cron -->
-                                <h4>Automatisation avec Cron</h4>
-                                <p class="instructions">1. Installation et activation :</p>
-                                <code class="code">
-                                    sudo apt install cron<br>
-                                    sudo systemctl enable --now cron
-                                </code>
+                                    </div><br>
+                                    <div class="rappelbleu">
+                                        <p>Pour surveiller en temps réel (toutes les 5s) :</p>
+                                        <code>watch -n 5 './check-disk-temp.sh'</code>
+                                    </div><br>
+                                </div>
+                                <div id="doc-cron" class="doc-content"> <!-- 2.Cron -->
+                                    <h4>Automatisation avec Cron</h4>
+                                    <p class="instructions">1. Installation et activation :</p>
+                                    <code class="code">
+                                        sudo apt install cron<br>
+                                        sudo systemctl enable --now cron
+                                    </code>
                                     <div><br>
                                         <p class="instructions">2. Comprendre la syntaxe (Les 5 étoiles) :</p>
                                         <div class="predata">
@@ -186,9 +442,10 @@ temp=$(smartctl -A /dev/sda | grep "Temperature_Celsius" | awk '{print $10}')</p
                                     <div><br>
                                         <p class="instructions">3. Script de sauvegarde (Tous les dimanches à 3h) :</p>
                                         <code class="code">
-                                            0 3 * * 0 /home/adm-nc/rsync.sh >> /var/log/repo-sync.log 2>&1
-                                        </code>
-                                        <p class="indice">Note : "2>&1" redirige les erreurs (stderr) vers le même fichier que les logs standards (stdout).</p>
+                                                0 3 * * 0 /home/adm-nc/rsync.sh >> /var/log/repo-sync.log 2>&1
+                                            </code>
+                                        <p class="indice">Note : "2>&1" redirige les erreurs (stderr) vers le même
+                                            fichier que les logs standards (stdout).</p>
                                     </div><br>
 
                                     <div class="grid grid-cols-2 gap-2 text-xs">
@@ -199,37 +456,39 @@ temp=$(smartctl -A /dev/sda | grep "Temperature_Celsius" | awk '{print $10}')</p
                                             <p>crontab -l</p><br>Lister vos tâches
                                         </div>
                                     </div><br>
-                            </div>
-                            <div id="doc-SSH" class="doc-content "> <!-- 3.SSH -->
-                                <h4>Connexion SSH via Clé & Alias</h4>
-                                <p class="instructions">1. Générer la paire de clés (ED25519) :</p>
-                                <code class="code">
-                                    ssh-keygen -t ed25519 -C "votre_email@exemple.com" 
-                                </code>
-                                <p class="indice">Le commentaire peut etre sous n'importe quel forme</p><br>
+                                </div>
+                                <div id="doc-SSH" class="doc-content"> <!-- 3.SSH -->
+                                    <h4>Connexion SSH via Clé & Alias</h4>
+                                    <p class="instructions">1. Générer la paire de clés (ED25519) :</p>
+                                    <code class="code">
+                                        ssh-keygen -t ed25519 -C "votre_email@exemple.com" 
+                                    </code>
+                                    <p class="indice">Le commentaire peut etre sous n'importe quel forme</p><br>
 
-                                <p class="instructions">2. Envoyer la clé sur le serveur :</p>
-                                <code class="code">
-                                    ssh-copy-id -i ~/.ssh/id_ed25519.pub user@ip_du_serveur
-                                </code><br>
-                                <p class="instructions">3. Configurer l'alias (~/.ssh/config) :</p>
-                                <pre class="predata">
+                                    <p class="instructions">2. Envoyer la clé sur le serveur :</p>
+                                    <code class="code">
+                                        ssh-copy-id -i ~/.ssh/id_ed25519.pub user@ip_du_serveur
+                                    </code><br>
+                                    <p class="instructions">3. Configurer l'alias (~/.ssh/config) :</p>
+                                    <pre class="predata">
 Host nas
     HostName ip_du_nas
     User votre_utilisateur
     IdentityFile ~/.ssh/id_ed25519</pre><br>
-                                <div class="rappelvert">
-                                    <p><strong>Succès :</strong> Désormais, tapez simplement ssh nas</p>
-                                </div><br>
-                            </div>
-                            <div id="doc-F2B" class="doc-content "> <!-- 4.Fail2Ban -->
-                                <h4 class="text-green-500 font-bold mb-4 text-lg">Fail2Ban : Protection contre les intrusions</h4>
-                                <div class="space-y-6 text-sm">
-                                    <p class="text-zinc-300 italic">
-                                        Surveille les logs système et bannit les IPs suspectes via le pare-feu.</p>
+                                    <div class="rappelvert">
+                                        <p><strong>Succès :</strong> Désormais, tapez simplement ssh nas</p>
+                                    </div><br>
+                                </div>
+                                <div id="doc-F2B" class="doc-content"> <!-- 4.Fail2Ban -->
+                                    <h4>Fail2Ban : Protection contre les
+                                        intrusions</h4>
                                     <div>
-                                        <p class="text-zinc-400 mb-2 font-semibold underline">1. Configuration SSH (/etc/fail2ban/jail.local)</p>
-                                        <pre class="bg-zinc-900 p-3 rounded font-mono text-xs text-blue-300 border border-zinc-800">
+                                        <p>
+                                            Surveille les logs système et bannit les IPs suspectes via le pare-feu.</p>
+                                        <div>
+                                            <p class="instructions">1. Configuration SSH
+                                                (/etc/fail2ban/jail.local)</p>
+                                            <pre class="code">
 [sshd]
 enabled  = true
 port     = ssh
@@ -238,99 +497,100 @@ logpath  = /var/log/auth.log
 maxretry = 3
 bantime  = 1h
 ignoreip = 127.0.0.1/8 192.168.1.0/24</pre>
-                                    </div>
+                                        </div>
 
-                                    <div><br>
-                                        <p class="text-zinc-400 mb-2 font-semibold underline">2. Cas d'usages avancés</p>
-                                        <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
-                                            <div class="bg-zinc-800/50 p-3 rounded border-l-2 border-green-500">
-                                                <p class="font-bold text-green-400">HAProxy</p>
-                                                <p class="text-[11px] text-zinc-400">Bannit les IPs qui génèrent trop d'erreurs HTTP 404 ou 403 (scanners de vulnérabilités).</p>
+                                        <div><br>
+                                            <p class="instructions">2. Cas d'usages
+                                                avancés</p>
+                                                <div class="rappelvert">
+                                                    <p> <strong> HA Proxy</strong></p>
+                                                    <p>Bannit les IPs qui génèrent
+                                                        trop d'erreurs HTTP 404 ou 403 (scanners de vulnérabilités).</p>
+                                                </div>
                                             </div>
-                                            <div class="bg-zinc-800/50 p-3 rounded border-l-2 border-blue-500">
-                                                <p class="font-bold text-blue-400">Nginx / Apache</p>
-                                                <p class="text-[11px] text-zinc-400">Protège contre les attaques par force brute sur les formulaires de connexion (ex: wp-login).</p>
+
+                                            <div><br>
+                                                <p class="instructions">3. Commandes
+                                                    d'administration</p>
+                                                <div>
+                                                    <div class="code">
+                                                        <code class="text-orange-300">fail2ban-client status sshd</code>
+                                                        <span class="text-[10px] text-zinc-500 italic">Voir les IPs
+                                                            bannies</span>
+                                                    </div> <br>
+                                                    <div class="coderouge">
+                                                        <code>fail2ban-client set sshd unbanip &lt;IP&gt;</code>
+                                                        <span >Débannir une IP</span>
+                                                    </div>
+                                                </div>
+                                            </div><br>
+                                            <div class="rappelrouge">
+                                                <p >
+                                                    <strong>Attention :</strong> Toujours ajouter votre IP dans
+                                                    <code>ignoreip</code> pour éviter de vous auto-bannir par erreur
+                                                    lors de tests !
+                                                </p>
                                             </div>
                                         </div>
-                                    </div>
-
-                                    <div><br>
-                                        <p class="text-zinc-400 mb-2 font-semibold underline">3. Commandes d'administration</p>
-                                        <div class="space-y-2">
-                                            <div class="flex items-center justify-between bg-black p-2 rounded">
-                                                <code class="text-orange-300">fail2ban-client status sshd</code>
-                                                <span class="text-[10px] text-zinc-500 italic">Voir les IPs bannies</span>
-                                            </div>
-                                            <div class="flex items-center justify-between bg-black p-2 rounded">
-                                                <code class="text-red-400">fail2ban-client set sshd unbanip &lt;IP&gt;</code>
-                                                <span class="text-[10px] text-zinc-500 italic">Débannir une IP</span>
-                                            </div>
-                                        </div>
-                                    </div><br>
-                                    <div class="bg-red-900/10 border border-red-900/50 p-3 rounded shadow-sm">
-                                        <p class="text-red-400 text-xs">
-                                            <strong>Attention :</strong> Toujours ajouter votre IP dans <code>ignoreip</code> pour éviter de vous auto-bannir par erreur lors de vos tests !
-                                        </p>
-                                    </div>
                                 </div>
-                            </div>
-                            <div id="doc-RDNS" class="doc-content "> <!--5.DNS Registrar  to do--> 
-                                <p>registrar</p>
-                            </div>
-                            <div id="doc-DDNS" class="doc-content "> <!--6.DNS domaine  to do--> 
-                                <p>DNS server</p>
-                            </div>
-                            <div id="doc-LDNS" class="doc-content "> <!--7.DNS local  to do--> 
-                                <p> dns Local</p>
-                            </div>
-                            <div id="doc-UBUNTU" class="doc-content "> <!--8.Prep Ubuntu Server  to do--> 
-                                <p> ubuntu server</p>
-                            </div>
-                            <div id="doc-HA-Bases" class="doc-content "> <!--9.HA Proxy | Bases  to do--> 
-                                <p>ha base</p>
-                            </div>
-                            <div id="doc-HA-Adv" class="doc-content "> <!--10.HA Proxy | Avancé  to do--> 
-                                <p>ha adv</p>
-                            </div>
-                            <div id="doc-Apache" class="doc-content "> <!--11.Apache2  to do--> 
-                                <p> apache2</p>
-                            </div>
-                            <div id="doc-Raid" class="doc-content "> <!--12.Mdadm  to do--> 
-                                <p>Raid</p>
-                            </div>
-                            <div id="doc-RepL" class="doc-content "> <!--13.Repot Linux  to do--> 
-                                <p>Rep</p>
-                            </div>
-                            <div id="doc-Rpi5" class="doc-content "> <!--14.Routeur Raspberry pi5  to do--> 
-                                <p>RPI</p>
+                                <div id="doc-RDNS" class="doc-content"> <!--5.DNS Registrar  to do-->
+                                    <p>registrar</p>
+                                </div>
+                                <div id="doc-RDNS" class="doc-content"> <!--5.DNS Registrar  to do-->
+                                    <p>registrar</p>
+                                </div>
+                                <div id="doc-DDNS" class="doc-content"> <!--6.DNS domaine  to do-->
+                                    <p>DNS server</p>
+                                </div>
+                                <div id="doc-LDNS" class="doc-content"> <!--7.DNS local  to do-->
+                                    <p> dns Local</p>
+                                </div>
+                                <div id="doc-HA-Bases" class="doc-content"> <!--9.HA Proxy | Bases  to do-->
+                                    <p>ha base</p>
+                                </div>
+                                <div id="doc-HA-Adv" class="doc-content"> <!--10.HA Proxy | Avancé  to do-->
+                                    <p>ha adv</p>
+                                </div>
+                                <div id="doc-Apache" class="doc-content"> <!--11.Apache2  to do-->
+                                    <p> apache2</p>
+                                </div>
+                                <div id="doc-Raid" class="doc-content"> <!--12.Mdadm  to do-->
+                                    <p>Raid</p>
+                                </div>
+                                <div id="doc-RepL" class="doc-content"> <!--13.Repot Linux  to do-->
+                                    <p>Rep</p>
+                                </div>
+                                <div id="doc-Rpi5" class="doc-content"> <!--14.Routeur Raspberry pi5  en cours-->
+                                    <h4> Montage de Mon Raspberry PI en tant que routeur </h4>
+                                    <p> 
+                                        J'ai un routeur un peu special ce n'est ni unifi ou cisco ou hp. c'est ... Ubuntu LTS 26.04 sur un raspberry pi.
+                                        j'ai un hats qui est le suivant : 
+                                    </p>
+                                    <img src="data/image/documentation/RPI5/">
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-                
-
-                <div id="tab-contact" class="tab-pane ">
-                    <h4>Contact</h4>
-                    <br>
-                    <div>
-                        <div> 
+                    <div id="tab-contact" class="tab-pane">
+                        <h4>Contact</h4>
+                        <br>
+                        <div>
                             <div>
-                                👤
-                            </div>
-                            <div> <!--flex  1-->
+                                <div>👤</div>
+                                <div>
                                     <h2>Xavier Sampaio</h2>
-                                    <pre >Développeur & Sysadmin</pre>
+                                    <pre>Développeur & Sysadmin</pre>
                                 </div>
                             </div>
+
                             <div>
-                                <span> contact mail </span> <br>
-                                <div  class="code">
-                                    <a href="mailto:pro@xavier-sampaio.me">
-                                        pro@xavier-sampaio.me
-                                    </a>
+                                <span>contact mail</span><br>
+                                <div class="code">
+                                    <a href="mailto:pro@xavier-sampaio.me">pro@xavier-sampaio.me</a>
                                 </div>
-                                <span> contact LinkedIn </span> <br>
+
+                                <span>contact LinkedIn</span><br>
                                 <div class="code">
                                     <a href="https://www.linkedin.com/in/xavier-sampaio">xavier-sampaio</a>
                                 </div>
@@ -340,8 +600,9 @@ ignoreip = 127.0.0.1/8 192.168.1.0/24</pre>
                 </div>
             </div>
         </div>
-    </div>
-    <script src="./script/prep.js"></script>
-    <script type= module src="./script/script.js"></script>
-    </body>
+
+        <script src="./script/prep.js"></script>
+        <script type="module" src="./script/script.js"></script>
+</body>
+
 </html>
