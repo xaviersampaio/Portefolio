@@ -1,6 +1,7 @@
 body {
     background-color: #111827;
-}
+    color: white;
+    }
 #hero{
     right: 0;
     left: 0;
@@ -20,18 +21,23 @@ body {
 .btn-close {
     justify-self: self-end;
     color: white;
-    padding-left: 8px;
-    padding-right: 8px;
-    margin-left: 12px;
-    margin-right: 12px;
-    font-weight: bold;
 }
 .btn-close:hover {
     background-color: #ff0000;
     border-radius: 12px;
     cursor: pointer;
 }
+.tab-button.active {
+    background-color: #166534;
+    color: white;
+    border-radius: 15px;
+    font-weight: bold;
+}
 
+.tabSecbtn.active {
+    background-color: #4b5563;
+    color: white;
+}
 /* Partie Terminal */
 #outputid{
     color: white;
@@ -40,7 +46,7 @@ body {
     bottom: 25px;
     overflow-y: auto;
 }
-#outputid  span {
+#outputid  a {
     color: #86efac;
     text-decoration: underline;
 }

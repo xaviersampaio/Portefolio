@@ -3,669 +3,253 @@
 // it under the terms of the GNU General Public License as published by
 // the Free Software Foundation, either version 3 of the License.
 
-export const PERMISSION = { // gestion des permissions plus lisible fait aussi les utilisateur
-	NONE: 0,
-	READ_ONLY: 1,
-	READ_WRITE: 2,
-	ROOT_ONLY: 3,
-    USER_ACCESS: 4
+export const PERMISSION = {
+    NONE: 0,
+    READ_ONLY: 1,
+    READ_WRITE: 2,
 };
 
-export const NODE_TYPE = { // gestion des types plus lisible
-	DIR: 'dir',
-	FILE: 'file',
+export const NODE_TYPE = {
+    DIR: 'dir',
+    FILE: 'file',
 };
 
 export const Filesystem = {
-    '/': {
-        type: NODE_TYPE.DIR,
-        children: ['bin', 'dev', 'etc', 'home', 'var'],
-        autorised: PERMISSION.READ_ONLY
-    },
-    '/bin': {
-        type: NODE_TYPE.DIR,
-        children: ['adduser','help', 'man','pwd', 'cat', 'su', 'ls', 'cd', 'timedatctl', 'ollama', 'exit'],
-        autorised: PERMISSION.READ_ONLY
-    },
-    '/bin/adduser': {
-        type: NODE_TYPE.FILE,
-        content: ['data/racine/bin/adduser'],
-        autorised: PERMISSION.READ_WRITE
-    },
-    '/bin/help': {
-        type: NODE_TYPE.FILE,
-        content: ['data/racine/bin/help'],
-        autorised: PERMISSION.READ_WRITE
-    },
-    '/bin/man': {
-        type: NODE_TYPE.FILE,
-        content: [' bleu '],
-        autorised: PERMISSION.READ_WRITE
-    },
-    '/bin/pwd': {
-        type: NODE_TYPE.FILE,
-        content: [' bleu '],
-        autorised: PERMISSION.READ_WRITE
-    },
-    '/bin/cat': {
-        type: NODE_TYPE.FILE,
-        content: [' bleu '],
-        autorised: PERMISSION.READ_WRITE
-    },
-    '/bin/su': {
-        type: NODE_TYPE.FILE,
-        content: [' bleu '],
-        autorised: PERMISSION.READ_WRITE
-    },
-    '/bin/su': {
-        type: NODE_TYPE.FILE,
-        content: [' bleu '],
-        autorised: PERMISSION.READ_WRITE
-    },
-    '/bin/sl': {
-        type: NODE_TYPE.FILE,
-        content: ['/Portefolio/data/racine/bin/sl'],
-        autorised: PERMISSION.READ_WRITE
-    },
-    '/bin/cd': {
-        type: NODE_TYPE.FILE,
-        content: [' bleu '],
-        autorised: PERMISSION.READ_WRITE
-    },
-    '/bin/timedatctl': {
-        type: NODE_TYPE.FILE,
-        content: [' bleu '],
-        autorised: PERMISSION.READ_WRITE
-    },
-    '/bin/ollama': {
-        type: NODE_TYPE.FILE,
-        content: [' bleu '],
-        autorised: PERMISSION.READ_WRITE
-    },
-    '/bin/exit': {
-        type: NODE_TYPE.FILE,
-        content: [' bleu '],
-        autorised: PERMISSION.READ_WRITE
-    },
-    '/bin/echo': {
-        type: NODE_TYPE.FILE,
-        content: [' bleu '],
-        autorised: PERMISSION.READ_WRITE
-    },
-    '/bin/vim': {
-        type: NODE_TYPE.FILE,
-        content: [' bleu '],
-        autorised: PERMISSION.READ_WRITE
-    },
-    '/dev': {
-        type: NODE_TYPE.DIR,
-        children: ['block', 'cdrom', 'console', 'disk', 'null', 'nvram', 'random', 'sda', 'sda1', 'sda2', 'sda3', 'tty', 'urandom'],
-        autorised: PERMISSION.READ_ONLY
-    },
-    '/dev/block': {
-        type: NODE_TYPE.DIR,
-        children: [],
-        autorised: PERMISSION.READ_ONLY
-    },
-    '/dev/cdrom': {
-        type: 'NODE_TYPE.FILE',
-        content: [' bleu '],
-        autorised: PERMISSION.READ_ONLY
-    },
-    '/dev/console': {
-        type: 'NODE_TYPE.FILE',
-        content: [' bleu '],
-        autorised: PERMISSION.READ_ONLY
-    },
-    '/dev/disk': {
-        type: NODE_TYPE.DIR,
-        children: ['by-diskeq','by-id','by-label','by-partuuid','by-path','by-uud'],
-        autorised: PERMISSION.READ_ONLY
-    },
-    '/dev/disk/by-diskeq': {
-        type: NODE_TYPE.DIR,
-        children: [],
-        autorised: PERMISSION.READ_ONLY
-    },
-    '/dev/disk/by-id': {
-        type: NODE_TYPE.DIR,
-        children: [],
-        autorised: PERMISSION.READ_ONLY
-    },
-    '/dev/disk/by-label': {
-        type: NODE_TYPE.DIR,
-        children: [],
-        autorised: PERMISSION.READ_ONLY
-    },
-    '/dev/disk/by-partuuid': {
-        type: NODE_TYPE.DIR,
-        children: [],
-        autorised: PERMISSION.READ_ONLY
-    },
-    '/dev/disk/by-path': {
-        type: NODE_TYPE.DIR,
-        children: [],
-        autorised: PERMISSION.READ_ONLY
-    },
-    '/dev/disk/by-uud': {
-        type: NODE_TYPE.DIR,
-        children: [],
-        autorised: PERMISSION.READ_ONLY
-    },
-    '/dev/null': {
-        type: 'NODE_TYPE.FILE',
-        content: [' bleu '],
-        autorised: PERMISSION.READ_ONLY
-    },
-    '/dev/nvram': {
-        type: 'NODE_TYPE.FILE',
-        content: [' bleu '],
-        autorised: PERMISSION.READ_ONLY
-    },
-    '/dev/random': {
-        type: 'NODE_TYPE.FILE',
-        content: [' bleu '],
-        autorised: PERMISSION.READ_ONLY
-    },
-    '/dev/sda': {
-        type: 'NODE_TYPE.FILE',
-        content: [' bleu '],
-        autorised: PERMISSION.READ_ONLY
-    },
-    '/dev/sda1': {
-        type: 'NODE_TYPE.FILE',
-        content: [' bleu '],
-        autorised: PERMISSION.READ_ONLY
-    },
-    '/dev/sda2': {
-        type: 'NODE_TYPE.FILE',
-        content: [' bleu '],
-        autorised: PERMISSION.READ_ONLY
-    },
-    '/dev/sda3': {
-        type: 'NODE_TYPE.FILE',
-        content: [' bleu '],
-        autorised: PERMISSION.READ_ONLY
-    },
-    '/dev/tty': {
-        type: 'NODE_TYPE.FILE',
-        content: [' bleu '],
-        autorised: PERMISSION.READ_ONLY
-    },
-    '/dev/urandom': {
-        type: 'NODE_TYPE.FILE',
-        content: [' bleu '],
-        autorised: PERMISSION.READ_ONLY
-    },
-    '/etc': {
-        type: NODE_TYPE.DIR,
-        children: ['crontab','fstab','hostname','local.conf','nanorc','network','os-release','ssh','ssl','systemd','timezone','vim'],
-        autorised: PERMISSION.READ_WRITE
-    },
-    '/etc/crontab': {
-        type: 'NODE_TYPE.FILE', 
-        content: [' bleu '], 
-        autorised: PERMISSION.READ_ONLY 
-    },
-    '/etc/fstab': { 
-        type: 'NODE_TYPE.FILE', 
-        content: [' bleu '], 
-        autorised: PERMISSION.READ_ONLY
-    },
-    '/etc/hostname': { 
-        type: 'NODE_TYPE.FILE', 
-        content: [' bleu '], 
-		autorised: PERMISSION.READ_WRITE 
-    },
-    '/etc/local.conf': { 
-        type: 'NODE_TYPE.FILE',
-        content: [' bleu '], 
-        autorised: PERMISSION.READ_ONLY 
-    },
-    '/etc/nanorc': { 
-        type: 'NODE_TYPE.FILE', 
-        content: [' bleu '], 
-        autorised: PERMISSION.READ_ONLY 
-    },
-    '/etc/network': {
-        type: NODE_TYPE.DIR,
-        children: ['if-down.d','if-post-down.d','if-pre-up.d','if-up.d','interfaces','interfaces.d'],
-        autorised: PERMISSION.READ_ONLY
-    },
-    '/etc/network/if-down.d': { 
-        type: NODE_TYPE.DIR, 
-        children: [], 
-        autorised: PERMISSION.READ_ONLY 
-    },
-    '/etc/network/if-post-down.d': { 
-        type: NODE_TYPE.DIR, 
-        children: [], 
-        autorised: PERMISSION.READ_ONLY 
-    },
-    '/etc/network/if-pre-up.d': { 
-        type: NODE_TYPE.DIR, 
-        children: [], 
-        autorised: PERMISSION.READ_ONLY 
-    },
-    '/etc/network/if-up.d': { 
-        type: NODE_TYPE.DIR, 
-        children: [], 
-        autorised: PERMISSION.READ_ONLY 
-    },
-    '/etc/network/interfaces': { 
-        type: 'NODE_TYPE.FILE', 
-        content: [' bleu '], 
-        autorised: PERMISSION.READ_ONLY 
-    },
-    '/etc/network/interfaces.d': { 
-        type: NODE_TYPE.DIR, 
-        children: [], 
-        autorised: PERMISSION.READ_ONLY 
-    },
-    '/etc/os-release': { 
-        type: 'NODE_TYPE.FILE', 
-        content: [' bleu '], 
-        autorised: PERMISSION.READ_ONLY 
-    },
-    '/etc/ssh': {
-        type: NODE_TYPE.DIR,
-        children: ['ssh_config','ssh_config.d'],
-        autorised: PERMISSION.READ_ONLY
-    },
-    '/etc/ssh/ssh_config': { 
-        type: 'NODE_TYPE.FILE', 
-        content: [' bleu '], 
-        autorised: PERMISSION.READ_ONLY
-    },
-    '/etc/ssh/ssh_config.d': { 
-        type: NODE_TYPE.DIR, 
-        children: [], 
-        autorised: PERMISSION.READ_ONLY 
-    },
-    '/etc/ssl': {
-        type: NODE_TYPE.DIR,
-        children: ['certs','openssl.cnf','private'],
-        autorised: PERMISSION.ROOT_ONLY
-    },
-    '/etc/ssl/certs': { 
-        type: NODE_TYPE.DIR, 
-        children: [], 
-        autorised: PERMISSION.ROOT_ONLY 
-    },
-    '/etc/ssl/openssl.cnf': { 
-        type: 'NODE_TYPE.FILE', 
-        content: [' bleu '], 
-        autorised: PERMISSION.ROOT_ONLY 
-    },
-    '/etc/ssl/private': { 
-        type: NODE_TYPE.DIR, 
-        children: [], 
-        autorised: PERMISSION.ROOT_ONLY 
-    },
-    '/etc/systemd': {
-        type: NODE_TYPE.DIR,
-        children: ['journald.conf','logind.conf','network','networkd.conf','pstore.conf','sleep.conf','system','system.conf','timesyncd.conf','user','user.conf'],
-        autorised: PERMISSION.READ_ONLY
-    },
-    '/etc/systemd/journald.conf': { 
-        type: 'NODE_TYPE.FILE', 
-        content: [], 
-        autorised: PERMISSION.ROOT_ONLY 
-	},
-    '/etc/systemd/logind.conf': { 
-        type: 'NODE_TYPE.FILE', 
-        content: [], 
-        autorised: PERMISSION.ROOT_ONLY 
-    },
-    '/etc/systemd/network': { 
-        type: NODE_TYPE.DIR, 
-        children: [], 
-        autorised: PERMISSION.ROOT_ONLY 
-    },
-    '/etc/systemd/networkd.conf': { 
-        type: 'NODE_TYPE.FILE', 
-        content: [], 
-        autorised: PERMISSION.ROOT_ONLY 
-    },
-    '/etc/systemd/pstore.conf': { 
-        type: 'NODE_TYPE.FILE', 
-        content: [], 
-        autorised: PERMISSION.ROOT_ONLY 
-    },
-    '/etc/systemd/sleep.conf': { 
-        type: 'NODE_TYPE.FILE', 
-        content: [], 
-        autorised: PERMISSION.ROOT_ONLY 
-    },
-    '/etc/systemd/system': {
-         type: NODE_TYPE.DIR, 
-         children: [], 
-         autorised: PERMISSION.ROOT_ONLY
-    },
-    '/etc/systemd/system.conf': { 
-        type: 'NODE_TYPE.FILE', 
-        content: [], 
-        autorised: PERMISSION.ROOT_ONLY 
-    },
-    '/etc/systemd/timesyncd.conf': { 
-        type: 'NODE_TYPE.FILE', 
-        content: [], 
-        autorised: PERMISSION.ROOT_ONLY 
-    },
+    name: '/',
+    type: NODE_TYPE.DIR,
+    Permission: PERMISSION.READ_WRITE,
+    children: {
+        'bin': {
+            type: NODE_TYPE.DIR,
+            Permission: PERMISSION.READ_WRITE,
+            children: {
+                'man.d': {
+                    type: NODE_TYPE.DIR,
+                    Permission: PERMISSION.READ_WRITE,
+                    children: {
+                        'adduser':    { type: NODE_TYPE.FILE, content: 'data/racine/bin/man.d/adduser',    Permission: PERMISSION.READ_WRITE },
+                        'alsamixer':  { type: NODE_TYPE.FILE, content: 'data/racine/bin/man.d/alsamixer',  Permission: PERMISSION.READ_WRITE },
+                        'cat':        { type: NODE_TYPE.FILE, content: 'data/racine/bin/man.d/cat',        Permission: PERMISSION.READ_WRITE },
+                        'cd':         { type: NODE_TYPE.FILE, content: 'data/racine/bin/man.d/cd',         Permission: PERMISSION.READ_WRITE },
+                        'clear':      { type: NODE_TYPE.FILE, content: 'data/racine/bin/man.d/clear',      Permission: PERMISSION.READ_WRITE },
+                        'echo':       { type: NODE_TYPE.FILE, content: 'data/racine/bin/man.d/echo',       Permission: PERMISSION.READ_WRITE },
+                        'exit':       { type: NODE_TYPE.FILE, content: 'data/racine/bin/man.d/exit',       Permission: PERMISSION.READ_WRITE },
+                        'help':       { type: NODE_TYPE.FILE, content: 'data/racine/bin/man.d/help',       Permission: PERMISSION.READ_WRITE },
+                        'ls':         { type: NODE_TYPE.FILE, content: 'data/racine/bin/man.d/ls',         Permission: PERMISSION.READ_WRITE },
+                        'man':        { type: NODE_TYPE.FILE, content: 'data/racine/bin/man.d/man',        Permission: PERMISSION.READ_WRITE },
+                        'mkdir':      { type: NODE_TYPE.FILE, content: 'data/racine/bin/man.d/mkdir',      Permission: PERMISSION.READ_WRITE },
+                        'neofetch':   { type: NODE_TYPE.FILE, content: 'data/racine/bin/man.d/neofetch',   Permission: PERMISSION.READ_WRITE },
+                        'ollama':     { type: NODE_TYPE.FILE, content: 'data/racine/bin/man.d/ollama',     Permission: PERMISSION.READ_WRITE },
+                        'pwd':        { type: NODE_TYPE.FILE, content: 'data/racine/bin/man.d/pwd',        Permission: PERMISSION.READ_WRITE },
+                        'sampaio':    { type: NODE_TYPE.FILE, content: 'data/racine/bin/man.d/sampaio',    Permission: PERMISSION.READ_WRITE },
+                        'sl':         { type: NODE_TYPE.FILE, content: 'data/racine/bin/man.d/sl',         Permission: PERMISSION.READ_WRITE },
+                        'su':         { type: NODE_TYPE.FILE, content: 'data/racine/bin/man.d/su',         Permission: PERMISSION.READ_WRITE },
+                        'timedatctl': { type: NODE_TYPE.FILE, content: 'data/racine/bin/man.d/timedatctl', Permission: PERMISSION.READ_WRITE },
+                        'uname':      { type: NODE_TYPE.FILE, content: 'data/racine/bin/man.d/uname',      Permission: PERMISSION.READ_WRITE },
+                        'vim':        { type: NODE_TYPE.FILE, content: 'data/racine/bin/man.d/vim',        Permission: PERMISSION.READ_WRITE },
+                        'whoami':     { type: NODE_TYPE.FILE, content: 'data/racine/bin/man.d/whoami',     Permission: PERMISSION.READ_WRITE },
+                    },
+                },
+                'adduser':    { type: NODE_TYPE.FILE, content: 'data/racine/bin/adduser',    Permission: PERMISSION.READ_WRITE },
+                'alsamixer':  { type: NODE_TYPE.FILE, content: 'data/racine/bin/alsamixer',  Permission: PERMISSION.READ_WRITE },
+                'cat':        { type: NODE_TYPE.FILE, content: 'data/racine/bin/cat',        Permission: PERMISSION.READ_WRITE },
+                'cd':         { type: NODE_TYPE.FILE, content: 'data/racine/bin/cd',         Permission: PERMISSION.READ_WRITE },
+                'clear':      { type: NODE_TYPE.FILE, content: 'data/racine/bin/clear',      Permission: PERMISSION.READ_WRITE },
+                'echo':       { type: NODE_TYPE.FILE, content: 'data/racine/bin/echo',       Permission: PERMISSION.READ_WRITE },
+                'exit':       { type: NODE_TYPE.FILE, content: 'data/racine/bin/exit',       Permission: PERMISSION.READ_WRITE },
+                'help':       { type: NODE_TYPE.FILE, content: 'data/racine/bin/help',       Permission: PERMISSION.READ_WRITE },
+                'ls':         { type: NODE_TYPE.FILE, content: 'data/racine/bin/ls',         Permission: PERMISSION.READ_WRITE },
+                'man':        { type: NODE_TYPE.FILE, content: 'data/racine/bin/man',        Permission: PERMISSION.READ_WRITE },
+                'mkdir':      { type: NODE_TYPE.FILE, content: 'data/racine/bin/mkdir',      Permission: PERMISSION.READ_WRITE },
+                'neofetch':   { type: NODE_TYPE.FILE, content: 'data/racine/bin/neofetch',   Permission: PERMISSION.READ_WRITE },
+                'ollama':     { type: NODE_TYPE.FILE, content: 'data/racine/bin/ollama',     Permission: PERMISSION.READ_WRITE },
+                'pwd':        { type: NODE_TYPE.FILE, content: 'data/racine/bin/pwd',        Permission: PERMISSION.READ_WRITE },
+                'sampaio':    { type: NODE_TYPE.FILE, content: 'data/racine/bin/sampaio',    Permission: PERMISSION.READ_WRITE },
+                'sl':         { type: NODE_TYPE.FILE, content: 'data/racine/bin/sl',         Permission: PERMISSION.READ_WRITE },
+                'su':         { type: NODE_TYPE.FILE, content: 'data/racine/bin/su',         Permission: PERMISSION.READ_WRITE },
+                'timedatctl': { type: NODE_TYPE.FILE, content: 'data/racine/bin/timedatctl', Permission: PERMISSION.READ_WRITE },
+                'uname':      { type: NODE_TYPE.FILE, content: 'data/racine/bin/uname',      Permission: PERMISSION.READ_WRITE },
+                'vim':        { type: NODE_TYPE.FILE, content: 'data/racine/bin/vim',        Permission: PERMISSION.READ_WRITE },
+                'whoami':     { type: NODE_TYPE.FILE, content: 'data/racine/bin/whoami',     Permission: PERMISSION.READ_WRITE },
+            },
+        },
+        'dev': {
+            type: NODE_TYPE.DIR,
+            Permission: PERMISSION.READ_WRITE,
+            children: {
+                'disk': {
+                    type: NODE_TYPE.DIR,
+                    Permission: PERMISSION.READ_WRITE,
+                    children: {
+                        'by-diskeq':  { type: NODE_TYPE.FILE, content: 'data/racine/dev/disk/by-diskeq',  Permission: PERMISSION.READ_ONLY },
+                        'by-id':      { type: NODE_TYPE.FILE, content: 'data/racine/dev/disk/by-id',      Permission: PERMISSION.READ_ONLY },
+                        'by-label':   { type: NODE_TYPE.FILE, content: 'data/racine/dev/disk/by-label',   Permission: PERMISSION.READ_ONLY },
+                        'by-partuuid':{ type: NODE_TYPE.FILE, content: 'data/racine/dev/disk/by-partuuid',Permission: PERMISSION.READ_ONLY },
+                        'by-path':    { type: NODE_TYPE.FILE, content: 'data/racine/dev/disk/by-path',    Permission: PERMISSION.READ_ONLY },
+                        'by-uuid':    { type: NODE_TYPE.FILE, content: 'data/racine/dev/disk/by-uuid',    Permission: PERMISSION.READ_ONLY },
+                    },
+                },
+                'cdrom': { type: NODE_TYPE.FILE, content: 'null', Permission: PERMISSION.NONE },
+                'null':  { type: NODE_TYPE.FILE, content: ' ',    Permission: PERMISSION.NONE },
+            },
+        },
+        'etc': {
+            type: NODE_TYPE.DIR,
+            Permission: PERMISSION.READ_WRITE,
+            children: {
+                'network': {
+                    type: NODE_TYPE.DIR,
+                    Permission: PERMISSION.READ_WRITE,
+                    children: {
+                        'if-down.d':      { type: NODE_TYPE.FILE, content: 'data/racine/etc/network/if-down.d',      Permission: PERMISSION.READ_ONLY }, 
+                        'if-post-down.d': { type: NODE_TYPE.FILE, content: 'data/racine/etc/network/if-post-down.d', Permission: PERMISSION.READ_ONLY },
+                        'interfaces':     { type: NODE_TYPE.FILE, content: 'data/racine/etc/network/interfaces',     Permission: PERMISSION.READ_ONLY },
+                    },
+                },
+                'ssh': {
+                    type: NODE_TYPE.DIR,
+                    Permission: PERMISSION.READ_WRITE,
+                    children: {
+                        'ssh_config': { type: NODE_TYPE.FILE, content: 'data/racine/etc/ssh/ssh_config', Permission: PERMISSION.READ_ONLY },
+                    },
+                },
+                'ssl': {
+                    type: NODE_TYPE.DIR,
+                    Permission: PERMISSION.READ_WRITE,
+                    children: {
+                        'openssl.conf': { type: NODE_TYPE.FILE, content: 'data/racine/etc/ssl/openssl.conf', Permission: PERMISSION.READ_ONLY },
+                    },
+                },
+                'systemd': {
+                    type: NODE_TYPE.DIR,
+                    Permission: PERMISSION.READ_WRITE,
+                    children: {
+                        'journald.conf':  { type: NODE_TYPE.FILE, content: 'data/racine/etc/systemd/journald.conf',  Permission: PERMISSION.READ_WRITE },
+                        'logind.conf':    { type: NODE_TYPE.FILE, content: 'data/racine/etc/systemd/logind.conf',    Permission: PERMISSION.READ_WRITE },
+                        'networkd.conf':  { type: NODE_TYPE.FILE, content: 'data/racine/etc/systemd/networkd.conf',  Permission: PERMISSION.READ_WRITE },
+                        'pstore.conf':    { type: NODE_TYPE.FILE, content: 'data/racine/etc/systemd/pstore.conf',    Permission: PERMISSION.READ_WRITE },
+                        'sleep.conf':     { type: NODE_TYPE.FILE, content: 'data/racine/etc/systemd/sleep.conf',     Permission: PERMISSION.READ_WRITE },
+                        'system.conf':    { type: NODE_TYPE.FILE, content: 'data/racine/etc/systemd/system.conf',    Permission: PERMISSION.READ_WRITE },
+                        'timesyncd.conf': { type: NODE_TYPE.FILE, content: 'data/racine/etc/systemd/timesyncd.conf', Permission: PERMISSION.READ_WRITE },
+                    },
+                },
+                'vim':        { type: NODE_TYPE.DIR,  Permission: PERMISSION.READ_WRITE },
+                'crontab':    { type: NODE_TYPE.FILE, Permission: PERMISSION.READ_WRITE },
+                'fstab':      { type: NODE_TYPE.FILE, Permission: PERMISSION.READ_WRITE },
+                'hostname':   { type: NODE_TYPE.FILE, Permission: PERMISSION.READ_WRITE },
+                'local.conf': { type: NODE_TYPE.FILE, Permission: PERMISSION.READ_WRITE },
+                'nanorc':     { type: NODE_TYPE.FILE, Permission: PERMISSION.READ_WRITE },
+                'os_release': { type: NODE_TYPE.FILE, Permission: PERMISSION.READ_WRITE },
+                'timezone':   { type: NODE_TYPE.FILE, Permission: PERMISSION.READ_WRITE },
 
-    '/etc/systemd/user': { 
-        type: NODE_TYPE.DIR, 
-        children: [], 
-        autorised: PERMISSION.ROOT_ONLY 
+                'passwd':     { type: NODE_TYPE.FILE, Permission: PERMISSION.READ_WRITE },
+                'shadow':     { type: NODE_TYPE.FILE, Permission: PERMISSION.READ_WRITE },
+                'group':      { type: NODE_TYPE.FILE, Permission: PERMISSION.READ_WRITE },
+                'host':       { type: NODE_TYPE.FILE, Permission: PERMISSION.READ_WRITE },
+                'resolv.conf':{ type: NODE_TYPE.FILE, Permission: PERMISSION.READ_WRITE },
+                'bash.bashrc':{ type: NODE_TYPE.FILE, Permission: PERMISSION.READ_WRITE },
+
+            },
+        },
+        'home': {
+            type: NODE_TYPE.DIR,
+            Permission: PERMISSION.READ_WRITE,
+            children: {
+                'user': {
+                    type: NODE_TYPE.DIR,
+                    Permission: PERMISSION.READ_WRITE,
+                    children: { /* /home/user/ */ 
+                        'bleu': { type: NODE_TYPE.FILE, content: 'data/racine/home/bleu', Permission: PERMISSION.READ_WRITE},
+                        // continuer le chemin
+                        '.bashrc': { type: NODE_TYPE.FILE, content: 'data/racine/home/bleu', Permission: PERMISSION.READ_WRITE},
+                        '.bash_history': { type: NODE_TYPE.FILE, content: 'data/racine/home/bleu', Permission: PERMISSION.READ_WRITE}, // faire cat historique a l'interrieur
+                        '.profile': { type: NODE_TYPE.FILE, content: 'data/racine/home/bleu', Permission: PERMISSION.READ_WRITE},
+                        '.ssh': { 
+                            type: NODE_TYPE.DIR, 
+                            Permission: PERMISSION.READ_WRITE,
+                                children: {
+                                    /* mettre dossier authorized_keys et known_hosts */
+                                    'authorized_key': {
+                                        type: NODE_TYPE.DIR,
+                                        Permission: PERMISSION.READ_ONLY,
+                                        children: {
+                                            //mettre clef 
+                                        }
+                                    },
+                                    'known_hosts': {
+                                        type: NODE_TYPE.bleu //completer 
+                                    }
+
+                                }
+                            }, 
+                    },
+                },
+            },
+        },
+        
+        'tmp': {
+            type: NODE_TYPE.DIR,
+            Permission: PERMISSION.READ_WRITE,
+            children: {
+                'session_xQ7k.tmp': { type: NODE_TYPE.FILE, Permission: PERMISSION.READ_WRITE, content: '...' },
+                '.ICE-unix':       { type: NODE_TYPE.DIR, Permission: PERMISSION.NONE, children: {} },
+                'todo.txt':           { content: 'data/racine/tmp/todo.txt' },
+                'mot_de_passe.txt':   { content: 'data/racine/tmp/mot_de_passe' },
+                'README':             { content: 'data/racine/tmp/README' },
+                'delete_me':          { content: 'data/racine/tmp/delete_me' },
+            }
+        },
+        'var': { 
+            type: NODE_TYPE.DIR,
+            Permission: PERMISSION.READ_WRITE,
+            children: {
+                'log': {
+                    type: NODE_TYPE.DIR,
+                    Permission: PERMISSION.READ_ONLY,
+                    children: {} 
+                },
+                'www': {
+                    type: NODE_TYPE.DIR,
+                    Permission: PERMISSION.READ_ONLY,
+                    children: {
+                        portfolio: {
+                            type: NODE_TYPE.DIR,
+                             Permission: PERMISSION.READ_WRITE,
+                             children:{} //boucle de /var/www/portfolio
+                        }
+                    }
+                }
+            }
+        },
+        'proc': {
+            type: NODE_TYPE.DIR,
+            Permission: PERMISSION.READ_ONLY,
+            children: {
+                'cpuinfo':   { type: NODE_TYPE.FILE, Permission: PERMISSION.READ_ONLY, content: 'data/racine/proc/cpuinfo' }, 
+                'meminfo':   { type: NODE_TYPE.FILE, Permission: PERMISSION.READ_ONLY, content: 'data/racine/proc/meminfo' },
+                'version':   { type: NODE_TYPE.FILE, Permission: PERMISSION.READ_ONLY, content: 'data/racine/proc/version' },
+                'uptime':    { type: NODE_TYPE.FILE, Permission: PERMISSION.READ_ONLY, content: 'Uptime non disponible' },
+                'self': {
+                    type: NODE_TYPE.DIR,
+                    Permission: PERMISSION.READ_ONLY,
+                    children: {
+                        'status':  { type: NODE_TYPE.FILE, Permission: PERMISSION.READ_ONLY, content: 'data/racine/proc/self/status' },
+                        'cmdline': { type: NODE_TYPE.FILE, Permission: PERMISSION.READ_ONLY, content: 'data/racine/proc/self/status' },
+                    }
+                }
+            }
+        },
+        'root': {type: NODE_TYPE.DIR, Permission: PERMISSION.NONE},
+        'usr': {
+            type: NODE_TYPE.DIR,
+            Permission: PERMISSION.READ_ONLY,
+            children: {
+                'bin':   { type: NODE_TYPE.DIR, Permission: PERMISSION.READ_ONLY, children: {} },
+                'lib':   { type: NODE_TYPE.DIR, Permission: PERMISSION.READ_ONLY, children: {} },
+                'share': { type: NODE_TYPE.DIR, Permission: PERMISSION.READ_ONLY, children: {} },
+                'local': { type: NODE_TYPE.DIR, Permission: PERMISSION.READ_ONLY, children: {} },
+            }
+        }
+
     },
-    '/etc/systemd/user.conf': { 
-        type: 'NODE_TYPE.FILE', 
-        content: [' bleu '], 
-        autorised: PERMISSION.ROOT_ONLY 
-    },
-    '/etc/timezone': { 
-        type: 'NODE_TYPE.FILE', 
-        content: [' bleu '], 
-        autorised: PERMISSION.READ_ONLY 
-    },
-    '/etc/vim': {
-        type: NODE_TYPE.DIR,
-        children: ['vimrc','vimrc.tiny'],
-        autorised: PERMISSION.ROOT_ONLY
-    },
-    '/etc/vim/vimrc': { 
-        type: 'NODE_TYPE.FILE', 
-        content: [' bleu '], 
-        autorised: PERMISSION.ROOT_ONLY
-    },
-    '/etc/vim/vimrc.tiny': { 
-        type: 'NODE_TYPE.FILE', 
-        content: [' bleu '], 
-        autorised: PERMISSION.ROOT_ONLY
-    },
-    '/home': {
-        type: NODE_TYPE.DIR,
-        children: ['user','root','bleu'],
-        autorised: PERMISSION.READ_ONLY
-    },
-    '/home/user': {
-        type: NODE_TYPE.DIR,
-        children: ['portfolio','lab'],
-        autorised: PERMISSION.READ_ONLY
-    },
-    '/home/user/portfolio': {
-        type: NODE_TYPE.DIR,
-        children: ['media','filesystem.js','index.html','style.css','script.js'],
-        autorised: PERMISSION.READ_ONLY
-    },
-    '/home/user/portfolio/media': {
-        type: NODE_TYPE.DIR,
-        children: ['competence','rapportDeStage2'],
-        autorised: PERMISSION.READ_ONLY
-    },
-    '/home/user/portfolio/media/competence': { 
-        type: NODE_TYPE.DIR, 
-        children: [], 
-        autorised: PERMISSION.READ_ONLY 
-    },
-    '/home/user/portfolio/media/rapportDeStage2': { 
-        type: NODE_TYPE.DIR, 
-        children: [], 
-        autorised: PERMISSION.READ_ONLY 
-    },
-    '/home/user/portfolio/filesystem.js': {
-        type: 'NODE_TYPE.FILE',
-        content: ['bleu'],
-        autorised: PERMISSION.READ_ONLY
-    },
-    '/home/user/portfolio/index.html': { 
-        type: 'NODE_TYPE.FILE', 
-        content: [' bleu '], 
-        autorised: PERMISSION.READ_ONLY 
-    },
-    '/home/user/portfolio/style.css': { 
-        type: 'NODE_TYPE.FILE', 
-        content: [' bleu '], 
-        autorised: PERMISSION.READ_ONLY
-    },
-    '/home/user/portfolio/script.js': { 
-        type: 'NODE_TYPE.FILE', 
-        content: [' bleu '], 
-        autorised: PERMISSION.READ_ONLY 
-    },
-    '/home/user/lab': {
-        type: NODE_TYPE.DIR,
-        children: ['projetDevPerso','projetInfraPerso','projetRag'],
-        autorised: PERMISSION.READ_ONLY
-    },
-    '/home/user/lab/projetDevPerso': {
-        type: NODE_TYPE.DIR,
-        children: ['portfolio','zengarden'],
-        autorised: PERMISSION.READ_ONLY
-    },
-    '/home/user/lab/projetDevPerso/portfolio': {
-        type: NODE_TYPE.DIR,
-        children: ['lsportfolio','.gitgnore','notesDuProjet','index.html','input.css','readme.md','script.js','style.css','tailwind.config.js'],
-        autorised: PERMISSION.READ_ONLY
-    },
-    '/home/user/lab/projetDevPerso/portfolio/lsportfolio': { 
-        type: 'NODE_TYPE.FILE', 
-        content: [' bleu '], 
-        autorised: PERMISSION.READ_ONLY
-    },
-    '/home/user/lab/projetDevPerso/portfolio/.gitgnore': { 
-        type: 'NODE_TYPE.FILE', 
-        content: [' bleu '], 
-        autorised: PERMISSION.READ_ONLY 
-    },
-    '/home/user/lab/projetDevPerso/portfolio/notesDuProjet': {
-         type: 'NODE_TYPE.FILE', 
-        content: [' bleu '], 
-        autorised: PERMISSION.READ_ONLY 
-    },
-    '/home/user/lab/projetDevPerso/portfolio/index.html': { 
-        type: 'NODE_TYPE.FILE', 
-        content: [' bleu '], 
-        autorised: PERMISSION.READ_ONLY 
-    },
-    '/home/user/lab/projetDevPerso/portfolio/input.css': { 
-        type: 'NODE_TYPE.FILE', 
-        content: [' bleu '],
-        autorised: PERMISSION.READ_ONLY 
-    },
-    '/home/user/lab/projetDevPerso/portfolio/readme.md': {
-        type: 'NODE_TYPE.FILE', 
-        content: [' bleu '],
-        autorised: PERMISSION.READ_ONLY 
-    },
-    '/home/user/lab/projetDevPerso/portfolio/script.js': { 
-        type: 'NODE_TYPE.FILE', 
-        content: [' bleu '], 
-        autorised: PERMISSION.READ_ONLY 
-    },
-    '/home/user/lab/projetDevPerso/portfolio/style.css': { 
-        type: 'NODE_TYPE.FILE', 
-        content: [' bleu '], 
-        autorised: PERMISSION.READ_ONLY 
-    },
-    '/home/user/lab/projetDevPerso/portfolio/tailwind.config.js': { 
-        type: 'NODE_TYPE.FILE', 
-        content: [' bleu '], 
-        autorised: PERMISSION.READ_ONLY 
-     },
-    '/home/user/lab/projetDevPerso/zengarden': {
-        type: NODE_TYPE.DIR,
-        children: ['icon','media','index.html','style.css','notesDuProjet','lszengarden'],
-        autorised: PERMISSION.READ_ONLY 
-    },
-    '/home/user/lab/projetDevPerso/zengarden/icon': {
-        type: NODE_TYPE.DIR,
-        children: ['accessibility.png','creative-common.png','css.png','github.png','HTML.png'],
-        autorised: PERMISSION.READ_ONLY 
-    },
-    '/home/user/lab/projetDevPerso/zengarden/icon/accessibility.png': { 
-        type: 'NODE_TYPE.FILE', 
-        content: [' bleu '], 
-        autorised: PERMISSION.READ_ONLY 
-    },
-    '/home/user/lab/projetDevPerso/zengarden/icon/creative-common.png': { 
-        type: 'NODE_TYPE.FILE',
-         content: [' bleu '], 
-        autorised: PERMISSION.READ_ONLY 
-    },
-    '/home/user/lab/projetDevPerso/zengarden/icon/css.png': { 
-        type: 'NODE_TYPE.FILE', 
-        content: [' bleu '], 
-        autorised: PERMISSION.READ_ONLY 
-    },
-    '/home/user/lab/projetDevPerso/zengarden/icon/github.png': { 
-        type: 'NODE_TYPE.FILE', 
-        content: [' bleu '], 
-        autorised: PERMISSION.READ_ONLY 
-     },
-    '/home/user/lab/projetDevPerso/zengarden/icon/HTML.png': {
-         type: 'NODE_TYPE.FILE', 
-         content: [' bleu '], 
-         autorised: PERMISSION.READ_ONLY 
-    },
-    '/home/user/lab/projetDevPerso/zengarden/media': {
-        type: NODE_TYPE.DIR,
-        children: ['automne.gif','automne.png','automne2.png','backgroud.jpg','ete.gif','ete.png','footer.png','hiver.gif','hiver.png','printemps.png','printemps.gif'],
-        autorised: PERMISSION.READ_ONLY 
-    },
-    '/home/user/lab/projetDevPerso/zengarden/media/automne.gif': { 
-        type: 'NODE_TYPE.FILE', 
-        content: [' bleu '], 
-        autorised: PERMISSION.READ_ONLY 
-    },
-    '/home/user/lab/projetDevPerso/zengarden/media/automne.png': { 
-        type: 'NODE_TYPE.FILE', 
-        content: [' bleu '], 
-        autorised: PERMISSION.READ_ONLY 
-    },
-    '/home/user/lab/projetDevPerso/zengarden/media/automne2.png': { 
-        type: 'NODE_TYPE.FILE',
-        content: [' bleu '], 
-        autorised: PERMISSION.READ_ONLY 
-    },
-    '/home/user/lab/projetDevPerso/zengarden/media/backgroud.jpg': { 
-        type: 'NODE_TYPE.FILE', 
-        content: [' bleu '], 
-        autorised: PERMISSION.READ_ONLY 
-    },
-    '/home/user/lab/projetDevPerso/zengarden/media/ete.gif': { 
-        type: 'NODE_TYPE.FILE', 
-        content: [' bleu '], 
-        autorised: PERMISSION.READ_ONLY 
-    },
-    '/home/user/lab/projetDevPerso/zengarden/media/ete.png': { 
-        type: 'NODE_TYPE.FILE', 
-        content: [' bleu '], 
-        autorised: PERMISSION.READ_ONLY 
-    },
-    '/home/user/lab/projetDevPerso/zengarden/media/footer.png': { 
-        type: 'NODE_TYPE.FILE', 
-        content: [' bleu '], 
-        autorised: PERMISSION.READ_ONLY 
-    },
-    '/home/user/lab/projetDevPerso/zengarden/media/hiver.gif': { 
-        type: 'NODE_TYPE.FILE', 
-        content: [' bleu '], 
-        autorised: PERMISSION.READ_ONLY 
-    },
-    '/home/user/lab/projetDevPerso/zengarden/media/hiver.png': { 
-        type: 'NODE_TYPE.FILE',
-        content: [' bleu '], 
-        autorised: PERMISSION.READ_ONLY  
-    },
-    '/home/user/lab/projetDevPerso/zengarden/media/printemps.png': { 
-        type: 'NODE_TYPE.FILE',
-        content: [' bleu '],
-        autorised: PERMISSION.READ_ONLY 
-    },
-    '/home/user/lab/projetDevPerso/zengarden/media/printemps.gif': { 
-        type: 'NODE_TYPE.FILE',
-        content: [' bleu '], 
-        autorised: PERMISSION.READ_ONLY 
-    },
-    '/home/user/lab/projetDevPerso/zengarden/index.html': {
-        type: 'NODE_TYPE.FILE', 
-        content: [' bleu '],
-        autorised: PERMISSION.READ_ONLY 
-    },
-    '/home/user/lab/projetDevPerso/zengarden/style.css': { 
-        type: 'NODE_TYPE.FILE', 
-        content: [' bleu '], 
-        autorised: PERMISSION.READ_ONLY 
-    },
-    '/home/user/lab/projetDevPerso/zengarden/notesDuProjet': { 
-        type: 'NODE_TYPE.FILE', 
-        content: [' bleu '], 
-        autorised: PERMISSION.READ_ONLY 
-    },
-    '/home/user/lab/projetDevPerso/zengarden/lszengarden': { 
-        type: 'NODE_TYPE.FILE', 
-        content: [' bleu '], 
-        autorised: PERMISSION.READ_ONLY  
-    },
-    '/home/user/lab/projetInfraPerso': {
-        type: NODE_TYPE.DIR,
-        children: ['imgLab','serviceDeploye'],
-        autorised: PERMISSION.READ_ONLY 
-    },
-    '/home/user/lab/projetInfraPerso/imgLab': {
-         type: NODE_TYPE.DIR, 
-        children: [], 
-        autorised: PERMISSION.READ_ONLY  
-    },
-    '/home/user/lab/projetInfraPerso/serviceDeploye': { 
-        type: NODE_TYPE.DIR, 
-        children: [], 
-        autorised: PERMISSION.READ_ONLY  
-    },
-    '/home/user/lab/projetRag': {
-        type: NODE_TYPE.DIR,
-        children: ['docker-compose.yml','.env','notesDuProjet','lschatbot'],
-        autorised: PERMISSION.READ_ONLY 
-    },
-    '/home/user/lab/projetRag/docker-compose.yml': { 
-        type: 'NODE_TYPE.FILE', 
-        content: [' bleu '], 
-        autorised: PERMISSION.READ_ONLY 
-    },
-    '/home/user/lab/projetRag/.env': { 
-        type: 'NODE_TYPE.FILE',   
-        content: [' bleu '], 
-        autorised: PERMISSION.ROOT_ONLY
-    },
-    '/home/user/lab/projetRag/notesDuProjet': { 
-        type: 'NODE_TYPE.FILE', 
-        content: [' bleu '], 
-        autorised: PERMISSION.READ_ONLY 
-    },
-    '/home/user/lab/projetRag/lschatbot': { 
-        type: 'NODE_TYPE.FILE', 
-        content: [' bleu '], 
-        autorised: PERMISSION.READ_ONLY 
-    },
-    '/home/root': {
-        type: NODE_TYPE.DIR,
-        children: [],
-        autorised: PERMISSION.READ_ONLY 
-    },
-    '/var': {
-        type: NODE_TYPE.DIR,
-        children: ['opt'],
-        autorised: PERMISSION.READ_ONLY 
-    },
-    '/var/opt': {
-        type: NODE_TYPE.DIR,
-        children: ['www'],
-        autorised: PERMISSION.READ_ONLY 
-    },
-    '/var/opt/www': {
-        type: NODE_TYPE.DIR,
-        children: [],
-        autorised: PERMISSION.READ_ONLY 
-    }
 };

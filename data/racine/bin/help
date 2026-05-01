@@ -12,7 +12,7 @@
  Système
  ──────────────────────────────────────────
  uname  [-a|-s|-r|-m|-n]  Information système
- timedatectl              Affiche la date et l'heure
+ timedatctl              Affiche la date et l'heure
  screenfetch              Information système et art ascii
  clear                    Vide le terminal
  exit                     Ferme la connection

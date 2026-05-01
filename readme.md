@@ -3,7 +3,7 @@
 Bienvenue sur le dépôt de mon portfolio personnel !  
 Ce projet présente mes compétences, mes projets et mon parcours en tant que développeur réseaux.
 
-🌐 **Démo en ligne :** portfolio.xavier-sampaio.me (en ligne) 
+🌐 **Démo en ligne :** xavier-sampaio.me/portefolio (déploiement prochainement)  
 📫 **Contact :** contact@xavier-sampaio.me
 
 ---
@@ -16,18 +16,16 @@ Ce portfolio a été conçu pour :
 - Partager mon parcours professionnel
 - Faciliter la prise de contact
 
-Il s’agit d’un point central pour les recruteurs, collaborateurs et toute personne souhaitant découvrir mon travail.
 
- - liste de toutes les commandes actuelles (help,pwd,cat,ls,cd,clear,su,exit,sl,timedatctl,adduser(local),echo,whoami,su/login,man,neofetch)
- 
 ---
 
 ## ✨ Fonctionnalités existantes
 
-- [x] Commande de base linux (cd,ls,cat,su) - - (vim mkdir sont en cour)
+- [x] Commande de base linux (cd,ls,cat,su) - - (echo vim mkdir sont en cour)
 - [x] Arborescence de Fichier a retrouver dans /data/Arborescence.txt
 - [x] Design moderne et épuré
 - [x] Ajout d’un historique
+- [x] Ajout de la possibilité de créer des comptes avec un répertoire dédié
 
 ---
 
@@ -36,8 +34,7 @@ Il s’agit d’un point central pour les recruteurs, collaborateurs et toute pe
 Voici quelques améliorations prévues pour les prochaines versions du portfolio :
 
 - [ ] Objectif : ajout d’un LLM (modèle de langage étendu), probablement Qwen2.5:3B
-- [ ] Ajout d’une section non technique pour améliorer l’accessibilité
-- [ ] Ajout de la possibilité de créer des comptes avec un répertoire dédié
+- [ ] objectif : Ajouter un editeur de text (vim, nano, ...)
 
 ---
 
@@ -47,32 +44,40 @@ Selon la configuration du projet :
 
 - **HTML5**
 - **CSS3**
-- **JavaScript** 
-- **PHP** (bientôt)
+- **JavaScript**
 
 ---
 
 ## 📂 Structure du projet
 
 ```
-
-├── 📁 css
-│   └── 🎨 style.css
-├── 📁 data
-│   └── 📁 racine
-│       └──  A découvrir
-├── 📁 script
-│   ├── 📄 filesystem.js
-│   ├── 📄 prep.js
-│   └── 📄 script.js
-├── 📁 styles
-│   ├── 🎨 input.css
-│   ├── 🎨 output.css
-│   ├── 🎨 styles-input.css
-│   └── 🎨 styles-portfolio.css
-├── ⚙️ .gitignore
-├── 📄 LICENSE
-├── 🌐 index.html
-├── 📝 readme.md
-└── 📄 tailwind.config.js #en migration vers css pure
+├── 📁 SAMPAIO
+│   ├── 📁 data
+│   │   ├── 📁 racine⚙️
+│   │   │   │   └──  A découvrir
+│   │   └── 📄 Arborescence.txt
+│   ├── 📁 script
+│   │   ├── 📄 filesystem.js
+│   │   └── 📄 script.js
+│   ├── 📁 styles
+│   │   ├── 🎨 input.css
+│   │   ├── 🎨 output.css
+│   │   ├── 🎨 styles-input.css
+│   │   ├── 🎨 styles-portfolio.css
+│   │   └── 🎨 styles.css
+│   ├── 🌐 index.html
+│   ├── 📝 readme.md
+│   └── 📄 tailwind.config.js
+└── ⚙️ .gitignore
 ```
+
+
+contexte 
+
+Objectif
+
+Point de realisation
+
+dificulte
+
+competence
