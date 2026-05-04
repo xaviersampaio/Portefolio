@@ -34,7 +34,7 @@ const commands = {
     login: (args) => sulogin(args, 'login'),        //fait
     su: (args) => sulogin(args, 'su'),              //fait
     uname: (args) => uname(args),                   //fait
-    man: (args) => man(args),                       //en cours (partie portfolio)
+    man: (args) => man(args),                       //en cours 
     ollama: ollama,                                 // 3
     neofetch: neofetch,                             // fait
     
@@ -184,13 +184,12 @@ document.addEventListener('keydown', function(enter) {
                 document.querySelector('.page')?.remove();
                 if (session.pager.raw) {
                     pagerRaw(session.pager.lignes, session.pager.index);
+                    
                 } else {
                     pager(session.pager.lignes, session.pager.index);
                 }
-            } else if (enter.key === 'q') {
-                document.querySelector('.page')?.remove();
-                session.pager = null;
                 focus(focusCurser.onTerm);
+                focus(focusCurser.onPager);
             }
             break;
         case focusCurser.onManSampaio:
@@ -433,7 +432,7 @@ function ollama(ollama) {
 
 };
 function neofetch() {    
-    outputoutputraw(`<pre id="neofetch"> 
+    outputoutputraw(`<pre> 
     ██╗  ██╗       ██████╗ ███████╗ 
     ╚██╗██╔╝      ██╔═══██╗██╔════╝ 
      ╚███╔╝ █████╗██║   ██║███████╗ 
@@ -613,7 +612,7 @@ function pager(lignes, index = 0, nbLignes = 25) {
     if (index + nbLignes < lignes.length) {
          focus(focusCurser.onTerm);
         // il reste des lignes
-        outputoutputraw("<div class=page>-- Plus -- (Entrée/Espace: continuer, q: quitter)</div>");
+        outputoutputraw("<div class=page>-- Plus -- (Entrée/Espace: continuer</div>");
         session.pager = {
             lignes: lignes,
             index: index + nbLignes,
@@ -623,6 +622,7 @@ function pager(lignes, index = 0, nbLignes = 25) {
     } else {
         // plus rien à afficher → on nettoie et on rend le focus
         outputoutput("-- Fin --");
+        input.value = '';
         session.pager = null;
         focus(focusCurser.onTerm);
     }
@@ -632,7 +632,7 @@ function pagerRaw(lignes, index = 0, nbLignes = 25) {
     outputoutputraw(slice.join('\n'));
 
     if (index + nbLignes < lignes.length) {
-        outputoutputraw("<div class=page>-- Plus -- (Entrée/Espace: continuer, q: quitter)</div>");
+        outputoutputraw("<div class=page>-- Plus -- (Entrée/Espace: continuer</div>");
         session.pager = {
             lignes: lignes,
             index: index + nbLignes,
@@ -673,6 +673,7 @@ function initTabs() {
 
   const tabButtons = document.querySelectorAll('.tabPrimBtn');
   const tabPanes = document.querySelectorAll('.tab-pane');
+  const tabPanesPerso = document.querySelectorAll('tab-pane-perso');
 
   tabButtons.forEach(button => {
     button.addEventListener('click', function() {
@@ -680,6 +681,7 @@ function initTabs() {
 
       tabButtons.forEach(btn => btn.classList.remove('active'));
       tabPanes.forEach(pane => pane.style.display = 'none');
+      tabPanesPerso.forEach(pane => pane.style.display = 'none');
 
       this.classList.add('active');
       const targetPane = document.getElementById('tab-' + tabName);

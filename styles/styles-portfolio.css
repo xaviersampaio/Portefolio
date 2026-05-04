@@ -56,7 +56,7 @@ transition: border-radius 0.2s, background-color 0.2s; /* optionnel mais recomma
 }
 
 /* 3. Pour tes images et cartes */
-.project-card {
+.project-card,.progperso {
     border: 1px solid #00ff00;
     padding: 10px;
     margin-bottom: 20px;
@@ -81,7 +81,7 @@ transition: border-radius 0.2s, background-color 0.2s; /* optionnel mais recomma
 /* Tabs spécifiques si besoin */
 .tab-pane, .doc-content {
     max-height: 60vh;
-    max-width:  120vh;
+    min-width: 50%;
     overflow-y: auto;
 }
 
@@ -102,7 +102,7 @@ transition: border-radius 0.2s, background-color 0.2s; /* optionnel mais recomma
 
 #modalPrimMenu {
     display: grid;
-    grid-template-columns: repeat(5, 1fr);
+    grid-template-columns: repeat(6, 1fr);
     grid-template-rows: auto;
     gap: 4px;
     background-color: #27272a;
@@ -139,7 +139,7 @@ transition: border-radius 0.2s, background-color 0.2s; /* optionnel mais recomma
 }
 
 /* projet*/
-#projet-lst {
+#projet-lst, #projet-lst-perso {
     display: flex;
     gap: 20px;
     padding: 20px;
@@ -149,7 +149,7 @@ transition: border-radius 0.2s, background-color 0.2s; /* optionnel mais recomma
 }
 
 
-.prog {
+.prog, .progperso {
     background: #27272a; 
     border: 2px solid #22c55e; 
     border-radius: 4px;
@@ -162,21 +162,24 @@ transition: border-radius 0.2s, background-color 0.2s; /* optionnel mais recomma
     width: 40%;
 }
 
-.prog:hover {
+.prog:hover, .progperso:hover {
     box-shadow: 0 0 10px rgba(34, 197, 94, 0.2);
     
 }
 
-.prog img {
+.prog img, .progperso img {
     border: 1px solid #374151;
     margin-bottom: 10px;
     border-radius: 4px;
     width: 100%;
-    height: 150px; 
+    height: 300px; 
     object-fit: cover;
     display: block;
 }
 
+#tab-projet-pers {
+    display: none;
+}
 
 .prog h3 {
     color: #22c55e;
@@ -289,6 +292,20 @@ transition: border-radius 0.2s, background-color 0.2s; /* optionnel mais recomma
     border-radius: 10px;
     padding: 0.2rem;
 }
+
+.details-body {
+    padding: 1%;
+}
+.lst-perso-requirement {
+
+}
+
+
+
+
+
+
+
 /*documentation*/
 #tab-documentation {
     margin: 0% 3% 0% 3%;
@@ -399,12 +416,12 @@ transition: border-radius 0.2s, background-color 0.2s; /* optionnel mais recomma
     color: rgb(113 113 122);
     font-style: italic;
 }
-.rappelvert {
+.rappelvert, .lst-perso-requirement{
     background-color: #14532d33;  
     border-left: 4px solid #22c55e;           
     padding: 0.5rem;
 }
-.rappelvert > p {
+.rappelvert > p, .lst-perso-requirement {
     color: #22c55e;
 }
 
